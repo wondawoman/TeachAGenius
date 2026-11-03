@@ -1243,7 +1243,13 @@ const skillCards =
             <p>
               ${item.recommendation}
             </p>
-
+<button
+  class="reteach-button"
+  data-skill="${item.skill}"
+  data-average="${item.average}"
+>
+  Build Reteach
+</button>
           </div>
 
         `;
@@ -1740,5 +1746,507 @@ function buildInstructionalDecisions(
         a.average -
         b.average
     );
+
+}
+/*
+==============================================
+MASTERY → RETEACH HANDOFF
+==============================================
+*/
+
+
+document.addEventListener(
+  "click",
+  function (
+    event
+  ) {
+
+    if (
+      !event.target
+        .classList
+        .contains(
+          "reteach-button"
+        )
+    ) {
+
+      return;
+
+    }
+
+
+    const skill =
+      event.target
+        .dataset
+        .skill;
+
+
+    const average =
+      Number(
+        event.target
+          .dataset
+          .average
+      );
+
+
+    sendSkillToLessonBuilder(
+      skill,
+      average
+    );
+
+  }
+);
+
+
+
+function sendSkillToLessonBuilder(
+  skill,
+  average
+) {
+
+  let format = "";
+
+  let atBats = 0;
+
+  let cfu = "";
+
+
+  if (
+    average < 60
+  ) {
+
+    format =
+      "Whole-group reteach";
+
+    atBats =
+      4;
+
+    cfu =
+      "Every 5–7 minutes";
+
+  }
+
+  else if (
+    average < 75
+  ) {
+
+    format =
+      "Targeted small-group reteach";
+
+    atBats =
+      3;
+
+    cfu =
+      "Every 8–10 minutes";
+
+  }
+
+  else {
+
+    format =
+      "Extension / spiral review";
+
+    atBats =
+      2;
+
+    cfu =
+      "Midpoint and DOL";
+
+  }
+
+
+  document
+    .getElementById(
+      "reteachContext"
+    )
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "reteachSkill"
+    )
+    .textContent =
+      skill;
+
+
+  document
+    .getElementById(
+      "reteachMastery"
+    )
+    .textContent =
+      average.toFixed(1)
+      + "%";
+
+
+  document
+    .getElementById(
+      "reteachFormat"
+    )
+    .textContent =
+      format;
+
+
+  document
+    .getElementById(
+      "reteachAtBats"
+    )
+    .textContent =
+      atBats;
+
+
+  document
+    .getElementById(
+      "reteachCFU"
+    )
+    .textContent =
+      cfu;
+
+
+  document
+    .getElementById(
+      "lessonStandard"
+    )
+    .value =
+      skill;
+
+
+  navigateTo(
+    "plan"
+  );
+
+}
+/*
+==============================================
+LESSON STRUCTURE ENGINE
+==============================================
+*/
+
+
+const buildLessonButton =
+  document.getElementById(
+    "buildLessonButton"
+  );
+
+
+buildLessonButton.addEventListener(
+  "click",
+  buildLessonStructure
+);
+
+
+
+function buildLessonStructure() {
+
+  const standard =
+    document
+      .getElementById(
+        "lessonStandard"
+      )
+      .value
+      .trim();
+
+
+  const classLength =
+    Number(
+      document
+        .getElementById(
+          "classLength"
+        )
+        .value
+    );
+
+
+  if (
+    !standard
+  ) {
+
+    alert(
+      "Enter a standard or skill first."
+    );
+
+    return;
+
+  }
+
+
+  const lessonStructure =
+    document.getElementById(
+      "lessonStructure"
+    );
+
+
+  const blocks =
+    createLessonBlocks(
+      classLength
+    );
+
+
+  const blockHtml =
+    blocks
+      .map(
+        block => {
+
+          return `
+
+            <div class="lesson-block">
+
+              <div class="lesson-time">
+                ${block.minutes} min
+              </div>
+
+              <div>
+
+                <strong>
+                  ${block.label}
+                </strong>
+
+                <p>
+                  ${block.description}
+                </p>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  lessonStructure.innerHTML = `
+
+    <h4>
+      Lesson Structure:
+      ${standard}
+    </h4>
+
+    ${blockHtml}
+
+  `;
+
+
+  lessonStructure
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+/*
+==============================================
+CLASS-TIME ENGINE
+==============================================
+*/
+
+
+function createLessonBlocks(
+  classLength
+) {
+
+  if (
+    classLength === 30
+  ) {
+
+    return [
+
+      {
+        minutes: 5,
+        label: "Do Now",
+        description:
+          "Activate prior knowledge and prepare students for the target skill."
+      },
+
+      {
+        minutes: 5,
+        label: "Mini Lesson",
+        description:
+          "Model the core concept with one clear example."
+      },
+
+      {
+        minutes: 10,
+        label: "Guided Practice / At-Bats",
+        description:
+          "Students practice the skill multiple times with immediate feedback."
+      },
+
+      {
+        minutes: 5,
+        label: "CFU / Reteach",
+        description:
+          "Check understanding and respond to misconceptions."
+      },
+
+      {
+        minutes: 5,
+        label: "DOL / Exit Ticket",
+        description:
+          "Students independently demonstrate the learning target."
+      }
+
+    ];
+
+  }
+
+
+
+  if (
+    classLength === 45
+  ) {
+
+    return [
+
+      {
+        minutes: 5,
+        label: "Do Now",
+        description:
+          "Activate prior knowledge."
+      },
+
+      {
+        minutes: 10,
+        label: "Direct Instruction",
+        description:
+          "Teach and model the target skill."
+      },
+
+      {
+        minutes: 10,
+        label: "Guided Practice",
+        description:
+          "Practice with teacher support."
+      },
+
+      {
+        minutes: 10,
+        label: "Independent At-Bats",
+        description:
+          "Students repeatedly apply the skill."
+      },
+
+      {
+        minutes: 10,
+        label: "DOL / Exit Ticket",
+        description:
+          "Measure independent mastery."
+      }
+
+    ];
+
+  }
+
+
+
+  if (
+    classLength === 60
+  ) {
+
+    return [
+
+      {
+        minutes: 5,
+        label: "Do Now",
+        description:
+          "Activate prior knowledge."
+      },
+
+      {
+        minutes: 10,
+        label: "Launch / Objective",
+        description:
+          "Establish what students are learning and why."
+      },
+
+      {
+        minutes: 15,
+        label: "Direct Instruction",
+        description:
+          "Model the skill and expose the thinking process."
+      },
+
+      {
+        minutes: 15,
+        label: "Guided Practice / At-Bats",
+        description:
+          "Students practice with frequent checks for understanding."
+      },
+
+      {
+        minutes: 5,
+        label: "Targeted Reteach",
+        description:
+          "Respond to misconceptions before independent assessment."
+      },
+
+      {
+        minutes: 10,
+        label: "DOL / Exit Ticket",
+        description:
+          "Measure mastery independently."
+      }
+
+    ];
+
+  }
+
+
+
+  return [
+
+    {
+      minutes: 5,
+      label: "Do Now",
+      description:
+        "Activate prior knowledge and prepare students for the lesson."
+    },
+
+    {
+      minutes: 10,
+      label: "Launch / Objective",
+      description:
+        "Establish the learning target and real-world connection."
+    },
+
+    {
+      minutes: 20,
+      label: "Direct Instruction",
+      description:
+        "Model the skill, thinking process, and exemplar."
+    },
+
+    {
+      minutes: 15,
+      label: "Guided Practice",
+      description:
+        "Students practice with teacher support and frequent CFUs."
+    },
+
+    {
+      minutes: 20,
+      label: "At-Bats / Application",
+      description:
+        "Students repeatedly apply the target skill."
+    },
+
+    {
+      minutes: 10,
+      label: "Targeted Reteach / Extension",
+      description:
+        "Respond to current mastery data."
+    },
+
+    {
+      minutes: 10,
+      label: "DOL / Exit Ticket",
+      description:
+        "Students independently demonstrate mastery."
+    }
+
+  ];
 
 }
