@@ -1957,7 +1957,49 @@ function buildLessonStructure() {
         )
         .value
     );
+const learningObjective =
+  document
+    .getElementById(
+      "learningObjective"
+    )
+    .value
+    .trim();
 
+
+const dolPrompt =
+  document
+    .getElementById(
+      "dolPrompt"
+    )
+    .value
+    .trim();
+
+
+const mrsStrategy =
+  document
+    .getElementById(
+      "mrsStrategy"
+    )
+    .value;
+
+
+const atBatCount =
+  Number(
+    document
+      .getElementById(
+        "atBatCount"
+      )
+      .value
+  );
+
+
+const classContext =
+  document
+    .getElementById(
+      "classContext"
+    )
+    .value
+    .trim();
 
   if (
     !standard
@@ -1978,10 +2020,29 @@ function buildLessonStructure() {
     );
 
 
-  const blocks =
-    createLessonBlocks(
-      classLength
-    );
+ const blocks =
+  createLessonBlocks(
+    classLength,
+    {
+      standard:
+        standard,
+
+      learningObjective:
+        learningObjective,
+
+      dolPrompt:
+        dolPrompt,
+
+      mrsStrategy:
+        mrsStrategy,
+
+      atBatCount:
+        atBatCount,
+
+      classContext:
+        classContext
+    }
+  );
 
 
   const blockHtml =
@@ -2006,7 +2067,9 @@ function buildLessonStructure() {
                 <p>
                   ${block.description}
                 </p>
-
+<p class="lesson-step-note">
+  ${block.note || ""}
+</p>
               </div>
 
             </div>
@@ -2018,16 +2081,61 @@ function buildLessonStructure() {
       .join("");
 
 
-  lessonStructure.innerHTML = `
+ lessonStructure.innerHTML = `
+
+  <div class="lesson-plan-header">
+
+    <span class="eyebrow">
+      Generated Instructional Structure
+    </span>
 
     <h4>
-      Lesson Structure:
       ${standard}
     </h4>
 
-    ${blockHtml}
 
-  `;
+    <div class="lesson-detail">
+
+      <strong>
+        Learning Objective
+      </strong>
+
+      ${learningObjective || "Not entered"}
+
+    </div>
+
+
+    <div class="lesson-detail">
+
+      <strong>
+        DOL / Exit Ticket
+      </strong>
+
+      ${dolPrompt || "Not entered"}
+
+    </div>
+
+
+    <div class="lesson-detail">
+
+      <strong>
+        MRS
+      </strong>
+
+      ${getMrsLabel(mrsStrategy)}
+
+    </div>
+
+
+    <span class="atbat-badge">
+      ${atBatCount} planned at-bats
+    </span>
+
+  </div>
+
+  ${blockHtml}
+
+`;
 
 
   lessonStructure
@@ -2045,9 +2153,31 @@ CLASS-TIME ENGINE
 
 
 function createLessonBlocks(
-  classLength
+  classLength,
+  context
 ) {
+const mrsLabel =
+  getMrsLabel(
+    context.mrsStrategy
+  );
 
+
+const objectiveText =
+  context.learningObjective
+    ||
+    "Introduce and practice the target skill.";
+
+
+const dolText =
+  context.dolPrompt
+    ||
+    "Students independently demonstrate the target skill.";
+
+
+const learnerContext =
+  context.classContext
+    ||
+    "Use checks for understanding to adjust support.";
   if (
     classLength === 30
   ) {
@@ -2196,57 +2326,157 @@ function createLessonBlocks(
 
 
 
-  return [
+ return [
 
-    {
-      minutes: 5,
-      label: "Do Now",
-      description:
-        "Activate prior knowledge and prepare students for the lesson."
-    },
+  {
+    minutes: 5,
 
-    {
-      minutes: 10,
-      label: "Launch / Objective",
-      description:
-        "Establish the learning target and real-world connection."
-    },
+    label:
+      "Do Now",
 
-    {
-      minutes: 20,
-      label: "Direct Instruction",
-      description:
-        "Model the skill, thinking process, and exemplar."
-    },
+    description:
+      "Activate prerequisite knowledge connected to "
+      + context.standard
+      + ".",
 
-    {
-      minutes: 15,
-      label: "Guided Practice",
-      description:
-        "Students practice with teacher support and frequent CFUs."
-    },
+    note:
+      "Use a fast entry task that lets you immediately see what students already know."
 
-    {
-      minutes: 20,
-      label: "At-Bats / Application",
-      description:
-        "Students repeatedly apply the target skill."
-    },
+  },
 
-    {
-      minutes: 10,
-      label: "Targeted Reteach / Extension",
-      description:
-        "Respond to current mastery data."
-    },
 
-    {
-      minutes: 10,
-      label: "DOL / Exit Ticket",
-      description:
-        "Students independently demonstrate mastery."
-    }
+  {
+    minutes: 10,
 
-  ];
+    label:
+      "Launch / Learning Objective",
+
+    description:
+      objectiveText,
+
+    note:
+      "State the target clearly, connect it to prior learning, and establish what success will look like."
+
+  },
+
+
+  {
+    minutes: 20,
+
+    label:
+      "I Do / Direct Instruction",
+
+    description:
+      "Model "
+      + context.standard
+      + " using a clear exemplar and visible thinking.",
+
+    note:
+      learnerContext
+
+  },
+
+
+  {
+    minutes: 10,
+
+    label:
+      "MRS + CFU",
+
+    description:
+      "Use "
+      + mrsLabel
+      + " to require every learner to respond.",
+
+    note:
+      "Check for misconceptions before releasing students into deeper practice."
+
+  },
+
+
+  {
+    minutes: 20,
+
+    label:
+      "We Do / Guided At-Bats",
+
+    description:
+      "Students complete approximately "
+      + context.atBatCount
+      + " meaningful repetitions of the target skill.",
+
+    note:
+      "Each at-bat should measure the same learning in a slightly different context."
+
+  },
+
+
+  {
+    minutes: 15,
+
+    label:
+      "You Do / Independent Application",
+
+    description:
+      "Students independently apply "
+      + context.standard
+      + ".",
+
+    note:
+      "Use current mastery information to decide who needs scaffolds, reteach, or extension."
+
+  },
+
+
+  {
+    minutes: 10,
+
+    label:
+      "DOL / Exit Ticket",
+
+    description:
+      dolText,
+
+    note:
+      "This final task should independently measure the learning objective without teacher prompting."
+
+  }
+
+];
+
+}
+/*
+==============================================
+MRS LABEL ENGINE
+==============================================
+*/
+
+
+function getMrsLabel(
+  strategy
+) {
+
+  const labels = {
+
+    "turn-talk":
+      "Turn and Talk",
+
+    "whiteboards":
+      "Whiteboards / Response Boards",
+
+    "four-corners":
+      "Four Corners",
+
+    "fist-five":
+      "Fist to Five",
+
+    "partner-sayback":
+      "Partner Say-Back"
+
+  };
+
+
+  return labels[strategy]
+    || strategy;
 
 }
