@@ -4077,3 +4077,528 @@ INITIALIZE GRADE CALCULATOR
 addAssignmentRow();
 
 addAssignmentRow();
+/*
+==============================================
+CLASSROOM ENGINE
+==============================================
+*/
+
+
+const generateClassroomMoveButton =
+  document.getElementById(
+    "generateClassroomMoveButton"
+  );
+
+
+const sendMoveToLessonButton =
+  document.getElementById(
+    "sendMoveToLessonButton"
+  );
+
+
+let currentClassroomMove = null;
+
+
+
+generateClassroomMoveButton
+  .addEventListener(
+    "click",
+    generateClassroomMove
+  );
+function generateClassroomMove() {
+
+  const situation = {
+
+    phase:
+      document
+        .getElementById(
+          "lessonPhase"
+        )
+        .value,
+
+    classSize:
+      document
+        .getElementById(
+          "classSize"
+        )
+        .value,
+
+    response:
+      document
+        .getElementById(
+          "responseLevel"
+        )
+        .value,
+
+    engagement:
+      document
+        .getElementById(
+          "engagementLevel"
+        )
+        .value,
+
+    difficulty:
+      document
+        .getElementById(
+          "difficultyLevel"
+        )
+        .value,
+
+    need:
+      document
+        .getElementById(
+          "instructionalNeed"
+        )
+        .value
+
+  };
+
+
+  currentClassroomMove =
+    buildClassroomRecommendation(
+      situation
+    );
+
+
+  displayClassroomMove(
+    currentClassroomMove
+  );
+
+}
+/*
+==============================================
+CLASSROOM RECOMMENDATION ENGINE
+==============================================
+*/
+
+
+function buildClassroomRecommendation(
+  situation
+) {
+
+  let mrs = "";
+
+  let cfu = "";
+
+  let atBats = "";
+
+  let questioning = "";
+
+  let teacherMove = "";
+
+
+
+  /*
+  MRS
+  */
+
+
+  if (
+    situation.response === "low"
+  ) {
+
+    mrs =
+      "Use an all-response strategy such as response boards, fist-to-five, or a structured partner response before calling on anyone.";
+
+  }
+
+  else if (
+    situation.engagement === "low"
+  ) {
+
+    mrs =
+      "Use a movement-based or partner-response strategy to reset attention and require every learner to participate.";
+
+  }
+
+  else {
+
+    mrs =
+      "Use Turn and Talk followed by a random or targeted share-out so every learner rehearses thinking before whole-group response.";
+
+  }
+
+
+
+  /*
+  CFU
+  */
+
+
+  if (
+    situation.difficulty === "complex"
+  ) {
+
+    cfu =
+      "Use a two-part CFU: first check the answer, then require students to justify how or why they reached it.";
+
+  }
+
+  else if (
+    situation.response === "low"
+  ) {
+
+    cfu =
+      "Use a fast visible CFU where every student must respond at the same time.";
+
+  }
+
+  else {
+
+    cfu =
+      "Pause and check understanding before moving to the next instructional step. Look for patterns, not only individual answers.";
+
+  }
+
+
+
+  /*
+  AT-BATS
+  */
+
+
+  if (
+    situation.phase === "guided"
+  ) {
+
+    atBats =
+      "Use 3–4 short repetitions with immediate feedback. Keep the skill constant while slightly changing the context.";
+
+  }
+
+  else if (
+    situation.phase === "independent"
+  ) {
+
+    atBats =
+      "Use 2–3 independent repetitions before the DOL so students demonstrate the skill without teacher prompting.";
+
+  }
+
+  else {
+
+    atBats =
+      "Build at least 2 opportunities for students to actively use the target skill before moving forward.";
+
+  }
+
+
+
+  /*
+  QUESTIONING
+  */
+
+
+  if (
+    situation.difficulty === "complex"
+  ) {
+
+    questioning =
+      "Use questions that require students to compare, justify, defend, predict, or explain the impact of a choice.";
+
+  }
+
+  else if (
+    situation.response === "low"
+  ) {
+
+    questioning =
+      "Start with an accessible entry question, allow rehearsal time, then increase complexity after students commit to an answer.";
+
+  }
+
+  else {
+
+    questioning =
+      "Move from What? → How? → Why? so students progress from recall into explanation.";
+
+  }
+
+
+
+  /*
+  TEACHER MOVE
+  */
+
+
+  if (
+    situation.need === "reteach"
+  ) {
+
+    teacherMove =
+      "Stop forward movement briefly. Model one more example, identify the misconception, then immediately give students another attempt.";
+
+  }
+
+  else if (
+    situation.need === "atbats"
+  ) {
+
+    teacherMove =
+      "Reduce teacher talk and increase student repetitions. Watch the first attempt, correct quickly, then release the next attempt.";
+
+  }
+
+  else if (
+    situation.need === "questioning"
+  ) {
+
+    teacherMove =
+      "Ask fewer questions, but require deeper answers. Give think time and ask students to support responses with evidence or reasoning.";
+
+  }
+
+  else if (
+    situation.need === "cfu"
+  ) {
+
+    teacherMove =
+      "Do not ask 'Does everyone understand?' Use a response that lets you actually see the entire room's understanding.";
+
+  }
+
+  else {
+
+    teacherMove =
+      "Require a response from every learner before selecting individuals to speak publicly.";
+
+  }
+
+
+  return {
+
+    title:
+      getClassroomMoveTitle(
+        situation.need
+      ),
+
+    mrs:
+      mrs,
+
+    cfu:
+      cfu,
+
+    atBats:
+      atBats,
+
+    questioning:
+      questioning,
+
+    teacherMove:
+      teacherMove
+
+  };
+
+}
+function getClassroomMoveTitle(
+  need
+) {
+
+  const titles = {
+
+    mrs:
+      "Increase Student Response",
+
+    cfu:
+      "Check for Understanding",
+
+    reteach:
+      "Immediate Reteach Move",
+
+    questioning:
+      "Deepen Student Thinking",
+
+    atbats:
+      "Increase At-Bats"
+
+  };
+
+
+  return titles[need]
+    || "Classroom Move";
+
+}
+/*
+==============================================
+DISPLAY CLASSROOM MOVE
+==============================================
+*/
+
+
+function displayClassroomMove(
+  move
+) {
+
+  const results =
+    document.getElementById(
+      "classroomMoveResults"
+    );
+
+
+  const title =
+    document.getElementById(
+      "classroomMoveTitle"
+    );
+
+
+  const plan =
+    document.getElementById(
+      "classroomMovePlan"
+    );
+
+
+  title.textContent =
+    move.title;
+
+
+  plan.innerHTML = `
+
+    <div class="classroom-move-card">
+
+      <strong>
+        MRS Strategy
+      </strong>
+
+      ${move.mrs}
+
+    </div>
+
+
+    <div class="classroom-move-card">
+
+      <strong>
+        CFU
+      </strong>
+
+      ${move.cfu}
+
+    </div>
+
+
+    <div class="classroom-move-card">
+
+      <strong>
+        At-Bats
+      </strong>
+
+      ${move.atBats}
+
+    </div>
+
+
+    <div class="classroom-move-card">
+
+      <strong>
+        Questioning
+      </strong>
+
+      ${move.questioning}
+
+    </div>
+
+
+    <div class="classroom-move-card">
+
+      <strong>
+        Teacher Move
+      </strong>
+
+      ${move.teacherMove}
+
+    </div>
+
+  `;
+
+
+  results
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+/*
+==============================================
+CLASSROOM → LESSON BUILDER
+==============================================
+*/
+
+
+sendMoveToLessonButton
+  .addEventListener(
+    "click",
+    sendClassroomMoveToLesson
+  );
+
+
+
+function sendClassroomMoveToLesson() {
+
+  if (
+    !currentClassroomMove
+  ) {
+
+    alert(
+      "Generate a classroom move first."
+    );
+
+    return;
+
+  }
+
+
+  const classContext =
+    document.getElementById(
+      "classContext"
+    );
+
+
+  const summary =
+    "Classroom Strategy — "
+    +
+    "MRS: "
+    + currentClassroomMove.mrs
+    +
+    " CFU: "
+    + currentClassroomMove.cfu
+    +
+    " At-Bats: "
+    + currentClassroomMove.atBats
+    +
+    " Questioning: "
+    + currentClassroomMove.questioning
+    +
+    " Teacher Move: "
+    + currentClassroomMove.teacherMove;
+
+
+  const existing =
+    classContext
+      .value
+      .trim();
+
+
+  if (
+    existing
+  ) {
+
+    classContext.value =
+      existing
+      + "\n\n"
+      + summary;
+
+  }
+
+  else {
+
+    classContext.value =
+      summary;
+
+  }
+
+
+  navigateTo(
+    "plan"
+  );
+
+}
