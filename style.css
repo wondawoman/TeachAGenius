@@ -1410,3 +1410,219 @@ button {
     var(--success);
 
 }
+/* ==========================================
+   RETEACH → LESSON BUILDER
+========================================== */
+
+
+.reteach-context {
+
+  margin-bottom:
+    22px;
+
+  padding:
+    22px;
+
+  border:
+    1px solid
+    #cbd8ff;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    #f4f7ff;
+
+}
+
+
+.reteach-context h4 {
+
+  margin:
+    8px 0 18px;
+
+  font-size:
+    24px;
+
+}
+
+
+.reteach-context-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap:
+    12px;
+
+}
+
+
+.reteach-context-grid div {
+
+  padding:
+    14px;
+
+  border-radius:
+    12px;
+
+  background:
+    white;
+
+}
+
+
+.reteach-context-grid span {
+
+  display:
+    block;
+
+  margin-bottom:
+    6px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+
+}
+
+
+.lesson-form {
+
+  display:
+    grid;
+
+  gap:
+    16px;
+
+  padding:
+    24px;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--surface);
+
+  box-shadow:
+    var(--shadow);
+
+}
+
+
+.lesson-form label {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+
+  font-weight:
+    bold;
+
+}
+
+
+.lesson-form input,
+.lesson-form select {
+
+  padding:
+    12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+}
+
+
+.lesson-structure {
+
+  margin-top:
+    22px;
+
+  padding:
+    24px;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--surface);
+
+  box-shadow:
+    var(--shadow);
+
+}
+
+
+.lesson-block {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    120px 1fr;
+
+  gap:
+    16px;
+
+  padding:
+    14px 0;
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+}
+
+
+.lesson-block:last-child {
+
+  border-bottom:
+    none;
+
+}
+
+
+.lesson-time {
+
+  font-weight:
+    bold;
+
+  color:
+    var(--primary);
+
+}
+
+
+@media (
+  max-width: 800px
+) {
+
+  .reteach-context-grid {
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+}
