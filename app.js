@@ -35,7 +35,10 @@ const pageNames = {
 
   dashboard:
     "Dashboard",
-
+  
+curriculum:
+  "Curriculum Map",
+  
   plan:
     "Lesson Builder",
 
@@ -4593,6 +4596,623 @@ function sendClassroomMoveToLesson() {
 
     classContext.value =
       summary;
+
+  }
+
+
+  navigateTo(
+    "plan"
+  );
+
+}
+/*
+==============================================
+CURRICULUM INTERNALIZATION ENGINE
+==============================================
+*/
+
+
+const internalizeCurriculumButton =
+  document.getElementById(
+    "internalizeCurriculumButton"
+  );
+
+
+const sendCurriculumToLessonButton =
+  document.getElementById(
+    "sendCurriculumToLessonButton"
+  );
+
+
+let currentCurriculumPlan = null;
+
+
+
+internalizeCurriculumButton
+  .addEventListener(
+    "click",
+    internalizeCurriculum
+  );
+function internalizeCurriculum() {
+
+  const course =
+    document
+      .getElementById(
+        "curriculumCourse"
+      )
+      .value
+      .trim();
+
+
+  const unit =
+    document
+      .getElementById(
+        "curriculumUnit"
+      )
+      .value
+      .trim();
+
+
+  const standard =
+    document
+      .getElementById(
+        "curriculumStandard"
+      )
+      .value
+      .trim();
+
+
+  const skill =
+    document
+      .getElementById(
+        "curriculumSkill"
+      )
+      .value
+      .trim();
+
+
+  const startDate =
+    document
+      .getElementById(
+        "curriculumStart"
+      )
+      .value;
+
+
+  const endDate =
+    document
+      .getElementById(
+        "curriculumEnd"
+      )
+      .value;
+
+
+  const meetings =
+    Number(
+      document
+        .getElementById(
+          "curriculumMeetings"
+        )
+        .value
+    );
+
+
+  const assessment =
+    document
+      .getElementById(
+        "curriculumAssessment"
+      )
+      .value;
+
+
+  const prerequisite =
+    document
+      .getElementById(
+        "curriculumPrerequisite"
+      )
+      .value
+      .trim();
+
+
+  if (
+    !course
+    ||
+    !unit
+    ||
+    !standard
+    ||
+    !skill
+  ) {
+
+    alert(
+      "Enter the course, unit, standard, and essential skill."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !Number.isFinite(
+      meetings
+    )
+    ||
+    meetings < 1
+  ) {
+
+    alert(
+      "Enter at least one instructional meeting."
+    );
+
+    return;
+
+  }
+
+
+  currentCurriculumPlan =
+    buildCurriculumPlan({
+
+      course:
+        course,
+
+      unit:
+        unit,
+
+      standard:
+        standard,
+
+      skill:
+        skill,
+
+      startDate:
+        startDate,
+
+      endDate:
+        endDate,
+
+      meetings:
+        meetings,
+
+      assessment:
+        assessment,
+
+      prerequisite:
+        prerequisite
+
+    });
+
+
+  displayCurriculumPlan(
+    currentCurriculumPlan
+  );
+
+}
+/*
+==============================================
+CURRICULUM PLAN BUILDER
+==============================================
+*/
+
+
+function buildCurriculumPlan(
+  data
+) {
+
+  const sequence = [];
+
+
+  for (
+    let meeting = 1;
+    meeting <= data.meetings;
+    meeting++
+  ) {
+
+    let focus = "";
+
+    let purpose = "";
+
+
+    if (
+      meeting === 1
+    ) {
+
+      focus =
+        "Launch + Prior Knowledge";
+
+      purpose =
+        "Introduce the unit, surface prerequisite knowledge, and establish what students will need to learn.";
+
+    }
+
+    else if (
+      meeting === data.meetings
+    ) {
+
+      focus =
+        "Assessment + Mastery Check";
+
+      purpose =
+        "Students independently demonstrate the essential skill and provide evidence of mastery.";
+
+    }
+
+    else if (
+      meeting ===
+      data.meetings - 1
+    ) {
+
+      focus =
+        "Independent Application";
+
+      purpose =
+        "Students apply the target skill independently before the final assessment.";
+
+    }
+
+    else {
+
+      focus =
+        "Instruction + Guided Practice";
+
+      purpose =
+        "Model the target skill, check understanding, and provide repeated at-bats with feedback.";
+
+    }
+
+
+    sequence.push({
+
+      meeting:
+        meeting,
+
+      focus:
+        focus,
+
+      purpose:
+        purpose
+
+    });
+
+  }
+
+
+  return {
+
+    course:
+      data.course,
+
+    unit:
+      data.unit,
+
+    standard:
+      data.standard,
+
+    skill:
+      data.skill,
+
+    startDate:
+      data.startDate,
+
+    endDate:
+      data.endDate,
+
+    meetings:
+      data.meetings,
+
+    assessment:
+      getAssessmentLabel(
+        data.assessment
+      ),
+
+    prerequisite:
+      data.prerequisite,
+
+    sequence:
+      sequence
+
+  };
+
+}
+function getAssessmentLabel(
+  assessment
+) {
+
+  const labels = {
+
+    dol:
+      "DOL / Exit Ticket",
+
+    quiz:
+      "Quiz",
+
+    project:
+      "Project / Performance Task",
+
+    exam:
+      "Unit Exam",
+
+    portfolio:
+      "Portfolio / Product"
+
+  };
+
+
+  return labels[assessment]
+    || assessment;
+
+}
+/*
+==============================================
+DISPLAY CURRICULUM PLAN
+==============================================
+*/
+
+
+function displayCurriculumPlan(
+  plan
+) {
+
+  const results =
+    document.getElementById(
+      "curriculumResults"
+    );
+
+
+  const title =
+    document.getElementById(
+      "curriculumResultTitle"
+    );
+
+
+  const summary =
+    document.getElementById(
+      "curriculumSummary"
+    );
+
+
+  title.textContent =
+    plan.unit;
+
+
+  const sequenceHtml =
+    plan.sequence
+      .map(
+        item => {
+
+          return `
+
+            <div class="curriculum-day">
+
+              <strong>
+                Meeting ${item.meeting}:
+                ${item.focus}
+              </strong>
+
+              <span>
+                ${item.purpose}
+              </span>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  summary.innerHTML = `
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Course
+      </strong>
+
+      ${plan.course}
+
+    </div>
+
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Standard / TEKS
+      </strong>
+
+      ${plan.standard}
+
+    </div>
+
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Essential Skill
+      </strong>
+
+      ${plan.skill}
+
+    </div>
+
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Assessment
+      </strong>
+
+      ${plan.assessment}
+
+    </div>
+
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Prerequisite Learning
+      </strong>
+
+      ${plan.prerequisite || "Not entered"}
+
+    </div>
+
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Instructional Window
+      </strong>
+
+      ${plan.startDate || "Not entered"}
+      →
+      ${plan.endDate || "Not entered"}
+
+    </div>
+
+
+    <div class="curriculum-summary-card">
+
+      <strong>
+        Instructional Sequence
+      </strong>
+
+      <div class="curriculum-sequence">
+
+        ${sequenceHtml}
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  results
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+/*
+==============================================
+CURRICULUM → LESSON BUILDER
+==============================================
+*/
+
+
+sendCurriculumToLessonButton
+  .addEventListener(
+    "click",
+    sendCurriculumToLesson
+  );
+
+
+
+function sendCurriculumToLesson() {
+
+  if (
+    !currentCurriculumPlan
+  ) {
+
+    alert(
+      "Internalize a unit first."
+    );
+
+    return;
+
+  }
+
+
+  const lessonStandard =
+    document.getElementById(
+      "lessonStandard"
+    );
+
+
+  const learningObjective =
+    document.getElementById(
+      "learningObjective"
+    );
+
+
+  const classContext =
+    document.getElementById(
+      "classContext"
+    );
+
+
+  lessonStandard.value =
+    currentCurriculumPlan.skill;
+
+
+  if (
+    !learningObjective.value.trim()
+  ) {
+
+    learningObjective.value =
+      "Students will demonstrate "
+      +
+      currentCurriculumPlan.skill
+      +
+      " aligned to "
+      +
+      currentCurriculumPlan.standard
+      +
+      ".";
+
+  }
+
+
+  const curriculumContext =
+    "Curriculum Context — Unit: "
+    +
+    currentCurriculumPlan.unit
+    +
+    ". Standard: "
+    +
+    currentCurriculumPlan.standard
+    +
+    ". Prerequisite: "
+    +
+    (
+      currentCurriculumPlan.prerequisite
+      ||
+      "Not specified"
+    )
+    +
+    ". Assessment: "
+    +
+    currentCurriculumPlan.assessment
+    +
+    ".";
+
+
+  const existingContext =
+    classContext
+      .value
+      .trim();
+
+
+  if (
+    existingContext
+  ) {
+
+    classContext.value =
+      existingContext
+      +
+      "\n\n"
+      +
+      curriculumContext;
+
+  }
+
+  else {
+
+    classContext.value =
+      curriculumContext;
 
   }
 
