@@ -323,20 +323,188 @@
       <!-- PLAN -->
 
       <section
-        id="plan"
-        class="page"
+  id="plan"
+  class="page"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Instructional Planning
+      </span>
+
+      <h3>
+        Lesson Builder
+      </h3>
+
+      <p>
+        Build instruction around standards,
+        mastery needs, time, and learner supports.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="reteachContext"
+    class="reteach-context hidden"
+  >
+
+    <span class="eyebrow">
+      Mastery Data Imported
+    </span>
+
+    <h4 id="reteachSkill">
+      --
+    </h4>
+
+    <div class="reteach-context-grid">
+
+      <div>
+
+        <span>
+          Current Mastery
+        </span>
+
+        <strong id="reteachMastery">
+          --
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Recommended Format
+        </span>
+
+        <strong id="reteachFormat">
+          --
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Suggested At-Bats
+        </span>
+
+        <strong id="reteachAtBats">
+          --
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          CFU Frequency
+        </span>
+
+        <strong id="reteachCFU">
+          --
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="lesson-form">
+
+    <label>
+
+      Standard / Skill
+
+      <input
+        type="text"
+        id="lessonStandard"
+        placeholder="Example: TEKS 117.315 or Lighting"
       >
 
-        <h3>
-          Lesson Builder
-        </h3>
+    </label>
 
-        <p>
-          Lesson planning tools will be built here.
-        </p>
 
-      </section>
+    <label>
 
+      Class Length
+
+      <select id="classLength">
+
+        <option value="30">
+          30 minutes
+        </option>
+
+        <option value="45">
+          45 minutes
+        </option>
+
+        <option value="60">
+          60 minutes
+        </option>
+
+        <option
+          value="90"
+          selected
+        >
+          90 minutes
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <label>
+
+      Schedule Type
+
+      <select id="scheduleType">
+
+        <option value="daily">
+          Daily
+        </option>
+
+        <option value="ab">
+          A/B Block
+        </option>
+
+        <option value="custom">
+          Custom Rotation
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <button
+      id="buildLessonButton"
+      class="primary-button"
+    >
+      Build Lesson Structure
+    </button>
+
+  </div>
+
+
+  <div
+    id="lessonStructure"
+    class="lesson-structure hidden"
+  >
+  </div>
+
+</section>
 
 
       <!-- MASTERY -->
