@@ -1207,6 +1207,61 @@ questionBreakdown.innerHTML = `
   ${questionRows}
 
 `;
+
+  const skillSummary =
+  document.getElementById(
+    "skillSummary"
+  );
+
+
+const skillResults =
+  buildInstructionalDecisions(
+    questionStats
+  );
+
+
+const skillCards =
+  skillResults
+    .map(
+      item => {
+
+        return `
+
+          <div
+            class="skill-card ${item.className}"
+          >
+
+            <strong>
+              ${item.skill}
+            </strong>
+
+            <span>
+              Class mastery:
+              ${item.average.toFixed(1)}%
+            </span>
+
+            <p>
+              ${item.recommendation}
+            </p>
+
+          </div>
+
+        `;
+
+      }
+    )
+    .join("");
+
+
+skillSummary.innerHTML = `
+
+  <h5>
+    Instructional Next Steps
+  </h5>
+
+  ${skillCards}
+
+`;
 }
 /*
 ==============================================
