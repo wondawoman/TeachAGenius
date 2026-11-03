@@ -589,7 +589,9 @@
     <label>
 
       Semester Start
-
+<span class="field-help">
+  First instructional day you want this map to consider.
+</span>
       <input
         type="date"
         id="semesterStart"
@@ -601,7 +603,9 @@
     <label>
 
       Semester End
-
+<span class="field-help">
+  Last instructional day you want included in this planning window.
+</span>
       <input
         type="date"
         id="semesterEnd"
@@ -613,7 +617,9 @@
     <label>
 
       Schedule
-
+<span class="field-help">
+  Tell TeachAGenius how often classes rotate during the week.
+</span>
       <select id="semesterSchedule">
 
         <option value="daily">
@@ -636,7 +642,9 @@
     <label>
 
       This Course Meets On
-
+<span class="field-help">
+  Select which rotation this specific class follows.
+</span>
       <select id="courseRotation">
 
         <option value="every">
@@ -674,7 +682,30 @@
 
     </div>
 
+<div class="semester-unit-header">
 
+  <div>
+    Unit Title
+
+    <span class="field-help">
+      What will students be learning during this unit?
+    </span>
+  </div>
+
+
+  <div>
+    Meetings Needed
+
+    <span class="field-help">
+      How many times will this class need to meet to complete the unit?
+    </span>
+  </div>
+
+
+  <div>
+  </div>
+
+</div>
     <div
       id="semesterUnitRows"
       class="semester-unit-rows"
