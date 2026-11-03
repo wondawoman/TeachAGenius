@@ -3016,3 +3016,140 @@ button {
   }
 
 }
+/* ==========================================
+   CALENDAR REALITY ENGINE
+========================================== */
+
+
+.calendar-reality-panel {
+
+  margin:
+    24px 0;
+
+  padding:
+    20px;
+
+  border-top:
+    1px solid
+    var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+}
+
+
+.calendar-reality-panel h5 {
+
+  margin:
+    0 0 6px;
+
+  font-size:
+    16px;
+
+}
+
+
+.calendar-reality-panel p {
+
+  margin:
+    0 0 18px;
+
+  color:
+    var(--muted);
+
+}
+
+
+.calendar-interruption-header,
+.calendar-interruption-row {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    180px 160px 1fr 50px;
+
+  gap:
+    10px;
+
+  align-items:
+    center;
+
+}
+
+
+.calendar-interruption-header {
+
+  margin-bottom:
+    8px;
+
+  font-size:
+    13px;
+
+  font-weight:
+    bold;
+
+}
+
+
+.calendar-interruption-rows {
+
+  display:
+    grid;
+
+  gap:
+    10px;
+
+  margin-bottom:
+    14px;
+
+}
+
+
+.calendar-interruption-row select,
+.calendar-interruption-row input {
+
+  width:
+    100%;
+
+  padding:
+    11px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+  font:
+    inherit;
+
+}
+
+
+@media (
+  max-width: 900px
+) {
+
+  .calendar-interruption-header {
+
+    display:
+      none;
+
+  }
+
+
+  .calendar-interruption-row {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
