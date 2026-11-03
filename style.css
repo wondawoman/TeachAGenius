@@ -540,7 +540,7 @@ button {
 
 
 @media (
-  max-width: 900px
+  max-width: 700px
 ) {
 
   .app-shell {
@@ -549,6 +549,16 @@ button {
       1fr;
 
   }
+
+
+  .module-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
 
 
   .module-grid {
