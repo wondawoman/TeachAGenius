@@ -59,7 +59,12 @@
           Dashboard
         </button>
 
-
+<button
+  class="nav-button"
+  data-page="curriculum"
+>
+  Curriculum
+</button>
         <button
           class="nav-button"
           data-page="plan"
@@ -326,7 +331,236 @@
       </section>
 
 
+<!-- CURRICULUM -->
 
+<section
+  id="curriculum"
+  class="page"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Curriculum Internalization
+      </span>
+
+      <h3>
+        Curriculum Map
+      </h3>
+
+      <p>
+        Break a unit, YAG segment, or curriculum
+        expectation into teachable instructional chunks.
+      </p>
+
+    </div>
+
+
+    <div class="local-badge">
+      🔒 Teacher-Controlled Data
+    </div>
+
+  </div>
+
+
+
+  <div class="curriculum-layout">
+
+
+    <div class="curriculum-panel">
+
+      <h4>
+        Unit Information
+      </h4>
+
+
+      <label>
+
+        Course
+
+        <input
+          type="text"
+          id="curriculumCourse"
+          placeholder="Example: Digital Media"
+        >
+
+      </label>
+
+
+      <label>
+
+        Unit Title
+
+        <input
+          type="text"
+          id="curriculumUnit"
+          placeholder="Example: Working in the Design Industry"
+        >
+
+      </label>
+
+
+      <label>
+
+        Standard / TEKS
+
+        <textarea
+          id="curriculumStandard"
+          rows="3"
+          placeholder="Paste or enter the standard."
+        ></textarea>
+
+      </label>
+
+
+      <label>
+
+        Essential Skill
+
+        <textarea
+          id="curriculumSkill"
+          rows="3"
+          placeholder="What must students actually be able to do?"
+        ></textarea>
+
+      </label>
+
+
+      <div class="curriculum-date-grid">
+
+
+        <label>
+
+          Start Date
+
+          <input
+            type="date"
+            id="curriculumStart"
+          >
+
+        </label>
+
+
+        <label>
+
+          End Date
+
+          <input
+            type="date"
+            id="curriculumEnd"
+          >
+
+        </label>
+
+
+      </div>
+
+
+      <label>
+
+        Number of Instructional Meetings
+
+        <input
+          type="number"
+          id="curriculumMeetings"
+          min="1"
+          value="5"
+        >
+
+      </label>
+
+
+      <label>
+
+        Assessment Type
+
+        <select id="curriculumAssessment">
+
+          <option value="dol">
+            DOL / Exit Ticket
+          </option>
+
+          <option value="quiz">
+            Quiz
+          </option>
+
+          <option value="project">
+            Project / Performance Task
+          </option>
+
+          <option value="exam">
+            Unit Exam
+          </option>
+
+          <option value="portfolio">
+            Portfolio / Product
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+
+        Prerequisite Learning
+
+        <textarea
+          id="curriculumPrerequisite"
+          rows="3"
+          placeholder="What should students already know before this unit?"
+        ></textarea>
+
+      </label>
+
+
+      <button
+        id="internalizeCurriculumButton"
+        class="primary-button"
+      >
+        Internalize Unit
+      </button>
+
+    </div>
+
+
+
+    <div
+      id="curriculumResults"
+      class="curriculum-results hidden"
+    >
+
+      <span class="eyebrow">
+        Internalized Curriculum
+      </span>
+
+      <h4 id="curriculumResultTitle">
+        --
+      </h4>
+
+
+      <div
+        id="curriculumSummary"
+        class="curriculum-summary"
+      >
+      </div>
+
+
+      <button
+        id="sendCurriculumToLessonButton"
+        class="secondary-button"
+      >
+        Send to Lesson Builder
+      </button>
+
+    </div>
+
+
+  </div>
+
+</section>
       <!-- PLAN -->
 
       <section
