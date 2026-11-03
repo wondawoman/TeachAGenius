@@ -1083,3 +1083,161 @@ button {
   }
 
 }
+/* ==========================================
+   MASTERY V2 RESULTS
+========================================== */
+
+
+.mastery-band-summary {
+
+  margin-top:
+    20px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap:
+    12px;
+
+}
+
+
+.band-card {
+
+  padding:
+    18px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    14px;
+
+  background:
+    var(--surface);
+
+}
+
+
+.band-card span {
+
+  display:
+    block;
+
+  margin-bottom:
+    8px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+
+}
+
+
+.band-card strong {
+
+  font-size:
+    24px;
+
+}
+
+
+.question-breakdown {
+
+  margin-top:
+    24px;
+
+}
+
+
+.question-breakdown h5 {
+
+  margin:
+    0 0 12px;
+
+  font-size:
+    16px;
+
+}
+
+
+.question-row {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 120px;
+
+  gap:
+    12px;
+
+  align-items:
+    center;
+
+  padding:
+    12px 0;
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+}
+
+
+.question-row:last-child {
+
+  border-bottom:
+    none;
+
+}
+
+
+.question-score {
+
+  text-align:
+    right;
+
+  font-weight:
+    bold;
+
+}
+
+
+.question-weak {
+
+  color:
+    #b42318;
+
+}
+
+
+.question-strong {
+
+  color:
+    var(--success);
+
+}
+
+
+@media (
+  max-width: 800px
+) {
+
+  .mastery-band-summary {
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+}
