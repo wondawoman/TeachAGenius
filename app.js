@@ -366,6 +366,10 @@ function processLocalCsv(
     headers
   );
 
+  
+buildStandardMapping(
+  headers
+);
 }
 
 
@@ -716,9 +720,14 @@ const studentAverages =
       studentAverages.length;
 
 
-  const questionStats =
+ const questionMappings =
+  collectQuestionMappings();
+
+
+const questionStats =
   calculateQuestionPerformance(
-    sanitizedData
+    sanitizedData,
+    questionMappings
   );
 
 
@@ -1207,7 +1216,8 @@ QUESTION PERFORMANCE
 
 
 function calculateQuestionPerformance(
-  data
+  data,
+  mappings
 ) {
 
   const results = [];
@@ -1264,15 +1274,19 @@ function calculateQuestionPerformance(
           scores.length;
 
 
-        results.push({
+      results.push({
 
-          label:
-            header,
+  question:
+    header,
 
-          average:
-            average
+  label:
+    mappings[header] ||
+    header,
 
-        });
+  average:
+    average
+
+});
 
       }
 
@@ -1386,5 +1400,290 @@ function createSanitizedDataset(
       safeRows
 
   };
+
+}
+/*
+==============================================
+BUILD STANDARD MAPPING
+==============================================
+*/
+
+
+function buildStandardMapping(
+  headers
+) {
+
+  const standardMapping =
+    document.getElementById(
+      "standardMapping"
+    );
+
+
+  const identifierWords = [
+
+    "name",
+
+    "student",
+
+    "student id",
+
+    "studentid",
+
+    "id",
+
+    "email",
+
+    "dob",
+
+    "birth",
+
+    "birthday",
+
+    "parent",
+
+    "guardian",
+
+    "address",
+
+    "phone"
+
+  ];
+
+
+  const safeHeaders =
+    headers.filter(
+      header => {
+
+        const normalized =
+          header
+            .toLowerCase()
+            .trim();
+
+
+        const isIdentifier =
+          identifierWords
+            .some(
+              word =>
+                normalized === word ||
+                normalized.includes(
+                  word
+                )
+            );
+
+
+        return !isIdentifier;
+
+      }
+    );
+
+
+  standardMapping.innerHTML =
+    safeHeaders
+      .map(
+        (
+          header,
+          index
+        ) => {
+
+          return `
+
+            <div class="mapping-row">
+
+              <div class="mapping-question">
+
+                ${header}
+
+              </div>
+
+
+              <input
+                type="text"
+                class="standard-input"
+                data-question="${header}"
+                placeholder="Example: TEKS 117.315 or Camera Angles"
+              >
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+/*
+==============================================
+COLLECT QUESTION MAPPINGS
+==============================================
+*/
+
+
+function collectQuestionMappings() {
+
+  const inputs =
+    document.querySelectorAll(
+      ".standard-input"
+    );
+
+
+  const mappings = {};
+
+
+  inputs.forEach(
+    input => {
+
+      const question =
+        input.dataset.question;
+
+
+      const label =
+        input.value.trim();
+
+
+      mappings[question] =
+        label ||
+        question;
+
+    }
+  );
+
+
+  return mappings;
+
+}
+/*
+==============================================
+INSTRUCTIONAL DECISION ENGINE
+==============================================
+*/
+
+
+function buildInstructionalDecisions(
+  questionStats
+) {
+
+  const groupedSkills = {};
+
+
+  questionStats.forEach(
+    item => {
+
+      const skill =
+        item.label;
+
+
+      if (
+        !groupedSkills[skill]
+      ) {
+
+        groupedSkills[skill] = [];
+
+      }
+
+
+      groupedSkills[skill].push(
+        item.average
+      );
+
+    }
+  );
+
+
+  const skillResults =
+    Object
+      .entries(
+        groupedSkills
+      )
+      .map(
+        (
+          [
+            skill,
+            scores
+          ]
+        ) => {
+
+          const average =
+            scores.reduce(
+              (
+                total,
+                score
+              ) =>
+                total + score,
+              0
+            )
+            /
+            scores.length;
+
+
+          let recommendation = "";
+
+          let className = "";
+
+
+          if (
+            average < 60
+          ) {
+
+            recommendation =
+              "Whole-group reteach recommended.";
+
+            className =
+              "reteach-whole";
+
+          }
+
+          else if (
+            average < 75
+          ) {
+
+            recommendation =
+              "Targeted small-group reteach recommended.";
+
+            className =
+              "reteach-small";
+
+          }
+
+          else {
+
+            recommendation =
+              "Class is generally ready to move forward or extend.";
+
+            className =
+              "reteach-good";
+
+          }
+
+
+          return {
+
+            skill:
+              skill,
+
+            average:
+              average,
+
+            recommendation:
+              recommendation,
+
+            className:
+              className
+
+          };
+
+        }
+      );
+
+
+  return skillResults
+    .sort(
+      (
+        a,
+        b
+      ) =>
+        a.average -
+        b.average
+    );
 
 }
