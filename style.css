@@ -2388,3 +2388,139 @@ button {
   }
 
 }
+/* ==========================================
+   CLASSROOM ENGINE
+========================================== */
+
+
+.classroom-engine-layout {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:
+    22px;
+
+}
+
+
+.classroom-engine-panel,
+.classroom-move-results {
+
+  padding:
+    24px;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--surface);
+
+  box-shadow:
+    var(--shadow);
+
+}
+
+
+.classroom-engine-panel label {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+
+  margin-bottom:
+    16px;
+
+  font-weight:
+    bold;
+
+}
+
+
+.classroom-engine-panel select {
+
+  width:
+    100%;
+
+  padding:
+    12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+  font:
+    inherit;
+
+}
+
+
+.classroom-move-plan {
+
+  display:
+    grid;
+
+  gap:
+    12px;
+
+  margin:
+    18px 0;
+
+}
+
+
+.classroom-move-card {
+
+  padding:
+    15px;
+
+  border-left:
+    4px solid
+    var(--primary);
+
+  border-radius:
+    10px;
+
+  background:
+    #f6f8ff;
+
+}
+
+
+.classroom-move-card strong {
+
+  display:
+    block;
+
+  margin-bottom:
+    5px;
+
+}
+
+
+@media (
+  max-width: 900px
+) {
+
+  .classroom-engine-layout {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
