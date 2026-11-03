@@ -2953,3 +2953,66 @@ button {
   }
 
 }
+/* ==========================================
+   FIELD CLARITY / HUMAN-FRIENDLY INPUTS
+========================================== */
+
+
+.field-help {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+
+  font-weight:
+    normal;
+
+  line-height:
+    1.4;
+
+}
+
+
+.semester-unit-header {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    2fr 150px 50px;
+
+  gap:
+    10px;
+
+  margin-bottom:
+    8px;
+
+  font-size:
+    13px;
+
+  font-weight:
+    bold;
+
+}
+
+
+@media (
+  max-width: 800px
+) {
+
+  .semester-unit-header {
+
+    display:
+      none;
+
+  }
+
+}
