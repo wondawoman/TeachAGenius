@@ -5440,33 +5440,164 @@ function countWeekdays(
 
 }
 function calculateAvailableMeetings(
-  weekdayCount,
+  startDate,
+  endDate,
   schedule,
-  rotation
+  rotation,
+  interruptions
 ) {
 
-  if (
-    schedule === "daily"
-    ||
-    rotation === "every"
+  const blockedDates =
+    new Set(
+      interruptions.map(
+        item =>
+          item.date
+      )
+    );
+
+
+  const start =
+    new Date(
+      startDate
+      + "T12:00:00"
+    );
+
+
+  const end =
+    new Date(
+      endDate
+      + "T12:00:00"
+    );
+
+
+  let instructionalDayIndex = 0;
+
+  let meetingCount = 0;
+
+
+  const current =
+    new Date(
+      start
+    );
+
+
+  while (
+    current <= end
   ) {
 
-    return weekdayCount;
+    const dayOfWeek =
+      current.getDay();
 
-  }
+
+    const dateString =
+      formatLocalDateKey(
+        current
+      );
 
 
-  if (
-    schedule === "ab"
-  ) {
+    const isWeekday =
+      dayOfWeek !== 0
+      &&
+      dayOfWeek !== 6;
 
-    return Math.ceil(
-      weekdayCount / 2
+
+    const isBlocked =
+      blockedDates.has(
+        dateString
+      );
+
+
+    if (
+      isWeekday
+      &&
+      !isBlocked
+    ) {
+
+      if (
+        schedule === "daily"
+        ||
+        rotation === "every"
+      ) {
+
+        meetingCount++;
+
+      }
+
+      else if (
+        schedule === "ab"
+      ) {
+
+        const currentRotation =
+          instructionalDayIndex % 2 === 0
+            ? "a"
+            : "b";
+
+
+        if (
+          currentRotation ===
+          rotation
+        ) {
+
+          meetingCount++;
+
+        }
+
+      }
+
+
+      instructionalDayIndex++;
+
+    }
+
+
+    current.setDate(
+      current.getDate()
+      + 1
     );
 
   }
 
 
+  return meetingCount;
+
+}
+function formatLocalDateKey(
+  date
+) {
+
+  const year =
+    date.getFullYear();
+
+
+  const month =
+    String(
+      date.getMonth() + 1
+    )
+    .padStart(
+      2,
+      "0"
+    );
+
+
+  const day =
+    String(
+      date.getDate()
+    )
+    .padStart(
+      2,
+      "0"
+    );
+
+
+  return (
+    year
+    + "-"
+    + month
+    + "-"
+    + day
+  );
+
+}
   return weekdayCount;
 
 }
@@ -5514,7 +5645,8 @@ function buildSemesterMap() {
 
   const units =
     getSemesterUnits();
-
+const interruptions =
+  getCalendarInterruptions();
 
   if (
     !startDate
@@ -5559,19 +5691,14 @@ function buildSemesterMap() {
   }
 
 
-  const weekdays =
-    countWeekdays(
-      startDate,
-      endDate
-    );
-
-
   const availableMeetings =
-    calculateAvailableMeetings(
-      weekdays,
-      schedule,
-      rotation
-    );
+  calculateAvailableMeetings(
+    startDate,
+    endDate,
+    schedule,
+    rotation,
+    interruptions
+  );
 
 
   const requiredMeetings =
@@ -5598,7 +5725,10 @@ function buildSemesterMap() {
 
     requiredMeetings:
       requiredMeetings,
-
+    
+interruptions:
+  interruptions,
+    
     units:
       units
 
@@ -5745,7 +5875,12 @@ function displaySemesterMap(
       <strong>
         ${map.requiredMeetings}
       </strong>
+<br>
 
+Calendar interruptions entered:
+<strong>
+  ${map.interruptions.length}
+</strong>
     </div>
 
 
@@ -5780,3 +5915,198 @@ addSemesterUnitRow(
   "",
   5
 );
+/*
+==============================================
+CALENDAR REALITY ENGINE
+==============================================
+*/
+
+
+const addInterruptionButton =
+  document.getElementById(
+    "addInterruptionButton"
+  );
+
+
+
+addInterruptionButton
+  .addEventListener(
+    "click",
+    addCalendarInterruptionRow
+  );
+
+
+
+function addCalendarInterruptionRow() {
+
+  const container =
+    document.getElementById(
+      "calendarInterruptionRows"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "calendar-interruption-row";
+
+
+  row.innerHTML = `
+
+    <select class="interruption-type">
+
+      <option value="holiday">
+        Holiday
+      </option>
+
+      <option value="thanksgiving">
+        Thanksgiving Break
+      </option>
+
+      <option value="winter">
+        Winter Break
+      </option>
+
+      <option value="spring">
+        Spring Break
+      </option>
+
+      <option value="pd">
+        Professional Development
+      </option>
+
+      <option value="testing">
+        Testing / No Regular Class
+      </option>
+
+      <option value="fieldtrip">
+        Field Trip
+      </option>
+
+      <option value="campus">
+        Campus Event
+      </option>
+
+      <option value="closure">
+        School Closure
+      </option>
+
+      <option value="other">
+        Other
+      </option>
+
+    </select>
+
+
+    <input
+      type="date"
+      class="interruption-date"
+    >
+
+
+    <input
+      type="text"
+      class="interruption-note"
+      placeholder="Optional note"
+    >
+
+
+    <button
+      type="button"
+      class="remove-row-button"
+      title="Remove interruption"
+    >
+      ×
+    </button>
+
+  `;
+
+
+  row
+    .querySelector(
+      ".remove-row-button"
+    )
+    .addEventListener(
+      "click",
+      function () {
+
+        row.remove();
+
+      }
+    );
+
+
+  container.appendChild(
+    row
+  );
+
+}
+function getCalendarInterruptions() {
+
+  const rows =
+    document.querySelectorAll(
+      ".calendar-interruption-row"
+    );
+
+
+  const interruptions = [];
+
+
+  rows.forEach(
+    row => {
+
+      const type =
+        row
+          .querySelector(
+            ".interruption-type"
+          )
+          .value;
+
+
+      const date =
+        row
+          .querySelector(
+            ".interruption-date"
+          )
+          .value;
+
+
+      const note =
+        row
+          .querySelector(
+            ".interruption-note"
+          )
+          .value
+          .trim();
+
+
+      if (
+        date
+      ) {
+
+        interruptions.push({
+
+          type:
+            type,
+
+          date:
+            date,
+
+          note:
+            note
+
+        });
+
+      }
+
+    }
+  );
+
+
+  return interruptions;
+
+}
