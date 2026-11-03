@@ -410,7 +410,116 @@ function runPrivacyScan(
     "phone"
 
   ];
+/*
+==============================================
+SANITIZE LOCAL DATA
+==============================================
+*/
 
+
+function createSanitizedDataset(
+  data
+) {
+
+  const identifierWords = [
+
+    "name",
+
+    "student",
+
+    "student id",
+
+    "studentid",
+
+    "id",
+
+    "email",
+
+    "dob",
+
+    "birth",
+
+    "birthday",
+
+    "parent",
+
+    "guardian",
+
+    "address",
+
+    "phone"
+
+  ];
+
+
+  const safeColumnIndexes =
+    data.headers
+      .map(
+        (
+          header,
+          index
+        ) => {
+
+          const normalized =
+            header
+              .toLowerCase()
+              .trim();
+
+
+          const isIdentifier =
+            identifierWords
+              .some(
+                word =>
+                  normalized === word ||
+                  normalized.includes(
+                    word
+                  )
+              );
+
+
+          return isIdentifier
+            ? null
+            : index;
+
+        }
+      )
+      .filter(
+        index =>
+          index !== null
+      );
+
+
+  const safeHeaders =
+    safeColumnIndexes
+      .map(
+        index =>
+          data.headers[index]
+      );
+
+
+  const safeRows =
+    data.rows
+      .map(
+        row =>
+          safeColumnIndexes
+            .map(
+              index =>
+                row[index]
+            )
+      );
+
+
+  return {
+
+    headers:
+      safeHeaders,
+
+    rows:
+      safeRows
+
+  };
+
+}
 
   const possibleIdentifiers =
     headers.filter(
@@ -609,10 +718,16 @@ function analyzeMastery() {
   }
 
 
-  const studentAverages =
-    calculateStudentAverages(
-      localAssessmentData
-    );
+ const sanitizedData =
+  createSanitizedDataset(
+    localAssessmentData
+  );
+
+
+const studentAverages =
+  calculateStudentAverages(
+    sanitizedData
+  );
 
 
   if (
@@ -703,11 +818,18 @@ function analyzeMastery() {
       studentAverages.length;
 
 
-  displayMasteryResults(
-    classAverage,
-    classifications,
-    studentAverages.length
+  const questionStats =
+  calculateQuestionPerformance(
+    sanitizedData
   );
+
+
+displayMasteryResults(
+  classAverage,
+  classifications,
+  studentAverages.length,
+  questionStats
+);
 
 }
 
@@ -901,7 +1023,8 @@ DISPLAY RESULTS
 function displayMasteryResults(
   classAverage,
   classifications,
-  totalStudents
+  totalStudents,
+  questionStats
 ) {
 
   masteryResults.classList.remove(
@@ -1009,5 +1132,256 @@ function displayMasteryResults(
     )
     .textContent =
       message;
+const masteryBandSummary =
+  document.getElementById(
+    "masteryBandSummary"
+  );
+
+
+const questionBreakdown =
+  document.getElementById(
+    "questionBreakdown"
+  );
+
+
+
+const masteredPercent =
+  (
+    classifications.mastered
+    /
+    totalStudents
+  )
+  *
+  100;
+
+
+const meetsPercent =
+  (
+    classifications.meets
+    /
+    totalStudents
+  )
+  *
+  100;
+
+
+const approachingPercent =
+  (
+    classifications.approaching
+    /
+    totalStudents
+  )
+  *
+  100;
+
+
+const notYetPercent =
+  (
+    classifications.notYet
+    /
+    totalStudents
+  )
+  *
+  100;
+
+
+
+masteryBandSummary.innerHTML = `
+
+  <div class="band-card">
+
+    <span>
+      Mastered
+    </span>
+
+    <strong>
+      ${masteredPercent.toFixed(0)}%
+    </strong>
+
+  </div>
+
+
+  <div class="band-card">
+
+    <span>
+      Meets
+    </span>
+
+    <strong>
+      ${meetsPercent.toFixed(0)}%
+    </strong>
+
+  </div>
+
+
+  <div class="band-card">
+
+    <span>
+      Approaching
+    </span>
+
+    <strong>
+      ${approachingPercent.toFixed(0)}%
+    </strong>
+
+  </div>
+
+
+  <div class="band-card">
+
+    <span>
+      Not Yet
+    </span>
+
+    <strong>
+      ${notYetPercent.toFixed(0)}%
+    </strong>
+
+  </div>
+
+`;
+
+
+
+const sortedQuestions =
+  [...questionStats]
+    .sort(
+      (
+        a,
+        b
+      ) =>
+        a.average -
+        b.average
+    );
+
+
+
+const questionRows =
+  sortedQuestions
+    .map(
+      item => {
+
+        const scoreClass =
+          item.average < 70
+            ? "question-weak"
+            : "question-strong";
+
+
+        return `
+
+          <div class="question-row">
+
+            <span>
+              ${item.label}
+            </span>
+
+            <span
+              class="question-score ${scoreClass}"
+            >
+              ${item.average.toFixed(1)}%
+            </span>
+
+          </div>
+
+        `;
+
+      }
+    )
+    .join("");
+
+
+
+questionBreakdown.innerHTML = `
+
+  <h5>
+    Question / Skill Performance
+  </h5>
+
+  ${questionRows}
+
+`;
+}
+/*
+==============================================
+QUESTION PERFORMANCE
+==============================================
+*/
+
+
+function calculateQuestionPerformance(
+  data
+) {
+
+  const results = [];
+
+
+  data.headers.forEach(
+    (
+      header,
+      columnIndex
+    ) => {
+
+      const scores = [];
+
+
+      data.rows.forEach(
+        row => {
+
+          const numericValue =
+            Number(
+              row[columnIndex]
+            );
+
+
+          if (
+            Number.isFinite(
+              numericValue
+            )
+          ) {
+
+            scores.push(
+              numericValue
+            );
+
+          }
+
+        }
+      );
+
+
+      if (
+        scores.length > 0
+      ) {
+
+        const average =
+          scores.reduce(
+            (
+              total,
+              score
+            ) =>
+              total + score,
+            0
+          )
+          /
+          scores.length;
+
+
+        results.push({
+
+          label:
+            header,
+
+          average:
+            average
+
+        });
+
+      }
+
+    }
+  );
+
+
+  return results;
 
 }
