@@ -1626,3 +1626,146 @@ button {
   }
 
 }
+/* ==========================================
+   LESSON BUILDER V2
+========================================== */
+
+
+.lesson-form textarea {
+
+  width:
+    100%;
+
+  padding:
+    12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+  font:
+    inherit;
+
+  resize:
+    vertical;
+
+}
+
+
+.lesson-plan-header {
+
+  margin-bottom:
+    24px;
+
+  padding:
+    20px;
+
+  border-radius:
+    14px;
+
+  background:
+    #f4f7ff;
+
+}
+
+
+.lesson-plan-header h4 {
+
+  margin:
+    0 0 8px;
+
+  font-size:
+    22px;
+
+}
+
+
+.lesson-plan-header p {
+
+  margin:
+    6px 0;
+
+  color:
+    var(--muted);
+
+  line-height:
+    1.5;
+
+}
+
+
+.lesson-detail {
+
+  margin-top:
+    8px;
+
+  padding:
+    10px 12px;
+
+  border-radius:
+    10px;
+
+  background:
+    #f8fafc;
+
+}
+
+
+.lesson-detail strong {
+
+  display:
+    block;
+
+  margin-bottom:
+    4px;
+
+}
+
+
+.lesson-step-note {
+
+  margin-top:
+    8px;
+
+  color:
+    var(--muted);
+
+  line-height:
+    1.5;
+
+}
+
+
+.atbat-badge {
+
+  display:
+    inline-block;
+
+  margin-top:
+    7px;
+
+  padding:
+    6px 9px;
+
+  border-radius:
+    999px;
+
+  background:
+    #eef3ff;
+
+  color:
+    var(--primary);
+
+  font-size:
+    12px;
+
+  font-weight:
+    bold;
+
+}
