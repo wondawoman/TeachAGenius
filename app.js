@@ -5598,9 +5598,7 @@ function formatLocalDateKey(
   );
 
 }
-  return weekdayCount;
-
-}
+  
 buildSemesterMapButton
   .addEventListener(
     "click",
