@@ -341,20 +341,291 @@
 
       <!-- MASTERY -->
 
-      <section
-        id="mastery"
-        class="page"
-      >
+ <section
+  id="mastery"
+  class="page"
+>
 
-        <h3>
-          Mastery Analyzer
-        </h3>
+  <div class="section-heading">
 
-        <p>
-          Privacy-first assessment analysis will be built here.
-        </p>
+    <div>
 
-      </section>
+      <span class="eyebrow">
+        Local Data Tool
+      </span>
+
+      <h3>
+        Mastery Analyzer
+      </h3>
+
+      <p>
+        Analyze classroom assessment data
+        without uploading the student file.
+      </p>
+
+    </div>
+
+
+    <div class="local-badge">
+      🔒 Local Processing
+    </div>
+
+  </div>
+
+
+
+  <!-- PRIVACY NOTICE -->
+
+  <div class="privacy-notice">
+
+    <div class="privacy-notice-icon">
+      🛡️
+    </div>
+
+    <div>
+
+      <strong>
+        Privacy Gate
+      </strong>
+
+      <p>
+        Files selected here are read inside
+        this browser. This first analyzer does
+        not send the file to Google, GitHub,
+        Apps Script, or another server.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- FILE UPLOAD -->
+
+  <div class="upload-panel">
+
+    <input
+      type="file"
+      id="scoreFile"
+      accept=".csv,text/csv"
+    >
+
+    <label
+      for="scoreFile"
+      class="upload-button"
+    >
+
+      Choose CSV File
+
+    </label>
+
+
+    <div>
+
+      <strong id="fileName">
+        No file selected
+      </strong>
+
+      <p>
+        CSV format only for this first build.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- PRIVACY SCAN -->
+
+  <div
+    id="privacyScan"
+    class="privacy-scan hidden"
+  >
+
+    <h4>
+      Privacy Scan
+    </h4>
+
+    <div id="privacyScanResults">
+    </div>
+
+  </div>
+
+
+
+  <!-- SETTINGS -->
+
+  <div
+    id="masterySettings"
+    class="mastery-settings hidden"
+  >
+
+    <h4>
+      Mastery Levels
+    </h4>
+
+    <p>
+      Set the minimum percentage required
+      for each performance level.
+    </p>
+
+
+    <div class="threshold-grid">
+
+
+      <label>
+
+        Mastered
+
+        <input
+          id="masteredThreshold"
+          type="number"
+          min="0"
+          max="100"
+          value="85"
+        >
+
+      </label>
+
+
+      <label>
+
+        Meets
+
+        <input
+          id="meetsThreshold"
+          type="number"
+          min="0"
+          max="100"
+          value="70"
+        >
+
+      </label>
+
+
+      <label>
+
+        Approaching
+
+        <input
+          id="approachingThreshold"
+          type="number"
+          min="0"
+          max="100"
+          value="55"
+        >
+
+      </label>
+
+
+    </div>
+
+
+    <button
+      id="analyzeButton"
+      class="primary-button"
+    >
+      Analyze Mastery
+    </button>
+
+  </div>
+
+
+
+  <!-- RESULTS -->
+
+  <div
+    id="masteryResults"
+    class="mastery-results hidden"
+  >
+
+    <h4>
+      Class Results
+    </h4>
+
+
+    <div class="result-grid">
+
+
+      <div class="result-card">
+
+        <span>
+          Class Average
+        </span>
+
+        <strong id="classAverage">
+          --
+        </strong>
+
+      </div>
+
+
+      <div class="result-card">
+
+        <span>
+          Mastered
+        </span>
+
+        <strong id="masteredCount">
+          --
+        </strong>
+
+      </div>
+
+
+      <div class="result-card">
+
+        <span>
+          Meets
+        </span>
+
+        <strong id="meetsCount">
+          --
+        </strong>
+
+      </div>
+
+
+      <div class="result-card">
+
+        <span>
+          Approaching
+        </span>
+
+        <strong id="approachingCount">
+          --
+        </strong>
+
+      </div>
+
+
+      <div class="result-card">
+
+        <span>
+          Not Yet
+        </span>
+
+        <strong id="notYetCount">
+          --
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="instructionalMessage"
+      class="instructional-message"
+    >
+    </div>
+
+  </div>
+
+
+</section>
 
 
 
