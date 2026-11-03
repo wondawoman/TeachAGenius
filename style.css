@@ -2725,3 +2725,231 @@ button {
   }
 
 }
+/* ==========================================
+   SEMESTER / YAG MAP
+========================================== */
+
+
+.semester-map-panel {
+
+  margin-top:
+    28px;
+
+  padding:
+    24px;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--surface);
+
+  box-shadow:
+    var(--shadow);
+
+}
+
+
+.semester-settings-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap:
+    14px;
+
+  margin-bottom:
+    24px;
+
+}
+
+
+.semester-settings-grid label {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+
+  font-weight:
+    bold;
+
+}
+
+
+.semester-settings-grid input,
+.semester-settings-grid select,
+.semester-unit-row input {
+
+  width:
+    100%;
+
+  padding:
+    12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+  font:
+    inherit;
+
+}
+
+
+.semester-unit-builder {
+
+  padding-top:
+    20px;
+
+  border-top:
+    1px solid
+    var(--border);
+
+}
+
+
+.semester-unit-rows {
+
+  display:
+    grid;
+
+  gap:
+    10px;
+
+  margin:
+    16px 0;
+
+}
+
+
+.semester-unit-row {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    2fr 150px 50px;
+
+  gap:
+    10px;
+
+  align-items:
+    center;
+
+}
+
+
+.semester-map-results {
+
+  margin-top:
+    24px;
+
+}
+
+
+.semester-summary {
+
+  padding:
+    18px;
+
+  margin-bottom:
+    18px;
+
+  border-radius:
+    14px;
+
+  background:
+    #f4f7ff;
+
+}
+
+
+.semester-unit-card {
+
+  padding:
+    16px;
+
+  margin-bottom:
+    10px;
+
+  border-left:
+    4px solid
+    var(--primary);
+
+  border-radius:
+    10px;
+
+  background:
+    #fafbfc;
+
+}
+
+
+.semester-unit-card strong {
+
+  display:
+    block;
+
+  margin-bottom:
+    6px;
+
+}
+
+
+.semester-warning {
+
+  padding:
+    15px;
+
+  margin-top:
+    16px;
+
+  border-radius:
+    10px;
+
+  background:
+    #fff7ed;
+
+  color:
+    #9a3412;
+
+}
+
+
+@media (
+  max-width: 800px
+) {
+
+  .semester-settings-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .semester-unit-row {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
