@@ -49,10 +49,13 @@ const pageNames = {
     "Classroom Strategies",
 
   translate:
-    "Live Translation",
+  "Live Translation",
 
-  settings:
-    "Teacher Settings"
+grades:
+  "Grade Calculator",
+
+settings:
+  "Teacher Settings"
 
 };
 
@@ -3316,3 +3319,761 @@ INITIALIZE TEACHER SETTINGS
 
 
 loadTeacherSettings();
+/*
+==============================================
+GRADE CALCULATOR
+==============================================
+*/
+
+
+const addCategoryButton =
+  document.getElementById(
+    "addCategoryButton"
+  );
+
+
+const addAssignmentButton =
+  document.getElementById(
+    "addAssignmentButton"
+  );
+
+
+const calculateGradeButton =
+  document.getElementById(
+    "calculateGradeButton"
+  );
+
+
+
+addCategoryButton
+  .addEventListener(
+    "click",
+    addCategoryRow
+  );
+
+
+
+function addCategoryRow() {
+
+  const container =
+    document.getElementById(
+      "categoryWeightRows"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "category-weight-row";
+
+
+  row.innerHTML = `
+
+    <input
+      type="text"
+      class="category-name"
+      placeholder="Category"
+    >
+
+    <input
+      type="number"
+      class="category-weight"
+      value="0"
+      min="0"
+      max="100"
+    >
+
+    <span>
+      %
+    </span>
+
+  `;
+
+
+  container.appendChild(
+    row
+  );
+
+
+  refreshAssignmentCategories();
+
+}
+/*
+==============================================
+ASSIGNMENT ROWS
+==============================================
+*/
+
+
+addAssignmentButton
+  .addEventListener(
+    "click",
+    addAssignmentRow
+  );
+
+
+
+function addAssignmentRow() {
+
+  const container =
+    document.getElementById(
+      "assignmentRows"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "assignment-row";
+
+
+  row.innerHTML = `
+
+    <input
+      type="text"
+      class="assignment-name"
+      placeholder="Assignment name"
+    >
+
+
+    <select
+      class="assignment-category"
+    >
+    </select>
+
+
+    <input
+      type="number"
+      class="assignment-earned"
+      placeholder="Earned"
+      min="0"
+    >
+
+
+    <input
+      type="number"
+      class="assignment-possible"
+      placeholder="Possible"
+      min="1"
+    >
+
+
+    <button
+      type="button"
+      class="remove-row-button"
+      title="Remove assignment"
+    >
+      ×
+    </button>
+
+  `;
+
+
+  container.appendChild(
+    row
+  );
+
+
+  row
+    .querySelector(
+      ".remove-row-button"
+    )
+    .addEventListener(
+      "click",
+      function () {
+
+        row.remove();
+
+      }
+    );
+
+
+  refreshAssignmentCategories();
+
+}
+/*
+==============================================
+CATEGORY DROPDOWN ENGINE
+==============================================
+*/
+
+
+function getGradeCategories() {
+
+  const names =
+    document.querySelectorAll(
+      ".category-name"
+    );
+
+
+  const weights =
+    document.querySelectorAll(
+      ".category-weight"
+    );
+
+
+  const categories = [];
+
+
+  names.forEach(
+    (
+      nameInput,
+      index
+    ) => {
+
+      const name =
+        nameInput.value.trim();
+
+
+      const weight =
+        Number(
+          weights[index].value
+        );
+
+
+      if (
+        name
+      ) {
+
+        categories.push({
+
+          name:
+            name,
+
+          weight:
+            weight
+
+        });
+
+      }
+
+    }
+  );
+
+
+  return categories;
+
+}
+
+
+
+function refreshAssignmentCategories() {
+
+  const categories =
+    getGradeCategories();
+
+
+  const dropdowns =
+    document.querySelectorAll(
+      ".assignment-category"
+    );
+
+
+  dropdowns.forEach(
+    dropdown => {
+
+      const previousValue =
+        dropdown.value;
+
+
+      dropdown.innerHTML =
+        categories
+          .map(
+            category => {
+
+              return `
+
+                <option
+                  value="${category.name}"
+                >
+                  ${category.name}
+                </option>
+
+              `;
+
+            }
+          )
+          .join("");
+
+
+      if (
+        categories.some(
+          category =>
+            category.name ===
+            previousValue
+        )
+      ) {
+
+        dropdown.value =
+          previousValue;
+
+      }
+
+    }
+  );
+
+}
+document
+  .getElementById(
+    "categoryWeightRows"
+  )
+  .addEventListener(
+    "input",
+    refreshAssignmentCategories
+  );
+/*
+==============================================
+WEIGHTED GRADE ENGINE
+==============================================
+*/
+
+
+calculateGradeButton
+  .addEventListener(
+    "click",
+    calculateWeightedGrade
+  );
+
+
+
+function calculateWeightedGrade() {
+
+  const categories =
+    getGradeCategories();
+
+
+  const totalWeight =
+    categories.reduce(
+      (
+        total,
+        category
+      ) =>
+        total + category.weight,
+      0
+    );
+
+
+  if (
+    Math.abs(
+      totalWeight - 100
+    ) > 0.01
+  ) {
+
+    alert(
+      "Category weights must total 100%."
+    );
+
+    return;
+
+  }
+
+
+  const assignmentRows =
+    document.querySelectorAll(
+      ".assignment-row"
+    );
+
+
+  if (
+    assignmentRows.length === 0
+  ) {
+
+    alert(
+      "Add at least one assignment."
+    );
+
+    return;
+
+  }
+
+
+  const categoryScores = {};
+
+
+  categories.forEach(
+    category => {
+
+      categoryScores[
+        category.name
+      ] = {
+
+        earned:
+          0,
+
+        possible:
+          0,
+
+        weight:
+          category.weight
+
+      };
+
+    }
+  );
+
+
+  assignmentRows.forEach(
+    row => {
+
+      const category =
+        row
+          .querySelector(
+            ".assignment-category"
+          )
+          .value;
+
+
+      const earned =
+        Number(
+          row
+            .querySelector(
+              ".assignment-earned"
+            )
+            .value
+        );
+
+
+      const possible =
+        Number(
+          row
+            .querySelector(
+              ".assignment-possible"
+            )
+            .value
+        );
+
+
+      if (
+        !Number.isFinite(earned)
+        ||
+        !Number.isFinite(possible)
+        ||
+        possible <= 0
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        categoryScores[
+          category
+        ]
+      ) {
+
+        categoryScores[
+          category
+        ].earned +=
+          earned;
+
+
+        categoryScores[
+          category
+        ].possible +=
+          possible;
+
+      }
+
+    }
+  );
+
+
+  let weightedGrade = 0;
+
+  let usedWeight = 0;
+
+
+  const categoryResults = [];
+
+
+  Object
+    .entries(
+      categoryScores
+    )
+    .forEach(
+      (
+        [
+          category,
+          data
+        ]
+      ) => {
+
+        if (
+          data.possible <= 0
+        ) {
+
+          return;
+
+        }
+
+
+        const average =
+          (
+            data.earned
+            /
+            data.possible
+          )
+          *
+          100;
+
+
+        weightedGrade +=
+          average
+          *
+          (
+            data.weight
+            /
+            100
+          );
+
+
+        usedWeight +=
+          data.weight;
+
+
+        categoryResults.push({
+
+          category:
+            category,
+
+          average:
+            average,
+
+          weight:
+            data.weight
+
+        });
+
+      }
+    );
+
+
+  if (
+    usedWeight === 0
+  ) {
+
+    alert(
+      "No valid assignment scores were entered."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    usedWeight < 100
+  ) {
+
+    weightedGrade =
+      weightedGrade
+      /
+      (
+        usedWeight
+        /
+        100
+      );
+
+  }
+
+
+  displayGradeResults(
+    weightedGrade,
+    categoryResults
+  );
+
+}
+/*
+==============================================
+LETTER GRADE ENGINE
+==============================================
+*/
+
+
+function getLetterGrade(
+  percentage
+) {
+
+  const a =
+    Number(
+      document
+        .getElementById(
+          "gradeA"
+        )
+        .value
+    );
+
+
+  const b =
+    Number(
+      document
+        .getElementById(
+          "gradeB"
+        )
+        .value
+    );
+
+
+  const c =
+    Number(
+      document
+        .getElementById(
+          "gradeC"
+        )
+        .value
+    );
+
+
+  const d =
+    Number(
+      document
+        .getElementById(
+          "gradeD"
+        )
+        .value
+    );
+
+
+  if (
+    percentage >= a
+  ) {
+
+    return "A";
+
+  }
+
+
+  if (
+    percentage >= b
+  ) {
+
+    return "B";
+
+  }
+
+
+  if (
+    percentage >= c
+  ) {
+
+    return "C";
+
+  }
+
+
+  if (
+    percentage >= d
+  ) {
+
+    return "D";
+
+  }
+
+
+  return "F";
+
+}
+/*
+==============================================
+DISPLAY GRADE RESULTS
+==============================================
+*/
+
+
+function displayGradeResults(
+  weightedGrade,
+  categoryResults
+) {
+
+  const gradeResults =
+    document.getElementById(
+      "gradeResults"
+    );
+
+
+  const weightedGradeDisplay =
+    document.getElementById(
+      "weightedGrade"
+    );
+
+
+  const letterGradeDisplay =
+    document.getElementById(
+      "letterGrade"
+    );
+
+
+  const categoryResultsDisplay =
+    document.getElementById(
+      "categoryResults"
+    );
+
+
+  weightedGradeDisplay
+    .textContent =
+      weightedGrade
+        .toFixed(1)
+      + "%";
+
+
+  letterGradeDisplay
+    .textContent =
+      getLetterGrade(
+        weightedGrade
+      );
+
+
+  categoryResultsDisplay
+    .innerHTML =
+      categoryResults
+        .map(
+          result => {
+
+            return `
+
+              <div class="category-result-row">
+
+                <span>
+                  ${result.category}
+                  (${result.weight}%)
+                </span>
+
+                <strong>
+                  ${result.average.toFixed(1)}%
+                </strong>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+  gradeResults
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+/*
+==============================================
+INITIALIZE GRADE CALCULATOR
+==============================================
+*/
+
+
+addAssignmentRow();
+
+addAssignmentRow();
