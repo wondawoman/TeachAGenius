@@ -5222,3 +5222,561 @@ function sendCurriculumToLesson() {
   );
 
 }
+/*
+==============================================
+SEMESTER / YAG ENGINE
+==============================================
+*/
+
+
+const addSemesterUnitButton =
+  document.getElementById(
+    "addSemesterUnitButton"
+  );
+
+
+const buildSemesterMapButton =
+  document.getElementById(
+    "buildSemesterMapButton"
+  );
+
+
+
+addSemesterUnitButton
+  .addEventListener(
+    "click",
+    addSemesterUnitRow
+  );
+
+
+
+function addSemesterUnitRow(
+  unitName = "",
+  meetings = 5
+) {
+
+  const container =
+    document.getElementById(
+      "semesterUnitRows"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "semester-unit-row";
+
+
+  row.innerHTML = `
+
+    <input
+      type="text"
+      class="semester-unit-name"
+      placeholder="Unit title"
+      value="${unitName}"
+    >
+
+
+    <input
+      type="number"
+      class="semester-unit-meetings"
+      min="1"
+      value="${meetings}"
+    >
+
+
+    <button
+      type="button"
+      class="remove-row-button"
+      title="Remove unit"
+    >
+      ×
+    </button>
+
+  `;
+
+
+  row
+    .querySelector(
+      ".remove-row-button"
+    )
+    .addEventListener(
+      "click",
+      function () {
+
+        row.remove();
+
+      }
+    );
+
+
+  container.appendChild(
+    row
+  );
+
+}
+function getSemesterUnits() {
+
+  const rows =
+    document.querySelectorAll(
+      ".semester-unit-row"
+    );
+
+
+  const units = [];
+
+
+  rows.forEach(
+    row => {
+
+      const name =
+        row
+          .querySelector(
+            ".semester-unit-name"
+          )
+          .value
+          .trim();
+
+
+      const meetings =
+        Number(
+          row
+            .querySelector(
+              ".semester-unit-meetings"
+            )
+            .value
+        );
+
+
+      if (
+        name
+        &&
+        Number.isFinite(
+          meetings
+        )
+        &&
+        meetings > 0
+      ) {
+
+        units.push({
+
+          name:
+            name,
+
+          meetings:
+            meetings
+
+        });
+
+      }
+
+    }
+  );
+
+
+  return units;
+
+}
+function countWeekdays(
+  startDate,
+  endDate
+) {
+
+  const start =
+    new Date(
+      startDate
+      + "T12:00:00"
+    );
+
+
+  const end =
+    new Date(
+      endDate
+      + "T12:00:00"
+    );
+
+
+  let count = 0;
+
+
+  const current =
+    new Date(
+      start
+    );
+
+
+  while (
+    current <= end
+  ) {
+
+    const day =
+      current.getDay();
+
+
+    if (
+      day !== 0
+      &&
+      day !== 6
+    ) {
+
+      count++;
+
+    }
+
+
+    current.setDate(
+      current.getDate()
+      + 1
+    );
+
+  }
+
+
+  return count;
+
+}
+function calculateAvailableMeetings(
+  weekdayCount,
+  schedule,
+  rotation
+) {
+
+  if (
+    schedule === "daily"
+    ||
+    rotation === "every"
+  ) {
+
+    return weekdayCount;
+
+  }
+
+
+  if (
+    schedule === "ab"
+  ) {
+
+    return Math.ceil(
+      weekdayCount / 2
+    );
+
+  }
+
+
+  return weekdayCount;
+
+}
+buildSemesterMapButton
+  .addEventListener(
+    "click",
+    buildSemesterMap
+  );
+
+
+
+function buildSemesterMap() {
+
+  const startDate =
+    document
+      .getElementById(
+        "semesterStart"
+      )
+      .value;
+
+
+  const endDate =
+    document
+      .getElementById(
+        "semesterEnd"
+      )
+      .value;
+
+
+  const schedule =
+    document
+      .getElementById(
+        "semesterSchedule"
+      )
+      .value;
+
+
+  const rotation =
+    document
+      .getElementById(
+        "courseRotation"
+      )
+      .value;
+
+
+  const units =
+    getSemesterUnits();
+
+
+  if (
+    !startDate
+    ||
+    !endDate
+  ) {
+
+    alert(
+      "Enter the semester start and end dates."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    new Date(startDate)
+    >
+    new Date(endDate)
+  ) {
+
+    alert(
+      "Semester end date must come after the start date."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    units.length === 0
+  ) {
+
+    alert(
+      "Add at least one unit."
+    );
+
+    return;
+
+  }
+
+
+  const weekdays =
+    countWeekdays(
+      startDate,
+      endDate
+    );
+
+
+  const availableMeetings =
+    calculateAvailableMeetings(
+      weekdays,
+      schedule,
+      rotation
+    );
+
+
+  const requiredMeetings =
+    units.reduce(
+      (
+        total,
+        unit
+      ) =>
+        total + unit.meetings,
+      0
+    );
+
+
+  displaySemesterMap({
+
+    startDate:
+      startDate,
+
+    endDate:
+      endDate,
+
+    availableMeetings:
+      availableMeetings,
+
+    requiredMeetings:
+      requiredMeetings,
+
+    units:
+      units
+
+  });
+
+}
+function displaySemesterMap(
+  map
+) {
+
+  const results =
+    document.getElementById(
+      "semesterMapResults"
+    );
+
+
+  let runningMeeting = 1;
+
+
+  const unitCards =
+    map.units
+      .map(
+        unit => {
+
+          const startMeeting =
+            runningMeeting;
+
+
+          const endMeeting =
+            runningMeeting
+            +
+            unit.meetings
+            -
+            1;
+
+
+          runningMeeting =
+            endMeeting + 1;
+
+
+          return `
+
+            <div class="semester-unit-card">
+
+              <strong>
+                ${unit.name}
+              </strong>
+
+              ${unit.meetings}
+              instructional meeting(s)
+
+              <br>
+
+              Planned sequence:
+              Meeting ${startMeeting}
+              →
+              Meeting ${endMeeting}
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  let capacityMessage = "";
+
+
+  const difference =
+    map.availableMeetings
+    -
+    map.requiredMeetings;
+
+
+  if (
+    difference < 0
+  ) {
+
+    capacityMessage = `
+
+      <div class="semester-warning">
+
+        Your current plan requires
+        ${Math.abs(difference)}
+        more instructional meeting(s)
+        than this schedule currently provides.
+
+        Something has to move, combine,
+        or be shortened.
+
+      </div>
+
+    `;
+
+  }
+
+  else {
+
+    capacityMessage = `
+
+      <div class="semester-summary">
+
+        You currently have approximately
+        ${difference}
+        unallocated instructional meeting(s).
+
+        These can eventually be reserved
+        for reteach, testing, projects,
+        interruptions, or schedule changes.
+
+      </div>
+
+    `;
+
+  }
+
+
+  results.innerHTML = `
+
+    <div class="semester-summary">
+
+      <strong>
+        Planning Window
+      </strong>
+
+      <br>
+
+      ${map.startDate}
+      →
+      ${map.endDate}
+
+      <br><br>
+
+      Approximate available meetings:
+      <strong>
+        ${map.availableMeetings}
+      </strong>
+
+      <br>
+
+      Meetings currently planned:
+      <strong>
+        ${map.requiredMeetings}
+      </strong>
+
+    </div>
+
+
+    ${unitCards}
+
+
+    ${capacityMessage}
+
+  `;
+
+
+  results
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+addSemesterUnitRow(
+  "",
+  5
+);
+
+
+addSemesterUnitRow(
+  "",
+  5
+);
+
+
+addSemesterUnitRow(
+  "",
+  5
+);
