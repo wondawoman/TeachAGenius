@@ -3106,7 +3106,18 @@ function saveTeacherSettings() {
       settings
     )
   );
+console.log(
+  "Teacher settings saved:",
+  settings
+);
 
+
+console.log(
+  "Storage immediately after save:",
+  localStorage.getItem(
+    "teachAGeniusSettings"
+  )
+);
 
   settingsSavedMessage
     .classList
