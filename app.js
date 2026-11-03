@@ -417,109 +417,7 @@ SANITIZE LOCAL DATA
 */
 
 
-function createSanitizedDataset(
-  data
-) {
 
-  const identifierWords = [
-
-    "name",
-
-    "student",
-
-    "student id",
-
-    "studentid",
-
-    "id",
-
-    "email",
-
-    "dob",
-
-    "birth",
-
-    "birthday",
-
-    "parent",
-
-    "guardian",
-
-    "address",
-
-    "phone"
-
-  ];
-
-
-  const safeColumnIndexes =
-    data.headers
-      .map(
-        (
-          header,
-          index
-        ) => {
-
-          const normalized =
-            header
-              .toLowerCase()
-              .trim();
-
-
-          const isIdentifier =
-            identifierWords
-              .some(
-                word =>
-                  normalized === word ||
-                  normalized.includes(
-                    word
-                  )
-              );
-
-
-          return isIdentifier
-            ? null
-            : index;
-
-        }
-      )
-      .filter(
-        index =>
-          index !== null
-      );
-
-
-  const safeHeaders =
-    safeColumnIndexes
-      .map(
-        index =>
-          data.headers[index]
-      );
-
-
-  const safeRows =
-    data.rows
-      .map(
-        row =>
-          safeColumnIndexes
-            .map(
-              index =>
-                row[index]
-            )
-      );
-
-
-  return {
-
-    headers:
-      safeHeaders,
-
-    rows:
-      safeRows
-
-  };
-
-}
 
   const possibleIdentifiers =
     headers.filter(
@@ -1383,5 +1281,110 @@ function calculateQuestionPerformance(
 
 
   return results;
+
+}
+
+
+function createSanitizedDataset(
+  data
+) {
+
+  const identifierWords = [
+
+    "name",
+
+    "student",
+
+    "student id",
+
+    "studentid",
+
+    "id",
+
+    "email",
+
+    "dob",
+
+    "birth",
+
+    "birthday",
+
+    "parent",
+
+    "guardian",
+
+    "address",
+
+    "phone"
+
+  ];
+
+
+  const safeColumnIndexes =
+    data.headers
+      .map(
+        (
+          header,
+          index
+        ) => {
+
+          const normalized =
+            header
+              .toLowerCase()
+              .trim();
+
+
+          const isIdentifier =
+            identifierWords
+              .some(
+                word =>
+                  normalized === word ||
+                  normalized.includes(
+                    word
+                  )
+              );
+
+
+          return isIdentifier
+            ? null
+            : index;
+
+        }
+      )
+      .filter(
+        index =>
+          index !== null
+      );
+
+
+  const safeHeaders =
+    safeColumnIndexes
+      .map(
+        index =>
+          data.headers[index]
+      );
+
+
+  const safeRows =
+    data.rows
+      .map(
+        row =>
+          safeColumnIndexes
+            .map(
+              index =>
+                row[index]
+            )
+      );
+
+
+  return {
+
+    headers:
+      safeHeaders,
+
+    rows:
+      safeRows
+
+  };
 
 }
