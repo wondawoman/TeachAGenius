@@ -1270,20 +1270,210 @@
 
       <!-- SETTINGS -->
 
-      <section
-        id="settings"
-        class="page"
+     <section
+  id="settings"
+  class="page"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Teacher Setup
+      </span>
+
+      <h3>
+        Schedule & Instruction Preferences
+      </h3>
+
+      <p>
+        Set your default classroom structure once.
+        The app will use these preferences throughout
+        planning and instructional tools.
+      </p>
+
+    </div>
+
+
+    <div class="local-badge">
+      🔒 Saved on this device
+    </div>
+
+  </div>
+
+
+
+  <div class="settings-panel">
+
+
+    <label>
+
+      School / District Label
+
+      <input
+        type="text"
+        id="schoolLabel"
+        placeholder="Example: HISD, Charter Network, Private School"
       >
 
-        <h3>
-          Teacher Settings
-        </h3>
+    </label>
 
-        <p>
-          Schedule, grading scale and preferences will live here.
-        </p>
 
-      </section>
+
+    <label>
+
+      Default Class Length
+
+      <select id="defaultClassLength">
+
+        <option value="30">
+          30 minutes
+        </option>
+
+        <option value="45">
+          45 minutes
+        </option>
+
+        <option value="60">
+          60 minutes
+        </option>
+
+        <option value="90">
+          90 minutes
+        </option>
+
+      </select>
+
+    </label>
+
+
+
+    <label>
+
+      Schedule Type
+
+      <select id="defaultScheduleType">
+
+        <option value="daily">
+          Daily
+        </option>
+
+        <option value="ab">
+          A/B Block
+        </option>
+
+        <option value="custom">
+          Custom Rotation
+        </option>
+
+      </select>
+
+    </label>
+
+
+
+    <div class="settings-grid">
+
+      <label>
+
+        Do Now Minutes
+
+        <input
+          type="number"
+          id="defaultDoNow"
+          min="0"
+          max="20"
+          value="5"
+        >
+
+      </label>
+
+
+      <label>
+
+        DOL / Exit Ticket Minutes
+
+        <input
+          type="number"
+          id="defaultDol"
+          min="0"
+          max="20"
+          value="10"
+        >
+
+      </label>
+
+    </div>
+
+
+
+    <label>
+
+      Default MRS
+
+      <select id="defaultMrs">
+
+        <option value="turn-talk">
+          Turn and Talk
+        </option>
+
+        <option value="whiteboards">
+          Whiteboards / Response Boards
+        </option>
+
+        <option value="four-corners">
+          Four Corners
+        </option>
+
+        <option value="fist-five">
+          Fist to Five
+        </option>
+
+        <option value="partner-sayback">
+          Partner Say-Back
+        </option>
+
+      </select>
+
+    </label>
+
+
+
+    <label>
+
+      Default Meets Threshold
+
+      <input
+        type="number"
+        id="defaultMeetsThreshold"
+        min="0"
+        max="100"
+        value="70"
+      >
+
+    </label>
+
+
+
+    <button
+      id="saveSettingsButton"
+      class="primary-button"
+    >
+      Save Teacher Setup
+    </button>
+
+
+    <div
+      id="settingsSavedMessage"
+      class="settings-saved-message hidden"
+    >
+      Teacher setup saved on this device.
+    </div>
+
+  </div>
+
+</section>
 
     </main>
 
