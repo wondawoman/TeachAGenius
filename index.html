@@ -104,6 +104,12 @@
           class="nav-button"
           data-page="settings"
         >
+          <button
+  class="nav-button"
+  data-page="grades"
+>
+  Grades
+</button>
           Settings
         </button>
 
@@ -704,7 +710,264 @@
   </div>
 
 
+<!-- GRADES -->
 
+<section
+  id="grades"
+  class="page"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Local Grade Tool
+      </span>
+
+      <h3>
+        Grade Calculator
+      </h3>
+
+      <p>
+        Calculate assignment, category,
+        and weighted grades locally.
+      </p>
+
+    </div>
+
+
+    <div class="local-badge">
+      🔒 Local Processing
+    </div>
+
+  </div>
+
+
+
+  <div class="grade-layout">
+
+
+    <!-- GRADING SCALE -->
+
+    <div class="grade-panel">
+
+      <h4>
+        Grading Scale
+      </h4>
+
+
+      <div class="grade-scale-grid">
+
+        <label>
+          A Minimum
+
+          <input
+            type="number"
+            id="gradeA"
+            value="90"
+            min="0"
+            max="100"
+          >
+        </label>
+
+
+        <label>
+          B Minimum
+
+          <input
+            type="number"
+            id="gradeB"
+            value="80"
+            min="0"
+            max="100"
+          >
+        </label>
+
+
+        <label>
+          C Minimum
+
+          <input
+            type="number"
+            id="gradeC"
+            value="70"
+            min="0"
+            max="100"
+          >
+        </label>
+
+
+        <label>
+          D Minimum
+
+          <input
+            type="number"
+            id="gradeD"
+            value="60"
+            min="0"
+            max="100"
+          >
+        </label>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- CATEGORY WEIGHTS -->
+
+    <div class="grade-panel">
+
+      <h4>
+        Category Weights
+      </h4>
+
+
+      <div
+        id="categoryWeightRows"
+        class="category-weight-rows"
+      >
+
+        <div class="category-weight-row">
+
+          <input
+            type="text"
+            class="category-name"
+            value="Daily"
+            placeholder="Category"
+          >
+
+          <input
+            type="number"
+            class="category-weight"
+            value="40"
+            min="0"
+            max="100"
+          >
+
+          <span>%</span>
+
+        </div>
+
+
+        <div class="category-weight-row">
+
+          <input
+            type="text"
+            class="category-name"
+            value="Major"
+            placeholder="Category"
+          >
+
+          <input
+            type="number"
+            class="category-weight"
+            value="60"
+            min="0"
+            max="100"
+          >
+
+          <span>%</span>
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="addCategoryButton"
+        class="secondary-button"
+      >
+        + Add Category
+      </button>
+
+    </div>
+
+
+
+    <!-- ASSIGNMENTS -->
+
+    <div class="grade-panel">
+
+      <h4>
+        Assignments
+      </h4>
+
+
+      <div
+        id="assignmentRows"
+        class="assignment-rows"
+      >
+      </div>
+
+
+      <button
+        id="addAssignmentButton"
+        class="secondary-button"
+      >
+        + Add Assignment
+      </button>
+
+    </div>
+
+
+
+    <button
+      id="calculateGradeButton"
+      class="primary-button"
+    >
+      Calculate Grade
+    </button>
+
+
+
+    <!-- RESULTS -->
+
+    <div
+      id="gradeResults"
+      class="grade-results hidden"
+    >
+
+      <div class="grade-result-card">
+
+        <span>
+          Weighted Grade
+        </span>
+
+        <strong id="weightedGrade">
+          --
+        </strong>
+
+      </div>
+
+
+      <div class="grade-result-card">
+
+        <span>
+          Letter Grade
+        </span>
+
+        <strong id="letterGrade">
+          --
+        </strong>
+
+      </div>
+
+
+      <div
+        id="categoryResults"
+        class="category-results"
+      >
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
   <!-- SETTINGS -->
 
   <div
