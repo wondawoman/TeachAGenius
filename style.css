@@ -2003,3 +2003,119 @@ button {
   }
 
 }
+/* ==========================================
+   TEACHER SETTINGS
+========================================== */
+
+
+.settings-panel {
+
+  max-width:
+    760px;
+
+  display:
+    grid;
+
+  gap:
+    18px;
+
+  padding:
+    24px;
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--surface);
+
+  box-shadow:
+    var(--shadow);
+
+}
+
+
+.settings-panel label {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+
+  font-weight:
+    bold;
+
+}
+
+
+.settings-panel input,
+.settings-panel select {
+
+  padding:
+    12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+  font:
+    inherit;
+
+}
+
+
+.settings-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:
+    14px;
+
+}
+
+
+.settings-saved-message {
+
+  padding:
+    14px;
+
+  border-radius:
+    10px;
+
+  background:
+    var(--success-soft);
+
+  color:
+    var(--success);
+
+  font-weight:
+    bold;
+
+}
+
+
+@media (
+  max-width: 700px
+) {
+
+  .settings-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
