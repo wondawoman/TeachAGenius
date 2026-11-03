@@ -3095,13 +3095,41 @@ function saveTeacherSettings() {
         .value,
 
     meetsThreshold:
-      Number(
-        document
-          .getElementById(
-            "defaultMeetsThreshold"
-          )
-          .value
+  Number(
+    document
+      .getElementById(
+        "defaultMeetsThreshold"
       )
+      .value
+  ),
+
+thanksgivingBreakDate:
+  document
+    .getElementById(
+      "thanksgivingBreakDate"
+    )
+    .value,
+
+winterBreakDate:
+  document
+    .getElementById(
+      "winterBreakDate"
+    )
+    .value,
+
+springBreakDate:
+  document
+    .getElementById(
+      "springBreakDate"
+    )
+    .value,
+
+summerBreakDate:
+  document
+    .getElementById(
+      "summerBreakDate"
+    )
+    .value
 
   };
 
@@ -3229,6 +3257,40 @@ function loadTeacherSettings() {
       settings.meetsThreshold
       ?? 70;
 
+  document
+  .getElementById(
+    "thanksgivingBreakDate"
+  )
+  .value =
+    settings.thanksgivingBreakDate
+    || "";
+
+
+document
+  .getElementById(
+    "winterBreakDate"
+  )
+  .value =
+    settings.winterBreakDate
+    || "";
+
+
+document
+  .getElementById(
+    "springBreakDate"
+  )
+  .value =
+    settings.springBreakDate
+    || "";
+
+
+document
+  .getElementById(
+    "summerBreakDate"
+  )
+  .value =
+    settings.summerBreakDate
+    || "";
 
   applyTeacherSettings(
     settings
@@ -3241,7 +3303,28 @@ APPLY TEACHER SETTINGS
 ==============================================
 */
 
+const thanksgivingBreakDate =
+  document.getElementById(
+    "thanksgivingBreakDate"
+  );
 
+
+const winterBreakDate =
+  document.getElementById(
+    "winterBreakDate"
+  );
+
+
+const springBreakDate =
+  document.getElementById(
+    "springBreakDate"
+  );
+
+
+const summerBreakDate =
+  document.getElementById(
+    "summerBreakDate"
+  );
 function applyTeacherSettings(
   settings
 ) {
@@ -3310,7 +3393,48 @@ function applyTeacherSettings(
     meetsThreshold.value =
       settings.meetsThreshold
       ?? 70;
+if (
+  thanksgivingBreakDate
+) {
 
+  thanksgivingBreakDate.value =
+    settings.thanksgivingBreakDate
+    || "";
+
+}
+
+
+if (
+  winterBreakDate
+) {
+
+  winterBreakDate.value =
+    settings.winterBreakDate
+    || "";
+
+}
+
+
+if (
+  springBreakDate
+) {
+
+  springBreakDate.value =
+    settings.springBreakDate
+    || "";
+
+}
+
+
+if (
+  summerBreakDate
+) {
+
+  summerBreakDate.value =
+    settings.summerBreakDate
+    || "";
+
+}
   }
 
 }
