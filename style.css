@@ -1241,3 +1241,172 @@ button {
   }
 
 }
+/* ==========================================
+   STANDARD / SKILL MAPPING
+========================================== */
+
+
+.standard-mapping-section {
+
+  margin:
+    26px 0;
+
+  padding-top:
+    22px;
+
+  border-top:
+    1px solid
+    var(--border);
+
+}
+
+
+.standard-mapping-section h4 {
+
+  margin:
+    0 0 6px;
+
+}
+
+
+.standard-mapping-section p {
+
+  margin:
+    0 0 18px;
+
+  color:
+    var(--muted);
+
+}
+
+
+.standard-mapping {
+
+  display:
+    grid;
+
+  gap:
+    12px;
+
+}
+
+
+.mapping-row {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    110px 1fr;
+
+  gap:
+    12px;
+
+  align-items:
+    center;
+
+}
+
+
+.mapping-question {
+
+  font-weight:
+    bold;
+
+}
+
+
+.mapping-row input {
+
+  width:
+    100%;
+
+  padding:
+    11px 12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+
+}
+
+
+.skill-summary {
+
+  margin-top:
+    24px;
+
+}
+
+
+.skill-card {
+
+  margin-bottom:
+    12px;
+
+  padding:
+    16px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    14px;
+
+  background:
+    var(--surface);
+
+}
+
+
+.skill-card strong {
+
+  display:
+    block;
+
+  margin-bottom:
+    5px;
+
+}
+
+
+.skill-card span {
+
+  color:
+    var(--muted);
+
+}
+
+
+.reteach-whole {
+
+  border-left:
+    5px solid
+    #b42318;
+
+}
+
+
+.reteach-small {
+
+  border-left:
+    5px solid
+    #d97706;
+
+}
+
+
+.reteach-good {
+
+  border-left:
+    5px solid
+    var(--success);
+
+}
