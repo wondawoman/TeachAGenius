@@ -2480,3 +2480,516 @@ function getMrsLabel(
     || strategy;
 
 }
+/*
+==============================================
+DIFFERENTIATION ENGINE
+==============================================
+*/
+
+
+const generateSupportButton =
+  document.getElementById(
+    "generateSupportButton"
+  );
+
+
+const sendSupportsToLessonButton =
+  document.getElementById(
+    "sendSupportsToLessonButton"
+  );
+
+
+let currentSupportPlan = null;
+
+
+
+generateSupportButton
+  .addEventListener(
+    "click",
+    generateDifferentiationPlan
+  );
+
+
+
+function generateDifferentiationPlan() {
+
+  const alias =
+    document
+      .getElementById(
+        "learnerAlias"
+      )
+      .value
+      .trim();
+
+
+  const languageSupport =
+    document
+      .getElementById(
+        "languageSupport"
+      )
+      .value;
+
+
+  const observation =
+    document
+      .getElementById(
+        "learningObservation"
+      )
+      .value
+      .trim();
+
+
+  const selectedSupports =
+    Array
+      .from(
+        document.querySelectorAll(
+          ".support-check:checked"
+        )
+      )
+      .map(
+        checkbox =>
+          checkbox.value
+      );
+
+
+  if (
+    !alias
+  ) {
+
+    alert(
+      "Enter a non-identifying learner alias first."
+    );
+
+    return;
+
+  }
+
+
+  const supports =
+    buildSupportRecommendations(
+      languageSupport,
+      selectedSupports,
+      observation
+    );
+
+
+  currentSupportPlan = {
+
+    alias:
+      alias,
+
+    languageSupport:
+      languageSupport,
+
+    selectedSupports:
+      selectedSupports,
+
+    observation:
+      observation,
+
+    recommendations:
+      supports
+
+  };
+
+
+  displayDifferentiationPlan(
+    currentSupportPlan
+  );
+
+}
+/*
+==============================================
+SUPPORT RECOMMENDATION RULES
+==============================================
+*/
+
+
+function buildSupportRecommendations(
+  languageSupport,
+  selectedSupports,
+  observation
+) {
+
+  const recommendations = [];
+
+
+  if (
+    languageSupport === "light"
+  ) {
+
+    recommendations.push({
+
+      title:
+        "Language Access",
+
+      text:
+        "Preview key academic vocabulary and provide sentence stems for discussion or written response."
+
+    });
+
+  }
+
+
+  if (
+    languageSupport === "moderate"
+  ) {
+
+    recommendations.push({
+
+      title:
+        "Language Access",
+
+      text:
+        "Use visuals, modeled examples, vocabulary support, structured partner rehearsal, and sentence stems before independent response."
+
+    });
+
+  }
+
+
+  if (
+    languageSupport === "intensive"
+  ) {
+
+    recommendations.push({
+
+      title:
+        "Language Access",
+
+      text:
+        "Provide translated directions when appropriate, visual modeling, repeated oral rehearsal, structured peer support, and simplified language without reducing the academic target."
+
+    });
+
+  }
+
+
+
+  selectedSupports.forEach(
+    support => {
+
+      const recommendation =
+        getSupportRecommendation(
+          support
+        );
+
+
+      if (
+        recommendation
+      ) {
+
+        recommendations.push(
+          recommendation
+        );
+
+      }
+
+    }
+  );
+
+
+  if (
+    observation
+  ) {
+
+    recommendations.push({
+
+      title:
+        "Teacher Observation",
+
+      text:
+        "Use the teacher observation as a check point during guided practice: "
+        + observation
+
+    });
+
+  }
+
+
+  return recommendations;
+
+}
+/*
+==============================================
+SUPPORT STRATEGY LIBRARY
+==============================================
+*/
+
+
+function getSupportRecommendation(
+  support
+) {
+
+  const strategies = {
+
+
+    visuals: {
+
+      title:
+        "Visual Support",
+
+      text:
+        "Pair directions and examples with a visible model, exemplar, image, diagram, or demonstration."
+
+    },
+
+
+    chunking: {
+
+      title:
+        "Chunk Directions",
+
+      text:
+        "Break multi-step tasks into smaller sections and confirm completion before moving to the next step."
+
+    },
+
+
+    processing: {
+
+      title:
+        "Processing Time",
+
+      text:
+        "Build additional think time before requiring an oral or written response."
+
+    },
+
+
+    modeling: {
+
+      title:
+        "Repeated Modeling",
+
+      text:
+        "Provide another modeled example before independent practice and explicitly narrate the thinking process."
+
+    },
+
+
+    vocabulary: {
+
+      title:
+        "Vocabulary Scaffold",
+
+      text:
+        "Preteach essential vocabulary and keep key terms visible during practice."
+
+    },
+
+
+    partner: {
+
+      title:
+        "Structured Partner Talk",
+
+      text:
+        "Allow rehearsal with a partner before whole-group or independent response."
+
+    },
+
+
+    writing: {
+
+      title:
+        "Response Load",
+
+      text:
+        "Reduce unnecessary writing volume while maintaining the same academic thinking requirement."
+
+    },
+
+
+    movement: {
+
+      title:
+        "Movement / Reset",
+
+      text:
+        "Build a brief structured movement or reset opportunity before the next sustained learning task."
+
+    },
+
+
+    checkins: {
+
+      title:
+        "Teacher Check-Ins",
+
+      text:
+        "Schedule brief teacher check-ins during guided and independent practice rather than waiting until the DOL."
+
+    },
+
+
+    extension: {
+
+      title:
+        "Extension",
+
+      text:
+        "Increase complexity, transfer, justification, or real-world application rather than adding repetitive work."
+
+    }
+
+  };
+
+
+  return strategies[support]
+    || null;
+
+}
+/*
+==============================================
+DISPLAY DIFFERENTIATION PLAN
+==============================================
+*/
+
+
+function displayDifferentiationPlan(
+  plan
+) {
+
+  const supportResults =
+    document.getElementById(
+      "supportResults"
+    );
+
+
+  const supportAlias =
+    document.getElementById(
+      "supportAlias"
+    );
+
+
+  const supportPlan =
+    document.getElementById(
+      "supportPlan"
+    );
+
+
+  supportAlias.textContent =
+    plan.alias;
+
+
+  const supportHtml =
+    plan.recommendations
+      .map(
+        recommendation => {
+
+          return `
+
+            <div class="support-item">
+
+              <strong>
+                ${recommendation.title}
+              </strong>
+
+              <span>
+                ${recommendation.text}
+              </span>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  supportPlan.innerHTML =
+    supportHtml;
+
+
+  supportResults
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+/*
+==============================================
+DIFFERENTIATION → LESSON BUILDER
+==============================================
+*/
+
+
+sendSupportsToLessonButton
+  .addEventListener(
+    "click",
+    sendSupportsToLesson
+  );
+
+
+
+function sendSupportsToLesson() {
+
+  if (
+    !currentSupportPlan
+  ) {
+
+    alert(
+      "Generate a support plan first."
+    );
+
+    return;
+
+  }
+
+
+  const classContext =
+    document.getElementById(
+      "classContext"
+    );
+
+
+  const supportSummary =
+    currentSupportPlan
+      .recommendations
+      .map(
+        item =>
+          item.title
+          + ": "
+          + item.text
+      )
+      .join(" ");
+
+
+  const existingContext =
+    classContext
+      .value
+      .trim();
+
+
+  if (
+    existingContext
+  ) {
+
+    classContext.value =
+      existingContext
+      + "\n\nAnonymous Learner Support — "
+      + currentSupportPlan.alias
+      + ": "
+      + supportSummary;
+
+  }
+
+  else {
+
+    classContext.value =
+      "Anonymous Learner Support — "
+      + currentSupportPlan.alias
+      + ": "
+      + supportSummary;
+
+  }
+
+
+  navigateTo(
+    "plan"
+  );
+
+}
