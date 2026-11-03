@@ -3007,3 +3007,301 @@ function sendSupportsToLesson() {
   );
 
 }
+/*
+==============================================
+TEACHER SETTINGS
+==============================================
+*/
+
+
+const saveSettingsButton =
+  document.getElementById(
+    "saveSettingsButton"
+  );
+
+
+const settingsSavedMessage =
+  document.getElementById(
+    "settingsSavedMessage"
+  );
+
+
+
+saveSettingsButton
+  .addEventListener(
+    "click",
+    saveTeacherSettings
+  );
+
+
+
+function saveTeacherSettings() {
+
+  const settings = {
+
+    schoolLabel:
+      document
+        .getElementById(
+          "schoolLabel"
+        )
+        .value
+        .trim(),
+
+    classLength:
+      Number(
+        document
+          .getElementById(
+            "defaultClassLength"
+          )
+          .value
+      ),
+
+    scheduleType:
+      document
+        .getElementById(
+          "defaultScheduleType"
+        )
+        .value,
+
+    doNowMinutes:
+      Number(
+        document
+          .getElementById(
+            "defaultDoNow"
+          )
+          .value
+      ),
+
+    dolMinutes:
+      Number(
+        document
+          .getElementById(
+            "defaultDol"
+          )
+          .value
+      ),
+
+    defaultMrs:
+      document
+        .getElementById(
+          "defaultMrs"
+        )
+        .value,
+
+    meetsThreshold:
+      Number(
+        document
+          .getElementById(
+            "defaultMeetsThreshold"
+          )
+          .value
+      )
+
+  };
+
+
+  localStorage.setItem(
+    "teachAGeniusSettings",
+    JSON.stringify(
+      settings
+    )
+  );
+
+
+  settingsSavedMessage
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+  applyTeacherSettings(
+    settings
+  );
+
+}
+/*
+==============================================
+LOAD TEACHER SETTINGS
+==============================================
+*/
+
+
+function loadTeacherSettings() {
+
+  const savedSettings =
+    localStorage.getItem(
+      "teachAGeniusSettings"
+    );
+
+
+  if (
+    !savedSettings
+  ) {
+
+    return;
+
+  }
+
+
+  const settings =
+    JSON.parse(
+      savedSettings
+    );
+
+
+  document
+    .getElementById(
+      "schoolLabel"
+    )
+    .value =
+      settings.schoolLabel
+      || "";
+
+
+  document
+    .getElementById(
+      "defaultClassLength"
+    )
+    .value =
+      settings.classLength
+      || 90;
+
+
+  document
+    .getElementById(
+      "defaultScheduleType"
+    )
+    .value =
+      settings.scheduleType
+      || "daily";
+
+
+  document
+    .getElementById(
+      "defaultDoNow"
+    )
+    .value =
+      settings.doNowMinutes
+      ?? 5;
+
+
+  document
+    .getElementById(
+      "defaultDol"
+    )
+    .value =
+      settings.dolMinutes
+      ?? 10;
+
+
+  document
+    .getElementById(
+      "defaultMrs"
+    )
+    .value =
+      settings.defaultMrs
+      || "turn-talk";
+
+
+  document
+    .getElementById(
+      "defaultMeetsThreshold"
+    )
+    .value =
+      settings.meetsThreshold
+      ?? 70;
+
+
+  applyTeacherSettings(
+    settings
+  );
+
+}
+/*
+==============================================
+APPLY TEACHER SETTINGS
+==============================================
+*/
+
+
+function applyTeacherSettings(
+  settings
+) {
+
+  const classLength =
+    document.getElementById(
+      "classLength"
+    );
+
+
+  const scheduleType =
+    document.getElementById(
+      "scheduleType"
+    );
+
+
+  const mrsStrategy =
+    document.getElementById(
+      "mrsStrategy"
+    );
+
+
+  const meetsThreshold =
+    document.getElementById(
+      "meetsThreshold"
+    );
+
+
+  if (
+    classLength
+  ) {
+
+    classLength.value =
+      settings.classLength
+      || 90;
+
+  }
+
+
+  if (
+    scheduleType
+  ) {
+
+    scheduleType.value =
+      settings.scheduleType
+      || "daily";
+
+  }
+
+
+  if (
+    mrsStrategy
+  ) {
+
+    mrsStrategy.value =
+      settings.defaultMrs
+      || "turn-talk";
+
+  }
+
+
+  if (
+    meetsThreshold
+  ) {
+
+    meetsThreshold.value =
+      settings.meetsThreshold
+      ?? 70;
+
+  }
+
+}
+/*
+==============================================
+INITIALIZE TEACHER SETTINGS
+==============================================
+*/
+
+
+loadTeacherSettings();
