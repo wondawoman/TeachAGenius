@@ -559,7 +559,154 @@
 
 
   </div>
+<div class="semester-map-panel">
 
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Semester Planning
+      </span>
+
+      <h4>
+        YAG / Semester-at-a-Glance
+      </h4>
+
+      <p>
+        Map curriculum against the time
+        you actually have with students.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="semester-settings-grid">
+
+
+    <label>
+
+      Semester Start
+
+      <input
+        type="date"
+        id="semesterStart"
+      >
+
+    </label>
+
+
+    <label>
+
+      Semester End
+
+      <input
+        type="date"
+        id="semesterEnd"
+      >
+
+    </label>
+
+
+    <label>
+
+      Schedule
+
+      <select id="semesterSchedule">
+
+        <option value="daily">
+          Daily
+        </option>
+
+        <option value="ab">
+          A/B Rotation
+        </option>
+
+        <option value="custom">
+          Custom Rotation
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <label>
+
+      This Course Meets On
+
+      <select id="courseRotation">
+
+        <option value="every">
+          Every Instructional Day
+        </option>
+
+        <option value="a">
+          A Days
+        </option>
+
+        <option value="b">
+          B Days
+        </option>
+
+      </select>
+
+    </label>
+
+  </div>
+
+
+  <div class="semester-unit-builder">
+
+    <div>
+
+      <h5>
+        Units
+      </h5>
+
+      <p>
+        Add the units you expect to cover
+        and the number of class meetings
+        each one needs.
+      </p>
+
+    </div>
+
+
+    <div
+      id="semesterUnitRows"
+      class="semester-unit-rows"
+    >
+    </div>
+
+
+    <button
+      id="addSemesterUnitButton"
+      class="secondary-button"
+    >
+      + Add Unit
+    </button>
+
+  </div>
+
+
+  <button
+    id="buildSemesterMapButton"
+    class="primary-button"
+  >
+    Build Semester Map
+  </button>
+
+
+  <div
+    id="semesterMapResults"
+    class="semester-map-results hidden"
+  >
+  </div>
+
+</div>
 </section>
       <!-- PLAN -->
 
