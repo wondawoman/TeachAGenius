@@ -3163,7 +3163,7 @@ console.log(
   applyTeacherSettings(
     settings
   );
-
+renderBreakCountdowns();
 }
 /*
 ==============================================
@@ -6233,3 +6233,260 @@ function getCalendarInterruptions() {
 
 }
 // Deployment refresh
+/*
+==============================================
+BREAK COUNTDOWN ENGINE
+==============================================
+*/
+
+
+function countSchoolDaysUntil(
+  targetDate
+) {
+
+  if (
+    !targetDate
+  ) {
+
+    return null;
+
+  }
+
+
+  const today =
+    new Date();
+
+
+  today.setHours(
+    12,
+    0,
+    0,
+    0
+  );
+
+
+  const target =
+    new Date(
+      targetDate
+      + "T12:00:00"
+    );
+
+
+  if (
+    target < today
+  ) {
+
+    return 0;
+
+  }
+
+
+  let schoolDays = 0;
+
+
+  const current =
+    new Date(
+      today
+    );
+
+
+  while (
+    current < target
+  ) {
+
+    current.setDate(
+      current.getDate()
+      + 1
+    );
+
+
+    const day =
+      current.getDay();
+
+
+    const isWeekday =
+      day !== 0
+      &&
+      day !== 6;
+
+
+    if (
+      isWeekday
+    ) {
+
+      schoolDays++;
+
+    }
+
+  }
+
+
+  return schoolDays;
+
+}
+function getBreakCountdownData(
+  settings
+) {
+
+  return [
+
+    {
+      label:
+        "🍂 Thanksgiving Break",
+
+      date:
+        settings.thanksgivingBreakDate
+    },
+
+    {
+      label:
+        "❄️ Winter Break",
+
+      date:
+        settings.winterBreakDate
+    },
+
+    {
+      label:
+        "🌸 Spring Break",
+
+      date:
+        settings.springBreakDate
+    },
+
+    {
+      label:
+        "☀️ Summer Break",
+
+      date:
+        settings.summerBreakDate
+    }
+
+  ];
+
+}
+function renderBreakCountdowns() {
+
+  const container =
+    document.getElementById(
+      "breakCountdownCards"
+    );
+
+
+  if (
+    !container
+  ) {
+
+    return;
+
+  }
+
+
+  const savedSettings =
+    localStorage.getItem(
+      "teachAGeniusSettings"
+    );
+
+
+  if (
+    !savedSettings
+  ) {
+
+    container.innerHTML = `
+
+      <div class="break-countdown-empty">
+
+        Add your break dates in Teacher Settings
+        to start the countdown.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const settings =
+    JSON.parse(
+      savedSettings
+    );
+
+
+  const breaks =
+    getBreakCountdownData(
+      settings
+    );
+
+
+  const activeBreaks =
+    breaks.filter(
+      item =>
+        item.date
+    );
+
+
+  if (
+    activeBreaks.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="break-countdown-empty">
+
+        Add your break dates in Teacher Settings
+        to start the countdown.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    activeBreaks
+      .map(
+        item => {
+
+          const schoolDays =
+            countSchoolDaysUntil(
+              item.date
+            );
+
+
+          const dayWord =
+            schoolDays === 1
+              ? "school day"
+              : "school days";
+
+
+          return `
+
+            <div class="break-countdown-card">
+
+              <span>
+                ${item.label}
+              </span>
+
+              <strong>
+                ${schoolDays}
+              </strong>
+
+              <p>
+                ${dayWord} remaining
+              </p>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+renderBreakCountdowns();
