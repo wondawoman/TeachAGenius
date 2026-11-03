@@ -1243,13 +1243,27 @@ const skillCards =
             <p>
               ${item.recommendation}
             </p>
-<button
-  class="reteach-button"
-  data-skill="${item.skill}"
-  data-average="${item.average}"
->
-  Build Reteach
-</button>
+${
+  item.average < 75
+    ? `
+      <button
+        class="reteach-button"
+        data-skill="${item.skill}"
+        data-average="${item.average}"
+      >
+        Build Reteach
+      </button>
+    `
+    : `
+      <button
+        class="reteach-button"
+        data-skill="${item.skill}"
+        data-average="${item.average}"
+      >
+        Build Extension
+      </button>
+    `
+}
           </div>
 
         `;
