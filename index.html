@@ -916,20 +916,317 @@
 
       <!-- DIFFERENTIATION -->
 
-      <section
-        id="differentiate"
-        class="page"
+   <section
+  id="differentiate"
+  class="page"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Anonymous Learner Supports
+      </span>
+
+      <h3>
+        Differentiation Engine
+      </h3>
+
+      <p>
+        Build instructional supports without storing
+        student-identifying information.
+      </p>
+
+    </div>
+
+
+    <div class="local-badge">
+      🔒 Local Only
+    </div>
+
+  </div>
+
+
+
+  <div class="privacy-notice">
+
+    <div class="privacy-notice-icon">
+      🛡️
+    </div>
+
+    <div>
+
+      <strong>
+        Do not enter student names or identifying information.
+      </strong>
+
+      <p>
+        Use a temporary alias such as Lotus, River, Iris,
+        Nova, Oak, or another non-identifying label.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="differentiation-layout">
+
+
+    <!-- PROFILE BUILDER -->
+
+    <div class="learner-profile-panel">
+
+      <h4>
+        Learner Support Profile
+      </h4>
+
+
+      <label>
+
+        Anonymous Alias
+
+        <input
+          type="text"
+          id="learnerAlias"
+          placeholder="Example: Lotus"
+        >
+
+      </label>
+
+
+
+      <label>
+
+        Language Support Level
+
+        <select id="languageSupport">
+
+          <option value="none">
+            No additional language support
+          </option>
+
+          <option value="light">
+            Light language support
+          </option>
+
+          <option value="moderate">
+            Moderate language support
+          </option>
+
+          <option value="intensive">
+            Intensive language support
+          </option>
+
+        </select>
+
+      </label>
+
+
+
+      <div class="support-group">
+
+        <h5>
+          Learning Supports
+        </h5>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="visuals"
+            class="support-check"
+          >
+
+          Visual examples / models
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="chunking"
+            class="support-check"
+          >
+
+          Chunked directions
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="processing"
+            class="support-check"
+          >
+
+          Extended processing time
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="modeling"
+            class="support-check"
+          >
+
+          Repeated modeling
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="vocabulary"
+            class="support-check"
+          >
+
+          Vocabulary scaffolds
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="partner"
+            class="support-check"
+          >
+
+          Structured partner talk
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="writing"
+            class="support-check"
+          >
+
+          Reduced writing load
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="movement"
+            class="support-check"
+          >
+
+          Movement / reset opportunity
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="checkins"
+            class="support-check"
+          >
+
+          Frequent teacher check-ins
+
+        </label>
+
+
+        <label class="check-option">
+
+          <input
+            type="checkbox"
+            value="extension"
+            class="support-check"
+          >
+
+          Needs extension / enrichment
+
+        </label>
+
+      </div>
+
+
+
+      <label>
+
+        Learning Observation
+
+        <textarea
+          id="learningObservation"
+          rows="4"
+          placeholder="Example: Understands the concept during modeling but hesitates to explain thinking independently."
+        ></textarea>
+
+      </label>
+
+
+
+      <button
+        id="generateSupportButton"
+        class="primary-button"
       >
+        Generate Supports
+      </button>
 
-        <h3>
-          Differentiation
-        </h3>
+    </div>
 
-        <p>
-          Learning support tools will be built here.
-        </p>
 
-      </section>
+
+    <!-- RESULTS -->
+
+    <div
+      id="supportResults"
+      class="support-results hidden"
+    >
+
+      <span class="eyebrow">
+        Differentiation Plan
+      </span>
+
+      <h4 id="supportAlias">
+        Learner
+      </h4>
+
+
+      <div
+        id="supportPlan"
+        class="support-plan"
+      >
+      </div>
+
+
+      <button
+        id="sendSupportsToLessonButton"
+        class="secondary-button"
+      >
+        Add Supports to Lesson Builder
+      </button>
+
+    </div>
+
+
+  </div>
+
+</section>
 
 
 
