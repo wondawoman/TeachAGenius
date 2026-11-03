@@ -1239,20 +1239,243 @@
 
       <!-- CLASSROOM -->
 
-      <section
-        id="classroom"
-        class="page"
+    <section
+  id="classroom"
+  class="page"
+>
+
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Instructional Moves
+      </span>
+
+      <h3>
+        Classroom Engine
+      </h3>
+
+      <p>
+        Generate MRS, CFUs, at-bats,
+        and questioning moves based on
+        what is happening in the room.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="classroom-engine-layout">
+
+
+    <div class="classroom-engine-panel">
+
+      <h4>
+        Classroom Situation
+      </h4>
+
+
+      <label>
+
+        Lesson Phase
+
+        <select id="lessonPhase">
+
+          <option value="launch">
+            Launch / Opening
+          </option>
+
+          <option value="direct">
+            Direct Instruction
+          </option>
+
+          <option value="guided">
+            Guided Practice
+          </option>
+
+          <option value="independent">
+            Independent Practice
+          </option>
+
+          <option value="closure">
+            Closure / DOL
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+
+        Class Size
+
+        <select id="classSize">
+
+          <option value="small">
+            Small — under 15
+          </option>
+
+          <option value="medium" selected>
+            Medium — 15 to 25
+          </option>
+
+          <option value="large">
+            Large — 26+
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+
+        Current Response Level
+
+        <select id="responseLevel">
+
+          <option value="strong">
+            Most students are responding
+          </option>
+
+          <option value="mixed" selected>
+            Responses are mixed
+          </option>
+
+          <option value="low">
+            Very few students are responding
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+
+        Current Engagement
+
+        <select id="engagementLevel">
+
+          <option value="high">
+            High
+          </option>
+
+          <option value="medium" selected>
+            Medium
+          </option>
+
+          <option value="low">
+            Low
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+
+        Skill Difficulty
+
+        <select id="difficultyLevel">
+
+          <option value="intro">
+            Introductory
+          </option>
+
+          <option value="moderate" selected>
+            Moderate
+          </option>
+
+          <option value="complex">
+            Complex / Higher-order
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <label>
+
+        What do you need right now?
+
+        <select id="instructionalNeed">
+
+          <option value="mrs">
+            Get everyone responding
+          </option>
+
+          <option value="cfu">
+            Check understanding
+          </option>
+
+          <option value="reteach">
+            Respond to confusion
+          </option>
+
+          <option value="questioning">
+            Push thinking deeper
+          </option>
+
+          <option value="atbats">
+            Increase practice opportunities
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <button
+        id="generateClassroomMoveButton"
+        class="primary-button"
       >
+        Generate Classroom Move
+      </button>
 
-        <h3>
-          Classroom Strategies
-        </h3>
+    </div>
 
-        <p>
-          MRS, CFU and at-bat tools will be built here.
-        </p>
 
-      </section>
+
+    <div
+      id="classroomMoveResults"
+      class="classroom-move-results hidden"
+    >
+
+      <span class="eyebrow">
+        Recommended Move
+      </span>
+
+      <h4 id="classroomMoveTitle">
+        --
+      </h4>
+
+
+      <div
+        id="classroomMovePlan"
+        class="classroom-move-plan"
+      >
+      </div>
+
+
+      <button
+        id="sendMoveToLessonButton"
+        class="secondary-button"
+      >
+        Add to Lesson Builder
+      </button>
+
+    </div>
+
+
+  </div>
+
+</section>
 
 
 
