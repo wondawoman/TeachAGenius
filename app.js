@@ -7225,7 +7225,7 @@ function runPacingCheck() {
     buildSemesterMap().
   */
 
-}
+
 const startDate =
   document.getElementById(
     "semesterStart"
@@ -7262,7 +7262,7 @@ if (
     "Add your semester start and end dates before checking pacing."
   );
 
- 
+ return;
 
 }
 
