@@ -6667,7 +6667,7 @@ function getCalendarEventTitle(
 
 }
 const GOOGLE_CALENDAR_BRIDGE_URL =
-  "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+  "https://script.google.com/macros/s/AKfycbyaFVf9DqQM2Lv2Dw7ueTMMV7gfstaDVoG34s0vMAGrujOfyFuf7sdEqSc3EetVle0a/exec";
 async function sendCalendarRemindersToGoogle() {
 
   const events =
