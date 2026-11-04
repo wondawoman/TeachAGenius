@@ -6135,29 +6135,46 @@ function addCalendarInterruptionRow() {
       class="interruption-note"
       placeholder="Optional note"
     >
-    
-<select class="interruption-calendar-choice">
+    <button
+  type="button"
+  class="calendar-add-button secondary-button"
+>
+  Add to Google Calendar
+</button>
 
-  <option value="no">
-    Do not add
-  </option>
-
-  <option value="yes">
-    Add to calendar
-  </option>
-
-</select>
 
     <button
       type="button"
       class="remove-row-button"
       title="Remove interruption"
     >
-      ×
+      Remove
     </button>
 
   `;
+const calendarButton =
+  row.querySelector(
+    ".calendar-add-button"
+  );
 
+
+if (
+  calendarButton
+) {
+
+  calendarButton
+    .addEventListener(
+      "click",
+      function () {
+
+        addCalendarInterruptionToGoogle(
+          row
+        );
+
+      }
+    );
+
+}
 
   row
     .querySelector(
@@ -6216,12 +6233,7 @@ function getCalendarInterruptions() {
           .value
           .trim();
       
-const calendarChoice =
-  row
-    .querySelector(
-      ".interruption-calendar-choice"
-    )
-    .value;
+
 
       if (
         date
@@ -6236,10 +6248,9 @@ const calendarChoice =
             date,
 
           note:
-            note,
+            note
             
-calendarChoice:
-  calendarChoice
+
         
         });
 
@@ -6852,54 +6863,43 @@ function getNextCalendarDate(
   );
 
 }
-function getSelectedCalendarEvents() {
-
-  const interruptions =
-    getCalendarInterruptions();
 
 
-  return interruptions
-    .filter(
-      item =>
-        item.calendarChoice
-        ===
-        "yes"
-    )
-    .map(
-      item => {
+function addCalendarInterruptionToGoogle(
+  row
+) {
 
-        return {
+  const type =
+    row
+      .querySelector(
+        ".interruption-type"
+      )
+      .value;
 
-          title:
-            getCalendarEventTitle(
-              item.type,
-              item.note
-            ),
 
-          date:
-            item.date,
+  const date =
+    row
+      .querySelector(
+        ".interruption-date"
+      )
+      .value;
 
-          details:
-            "School calendar event added from TeachAGenius."
 
-        };
-
-      }
-    );
-
-}
-function addSelectedEventsToGoogleCalendar() {
-
-  const events =
-    getSelectedCalendarEvents();
+  const note =
+    row
+      .querySelector(
+        ".interruption-note"
+      )
+      .value
+      .trim();
 
 
   if (
-    events.length === 0
+    !date
   ) {
 
     alert(
-      "Choose at least one event to add to Google Calendar."
+      "Add a date before sending this event to Google Calendar."
     );
 
     return;
@@ -6907,24 +6907,26 @@ function addSelectedEventsToGoogleCalendar() {
   }
 
 
-  if (
-    events.length > 1
-  ) {
+  const eventData = {
 
-    alert(
-      "For now, TeachAGenius will open the first selected event. Save it, then return for the next one."
-    );
+    title:
+      getCalendarEventTitle(
+        type,
+        note
+      ),
 
-  }
+    date:
+      date,
 
+    details:
+      "School calendar event added from TeachAGenius."
 
-  const event =
-    events[0];
+  };
 
 
   const googleUrl =
     buildGoogleCalendarUrl(
-      event
+      eventData
     );
 
 
@@ -6932,22 +6934,5 @@ function addSelectedEventsToGoogleCalendar() {
     googleUrl,
     "_blank"
   );
-
-}
-const addSelectedEventsToGoogleButton =
-  document.getElementById(
-    "addSelectedEventsToGoogleButton"
-  );
-
-
-if (
-  addSelectedEventsToGoogleButton
-) {
-
-  addSelectedEventsToGoogleButton
-    .addEventListener(
-      "click",
-      addSelectedEventsToGoogleCalendar
-    );
 
 }
