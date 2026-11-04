@@ -6136,22 +6136,14 @@ function addCalendarInterruptionRow() {
       placeholder="Optional note"
     >
     
-<select class="interruption-reminder">
+<select class="interruption-calendar-choice">
 
-  <option value="none">
-    No reminder
+  <option value="no">
+    Do not add
   </option>
 
-  <option value="1day">
-    1 day before
-  </option>
-
-  <option value="3days">
-    3 days before
-  </option>
-
-  <option value="7days">
-    7 days before
+  <option value="yes">
+    Add to calendar
   </option>
 
 </select>
@@ -6224,10 +6216,10 @@ function getCalendarInterruptions() {
           .value
           .trim();
       
-const reminder =
+const calendarChoice =
   row
     .querySelector(
-      ".interruption-reminder"
+      ".interruption-calendar-choice"
     )
     .value;
 
@@ -6246,8 +6238,8 @@ const reminder =
           note:
             note,
             
-reminder:
-  reminder
+calendarChoice:
+  calendarChoice
         
         });
 
@@ -6768,5 +6760,194 @@ async function sendCalendarRemindersToGoogle() {
     );
 
   }
+
+}
+/*
+==============================================
+SMART GOOGLE CALENDAR LINK ENGINE
+==============================================
+*/
+
+
+function buildGoogleCalendarUrl(
+  eventData
+) {
+
+  const baseUrl =
+    "https://calendar.google.com/calendar/render";
+
+
+  const startDate =
+    formatGoogleCalendarDate(
+      eventData.date
+    );
+
+
+  const endDate =
+    formatGoogleCalendarDate(
+      getNextCalendarDate(
+        eventData.date
+      )
+    );
+
+
+  const params =
+    new URLSearchParams({
+
+      action:
+        "TEMPLATE",
+
+      text:
+        eventData.title,
+
+      dates:
+        startDate
+        + "/"
+        + endDate,
+
+      details:
+        eventData.details
+        || "Added from TeachAGenius"
+
+    });
+
+
+  return (
+    baseUrl
+    + "?"
+    + params.toString()
+  );
+
+}
+function formatGoogleCalendarDate(
+  dateString
+) {
+
+  return dateString
+    .replaceAll(
+      "-",
+      ""
+    );
+
+}
+function getNextCalendarDate(
+  dateString
+) {
+
+  const date =
+    new Date(
+      dateString
+      + "T12:00:00"
+    );
+
+
+  date.setDate(
+    date.getDate()
+    + 1
+  );
+
+
+  return formatLocalDateKey(
+    date
+  );
+
+}
+function getSelectedCalendarEvents() {
+
+  const interruptions =
+    getCalendarInterruptions();
+
+
+  return interruptions
+    .filter(
+      item =>
+        item.calendarChoice
+        ===
+        "yes"
+    )
+    .map(
+      item => {
+
+        return {
+
+          title:
+            getCalendarEventTitle(
+              item.type,
+              item.note
+            ),
+
+          date:
+            item.date,
+
+          details:
+            "School calendar event added from TeachAGenius."
+
+        };
+
+      }
+    );
+
+}
+function addSelectedEventsToGoogleCalendar() {
+
+  const events =
+    getSelectedCalendarEvents();
+
+
+  if (
+    events.length === 0
+  ) {
+
+    alert(
+      "Choose at least one event to add to Google Calendar."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    events.length > 1
+  ) {
+
+    alert(
+      "For now, TeachAGenius will open the first selected event. Save it, then return for the next one."
+    );
+
+  }
+
+
+  const event =
+    events[0];
+
+
+  const googleUrl =
+    buildGoogleCalendarUrl(
+      event
+    );
+
+
+  window.open(
+    googleUrl,
+    "_blank"
+  );
+
+}
+const addSelectedEventsToGoogleButton =
+  document.getElementById(
+    "addSelectedEventsToGoogleButton"
+  );
+
+
+if (
+  addSelectedEventsToGoogleButton
+) {
+
+  addSelectedEventsToGoogleButton
+    .addEventListener(
+      "click",
+      addSelectedEventsToGoogleCalendar
+    );
 
 }
