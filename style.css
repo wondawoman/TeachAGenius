@@ -3304,3 +3304,83 @@ grid-template-columns:
     1.2;
 
 }
+/* ==========================================
+   PACING INTELLIGENCE
+========================================== */
+
+
+.pacing-check-section {
+
+  margin-top:
+    32px;
+
+  padding:
+    24px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    18px;
+
+  background:
+    var(--surface);
+
+}
+
+
+.pacing-check-results {
+
+  margin-top:
+    20px;
+
+  padding:
+    20px;
+
+  border-radius:
+    14px;
+
+  background:
+    #f6f8ff;
+
+}
+
+
+.pacing-status {
+
+  font-size:
+    1.15rem;
+
+  font-weight:
+    700;
+
+  margin-bottom:
+    8px;
+
+}
+
+
+.pacing-number {
+
+  font-size:
+    2rem;
+
+  font-weight:
+    800;
+
+  margin:
+    6px 0;
+
+}
+
+
+.pacing-detail {
+
+  margin-top:
+    10px;
+
+  line-height:
+    1.5;
+
+}
