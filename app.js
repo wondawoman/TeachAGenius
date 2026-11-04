@@ -6135,7 +6135,26 @@ function addCalendarInterruptionRow() {
       class="interruption-note"
       placeholder="Optional note"
     >
+    
+<select class="interruption-reminder">
 
+  <option value="none">
+    No reminder
+  </option>
+
+  <option value="1day">
+    1 day before
+  </option>
+
+  <option value="3days">
+    3 days before
+  </option>
+
+  <option value="7days">
+    7 days before
+  </option>
+
+</select>
 
     <button
       type="button"
@@ -6204,7 +6223,13 @@ function getCalendarInterruptions() {
           )
           .value
           .trim();
-
+      
+const reminder =
+  row
+    .querySelector(
+      ".interruption-reminder"
+    )
+    .value;
 
       if (
         date
@@ -6220,7 +6245,10 @@ function getCalendarInterruptions() {
 
           note:
             note
-
+            
+reminder:
+  reminder
+        
         });
 
       }
@@ -6490,3 +6518,255 @@ function renderBreakCountdowns() {
 
 }
 renderBreakCountdowns();
+/*
+==============================================
+GOOGLE CALENDAR REMINDER BRIDGE
+==============================================
+*/
+
+
+const sendCalendarRemindersButton =
+  document.getElementById(
+    "sendCalendarRemindersButton"
+  );
+
+
+
+if (
+  sendCalendarRemindersButton
+) {
+
+  sendCalendarRemindersButton
+    .addEventListener(
+      "click",
+      sendCalendarRemindersToGoogle
+    );
+
+}
+function getReminderMinutes(
+  reminder
+) {
+
+  const reminderMap = {
+
+    "1day":
+      1440,
+
+    "3days":
+      4320,
+
+    "7days":
+      10080
+
+  };
+
+
+  return reminderMap[
+    reminder
+  ]
+  || null;
+
+}
+function buildCalendarReminderPayload() {
+
+  const interruptions =
+    getCalendarInterruptions();
+
+
+  const selected =
+    interruptions.filter(
+      item =>
+        item.reminder !== "none"
+    );
+
+
+  return selected.map(
+    item => {
+
+      return {
+
+        title:
+          getCalendarEventTitle(
+            item.type,
+            item.note
+          ),
+
+        date:
+          item.date,
+
+        reminderMinutes:
+          getReminderMinutes(
+            item.reminder
+          )
+
+      };
+
+    }
+  );
+
+}
+function getCalendarEventTitle(
+  type,
+  note
+) {
+
+  const labels = {
+
+    holiday:
+      "Holiday",
+
+    thanksgiving:
+      "Thanksgiving Break",
+
+    winter:
+      "Winter Break",
+
+    spring:
+      "Spring Break",
+
+    pd:
+      "Professional Development",
+
+    testing:
+      "Testing / No Regular Class",
+
+    fieldtrip:
+      "Field Trip",
+
+    campus:
+      "Campus Event",
+
+    closure:
+      "School Closure",
+
+    other:
+      "School Calendar Reminder"
+
+  };
+
+
+  const baseTitle =
+    labels[type]
+    || "School Calendar Reminder";
+
+
+  if (
+    note
+  ) {
+
+    return (
+      baseTitle
+      + " — "
+      + note
+    );
+
+  }
+
+
+  return baseTitle;
+
+}
+const GOOGLE_CALENDAR_BRIDGE_URL =
+  "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+async function sendCalendarRemindersToGoogle() {
+
+  const events =
+    buildCalendarReminderPayload();
+
+
+  if (
+    events.length === 0
+  ) {
+
+    alert(
+      "Choose at least one calendar reminder first."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    GOOGLE_CALENDAR_BRIDGE_URL
+    ===
+    "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"
+  ) {
+
+    alert(
+      "Google Calendar connection is not configured yet."
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        GOOGLE_CALENDAR_BRIDGE_URL,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify({
+              events:
+                events
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      !result.ok
+    ) {
+
+      throw new Error(
+        result.error
+        ||
+        "Google Calendar request failed."
+      );
+
+    }
+
+
+    alert(
+      result.created
+      +
+      " reminder(s) added to Google Calendar."
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Google Calendar connection failed. Check the bridge setup."
+    );
+
+  }
+
+}
