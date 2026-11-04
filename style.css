@@ -3068,8 +3068,8 @@ button {
   display:
     grid;
 
- grid-template-columns:
-  170px 150px 1fr 150px 50px;
+grid-template-columns:
+  170px 150px 1fr 190px 50px;
 
   gap:
     10px;
@@ -3290,5 +3290,17 @@ button {
       1fr;
 
   }
+
+}
+.calendar-add-button {
+
+  width:
+    100%;
+
+  white-space:
+    normal;
+
+  line-height:
+    1.2;
 
 }
