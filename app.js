@@ -6244,7 +6244,7 @@ const reminder =
             date,
 
           note:
-            note
+            note,
             
 reminder:
   reminder
