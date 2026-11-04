@@ -7281,6 +7281,7 @@ displayPacingResults(
   expectedMeetings,
   actualMeetings
 );
+  }
 const checkPacingButton =
   document.getElementById(
     "checkPacingButton"
