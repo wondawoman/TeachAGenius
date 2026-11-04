@@ -5685,6 +5685,89 @@ function calculateAvailableMeetings(
   return meetingCount;
 
 }
+function calculateExpectedMeetingsToToday(
+  startDate,
+  endDate,
+  schedule,
+  rotation,
+  interruptions
+) {
+
+  if (
+    !startDate
+    ||
+    !endDate
+  ) {
+
+    return 0;
+
+  }
+
+
+  const today =
+    new Date();
+
+
+  today.setHours(
+    12,
+    0,
+    0,
+    0
+  );
+
+
+  const semesterStart =
+    new Date(
+      startDate
+      + "T12:00:00"
+    );
+
+
+  const semesterEnd =
+    new Date(
+      endDate
+      + "T12:00:00"
+    );
+
+
+  if (
+    today < semesterStart
+  ) {
+
+    return 0;
+
+  }
+
+
+  let pacingEnd =
+    today;
+
+
+  if (
+    today > semesterEnd
+  ) {
+
+    pacingEnd =
+      semesterEnd;
+
+  }
+
+
+  const pacingEndKey =
+    formatLocalDateKey(
+      pacingEnd
+    );
+
+
+  return calculateAvailableMeetings(
+    startDate,
+    pacingEndKey,
+    schedule,
+    rotation,
+    interruptions
+  );
+
+}
 function formatLocalDateKey(
   date
 ) {
@@ -6934,5 +7017,284 @@ function addCalendarInterruptionToGoogle(
     googleUrl,
     "_blank"
   );
+
+}
+/*
+==============================================
+PACING INTELLIGENCE ENGINE
+==============================================
+*/
+function getPacingStatus(
+  expectedMeetings,
+  actualMeetings
+) {
+
+  const difference =
+    actualMeetings
+    -
+    expectedMeetings;
+
+
+  if (
+    difference === 0
+  ) {
+
+    return {
+
+      difference:
+        0,
+
+      status:
+        "On pace",
+
+      message:
+        "Your actual instructional progress matches the current calendar pace."
+
+    };
+
+  }
+
+
+  if (
+    difference > 0
+  ) {
+
+    return {
+
+      difference:
+        difference,
+
+      status:
+        "Ahead of pace",
+
+      message:
+        "You are approximately "
+        + difference
+        + " instructional meeting"
+        + (
+          difference === 1
+            ? ""
+            : "s"
+        )
+        + " ahead of the current calendar pace."
+
+    };
+
+  }
+
+
+  const meetingsBehind =
+    Math.abs(
+      difference
+    );
+
+
+  return {
+
+    difference:
+      difference,
+
+    status:
+      "Pacing adjustment needed",
+
+    message:
+      "You are approximately "
+      + meetingsBehind
+      + " instructional meeting"
+      + (
+        meetingsBehind === 1
+          ? ""
+          : "s"
+      )
+      + " behind the current calendar pace."
+
+  };
+
+}
+function displayPacingResults(
+  expectedMeetings,
+  actualMeetings
+) {
+
+  const results =
+    document.getElementById(
+      "pacingCheckResults"
+    );
+
+
+  if (
+    !results
+  ) {
+
+    return;
+
+  }
+
+
+  const pacing =
+    getPacingStatus(
+      expectedMeetings,
+      actualMeetings
+    );
+
+
+  results.classList.remove(
+    "hidden"
+  );
+
+
+  results.innerHTML = `
+
+    <div class="pacing-status">
+      ${pacing.status}
+    </div>
+
+
+    <div class="pacing-detail">
+
+      Expected instructional meetings
+      completed by today:
+
+      <div class="pacing-number">
+        ${expectedMeetings}
+      </div>
+
+    </div>
+
+
+    <div class="pacing-detail">
+
+      Your reported instructional
+      meetings completed:
+
+      <div class="pacing-number">
+        ${actualMeetings}
+      </div>
+
+    </div>
+
+
+    <div class="pacing-detail">
+      ${pacing.message}
+    </div>
+
+  `;
+
+}
+function runPacingCheck() {
+
+  const actualMeetingInput =
+    document.getElementById(
+      "currentSemesterMeeting"
+    );
+
+
+  if (
+    !actualMeetingInput
+  ) {
+
+    return;
+
+  }
+
+
+  const actualMeetings =
+    Number(
+      actualMeetingInput.value
+    );
+
+
+  if (
+    actualMeetingInput.value === ""
+    ||
+    actualMeetings < 0
+  ) {
+
+    alert(
+      "Enter the number of instructional meetings you have completed."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    The four values below must use the SAME
+    semester field IDs already used inside
+    buildSemesterMap().
+  */
+
+}
+const startDate =
+  document.getElementById(
+    "semesterStart"
+  ).value;
+
+
+const endDate =
+  document.getElementById(
+    "semesterEnd"
+  ).value;
+
+
+const schedule =
+  document.getElementById(
+    "semesterSchedule"
+  ).value;
+
+
+const rotation =
+  document.getElementById(
+    "courseRotation"
+  ).value;
+const interruptions =
+  getCalendarInterruptions();
+
+
+if (
+  !startDate
+  ||
+  !endDate
+) {
+
+  alert(
+    "Add your semester start and end dates before checking pacing."
+  );
+
+  return;
+
+}
+
+
+const expectedMeetings =
+  calculateExpectedMeetingsToToday(
+    startDate,
+    endDate,
+    schedule,
+    rotation,
+    interruptions
+  );
+
+
+displayPacingResults(
+  expectedMeetings,
+  actualMeetings
+);
+const checkPacingButton =
+  document.getElementById(
+    "checkPacingButton"
+  );
+
+
+if (
+  checkPacingButton
+) {
+
+  checkPacingButton
+    .addEventListener(
+      "click",
+      runPacingCheck
+    );
 
 }
