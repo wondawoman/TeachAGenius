@@ -7262,7 +7262,7 @@ if (
     "Add your semester start and end dates before checking pacing."
   );
 
-  return;
+ 
 
 }
 
