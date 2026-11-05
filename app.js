@@ -7111,9 +7111,149 @@ function getPacingStatus(
   };
 
 }
+function getUnitPositionFromMeeting(
+  meetingNumber,
+  units
+) {
+
+  if (
+    !Array.isArray(units)
+    ||
+    units.length === 0
+  ) {
+
+    return null;
+
+  }
+
+
+  if (
+    meetingNumber <= 0
+  ) {
+
+    return {
+
+      unitTitle:
+        units[0].title,
+
+      unitNumber:
+        1,
+
+      meetingInUnit:
+        0,
+
+      unitMeetings:
+        Number(
+          units[0].meetings
+        )
+
+    };
+
+  }
+
+
+  let runningTotal =
+    0;
+
+
+  for (
+    let index = 0;
+    index < units.length;
+    index++
+  ) {
+
+    const unit =
+      units[index];
+
+
+    const unitMeetings =
+      Number(
+        unit.meetings
+      );
+if (
+  !Number.isFinite(
+    unitMeetings
+  )
+  ||
+  unitMeetings <= 0
+) {
+
+  continue;
+
+}
+
+    const unitStart =
+      runningTotal
+      + 1;
+
+
+    const unitEnd =
+      runningTotal
+      + unitMeetings;
+
+
+    if (
+      meetingNumber >= unitStart
+      &&
+      meetingNumber <= unitEnd
+    ) {
+
+      return {
+
+        unitTitle:
+          unit.title
+          ||
+          "Unit "
+          + (
+            index + 1
+          ),
+
+        unitNumber:
+          index + 1,
+
+        meetingInUnit:
+          meetingNumber
+          -
+          runningTotal,
+
+        unitMeetings:
+          unitMeetings
+
+      };
+
+    }
+
+
+    runningTotal +=
+      unitMeetings;
+
+  }
+
+
+  return {
+
+    unitTitle:
+      "Beyond Planned Units",
+
+    unitNumber:
+      units.length + 1,
+
+    meetingInUnit:
+      meetingNumber
+      -
+      runningTotal,
+
+    unitMeetings:
+      0
+
+  };
+
+}
 function displayPacingResults(
   expectedMeetings,
-  actualMeetings
+  actualMeetings,
+  expectedUnitPosition,
+  actualUnitPosition
 ) {
 
   const results =
@@ -7177,7 +7317,70 @@ function displayPacingResults(
     <div class="pacing-detail">
       ${pacing.message}
     </div>
+<div class="pacing-position-grid">
 
+  <div class="pacing-position-card">
+
+    <span class="eyebrow">
+      Expected Position
+    </span>
+
+    ${
+      expectedUnitPosition
+        ? `
+          <h4>
+            ${expectedUnitPosition.unitTitle}
+          </h4>
+
+          <p>
+            Meeting
+            ${expectedUnitPosition.meetingInUnit}
+            of
+            ${expectedUnitPosition.unitMeetings}
+          </p>
+        `
+        : `
+          <p>
+            Add unit meeting counts
+            to view expected position.
+          </p>
+        `
+    }
+
+  </div>
+
+
+  <div class="pacing-position-card">
+
+    <span class="eyebrow">
+      Current Position
+    </span>
+
+    ${
+      actualUnitPosition
+        ? `
+          <h4>
+            ${actualUnitPosition.unitTitle}
+          </h4>
+
+          <p>
+            Meeting
+            ${actualUnitPosition.meetingInUnit}
+            of
+            ${actualUnitPosition.unitMeetings}
+          </p>
+        `
+        : `
+          <p>
+            Add unit meeting counts
+            to view current position.
+          </p>
+        `
+    }
+
+  </div>
+
+</div>
   `;
 
 }
@@ -7251,7 +7454,8 @@ const rotation =
 const interruptions =
   getCalendarInterruptions();
 
-
+const units =
+  getSemesterUnits();
 if (
   !startDate
   ||
@@ -7276,11 +7480,24 @@ const expectedMeetings =
     interruptions
   );
   
+const expectedUnitPosition =
+  getUnitPositionFromMeeting(
+    expectedMeetings,
+    units
+  );
 
+
+const actualUnitPosition =
+  getUnitPositionFromMeeting(
+    actualMeetings,
+    units
+  );
 
 displayPacingResults(
   expectedMeetings,
-  actualMeetings
+  actualMeetings,
+  expectedUnitPosition,
+  actualUnitPosition
 );
   }
 const checkPacingButton =
