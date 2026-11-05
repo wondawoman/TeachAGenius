@@ -7359,11 +7359,7 @@ function displayPacingResults(
       </p>
     `
 }
-            Add unit meeting counts
-            to view expected position.
-          </p>
-        `
-    }
+        
 
   </div>
 
