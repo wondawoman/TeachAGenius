@@ -7326,21 +7326,39 @@ function displayPacingResults(
     </span>
 
     ${
-      expectedUnitPosition
-        ? `
-          <h4>
-            ${expectedUnitPosition.unitTitle}
-          </h4>
+      ${
+  expectedUnitPosition
+    ? expectedUnitPosition.unitMeetings > 0
+      ? `
+        <h4>
+          ${expectedUnitPosition.unitTitle}
+        </h4>
 
-          <p>
-            Meeting
-            ${expectedUnitPosition.meetingInUnit}
-            of
-            ${expectedUnitPosition.unitMeetings}
-          </p>
-        `
-        : `
-          <p>
+        <p>
+          Meeting
+          ${expectedUnitPosition.meetingInUnit}
+          of
+          ${expectedUnitPosition.unitMeetings}
+        </p>
+      `
+      : `
+        <h4>
+          Beyond Planned Units
+        </h4>
+
+        <p>
+          ${expectedUnitPosition.meetingInUnit}
+          instructional meetings are currently
+          unassigned to a planned unit.
+        </p>
+      `
+    : `
+      <p>
+        Add unit meeting counts
+        to view expected position.
+      </p>
+    `
+}
             Add unit meeting counts
             to view expected position.
           </p>
@@ -7356,27 +7374,39 @@ function displayPacingResults(
       Current Position
     </span>
 
-    ${
-      actualUnitPosition
-        ? `
-          <h4>
-            ${actualUnitPosition.unitTitle}
-          </h4>
+   ${
+  actualUnitPosition
+    ? actualUnitPosition.unitMeetings > 0
+      ? `
+        <h4>
+          ${actualUnitPosition.unitTitle}
+        </h4>
 
-          <p>
-            Meeting
-            ${actualUnitPosition.meetingInUnit}
-            of
-            ${actualUnitPosition.unitMeetings}
-          </p>
-        `
-        : `
-          <p>
-            Add unit meeting counts
-            to view current position.
-          </p>
-        `
-    }
+        <p>
+          Meeting
+          ${actualUnitPosition.meetingInUnit}
+          of
+          ${actualUnitPosition.unitMeetings}
+        </p>
+      `
+      : `
+        <h4>
+          Beyond Planned Units
+        </h4>
+
+        <p>
+          ${actualUnitPosition.meetingInUnit}
+          instructional meetings are currently
+          beyond the planned unit map.
+        </p>
+      `
+    : `
+      <p>
+        Add unit meeting counts
+        to view current position.
+      </p>
+    `
+}
 
   </div>
 
