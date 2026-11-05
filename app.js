@@ -575,18 +575,28 @@ SANITIZE LOCAL DATA
       </div>
 
 
-      <div class="scan-item">
+     <div class="scan-item">
 
-        <span>
-          Protection
-        </span>
+  <span>
+    Privacy status
+  </span>
 
-        <span class="scan-safe">
-          Identifier columns will be excluded
-          from score calculations
-        </span>
+  <span class="scan-warning">
+    Upload blocked until identifying columns are removed
+  </span>
 
-      </div>
+</div>
+<div class="scan-item">
+
+  <span>
+    Data handling
+  </span>
+
+  <span class="scan-safe">
+    Processed on this device
+  </span>
+
+</div>
 
 
       <div class="scan-item">
