@@ -601,17 +601,18 @@ analyzeButton.addEventListener(
   "click",
   analyzeMastery
 );
-const generateAliasesButton =
-  document.getElementById(
-    "generateAliasesButton"
-  );
-
-if (generateAliasesButton) {
-  generateAliasesButton.addEventListener(
-    "click",
-    generatePrivacyAliases
-  );
-}
+document.addEventListener(
+  "click",
+  function (event) {
+    if (
+      event.target &&
+      event.target.id ===
+        "generateAliasesButton"
+    ) {
+      generatePrivacyAliases();
+    }
+  }
+);
 
 
 function analyzeMastery() {
