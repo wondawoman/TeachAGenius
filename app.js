@@ -511,34 +511,9 @@ SANITIZE LOCAL DATA
     possibleIdentifiers.length === 0
   ) {
 
-    privacyScanResults.innerHTML = `
-
-      <div class="scan-item">
-
-        <span>
-          Direct identifier columns detected
-        </span>
-
-        <span class="scan-safe">
-          None detected
-        </span>
-
-      </div>
-
-
-      <div class="scan-item">
-
-        <span>
-          Processing location
-        </span>
-
-        <span class="scan-safe">
-          This browser only
-        </span>
-
-      </div>
-
-    `;
+   renderPrivacyScan(
+  "safe"
+);
 
   }
 
