@@ -7325,7 +7325,7 @@ function displayPacingResults(
       Expected Position
     </span>
 
-    ${
+    
       ${
   expectedUnitPosition
     ? expectedUnitPosition.unitMeetings > 0
