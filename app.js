@@ -7111,6 +7111,92 @@ function getPacingStatus(
   };
 
 }
+function getPacingPriority(
+  expectedMeetings,
+  actualMeetings
+) {
+
+  const gap =
+    expectedMeetings
+    -
+    actualMeetings;
+
+
+  if (
+    gap <= 0
+  ) {
+
+    return {
+
+      level:
+        "stable",
+
+      label:
+        "Pacing is stable",
+
+      message:
+        "No pacing recovery is currently needed."
+
+    };
+
+  }
+
+
+  if (
+    gap <= 2
+  ) {
+
+    return {
+
+      level:
+        "watch",
+
+      label:
+        "Monitor pacing",
+
+      message:
+        "A small pacing gap exists. Protect upcoming instructional time before compressing content."
+
+    };
+
+  }
+
+
+  if (
+    gap <= 5
+  ) {
+
+    return {
+
+      level:
+        "adjust",
+
+      label:
+        "Pacing adjustment needed",
+
+      message:
+        "A moderate pacing gap exists. Review upcoming lessons for instructional time that can be recovered without removing essential learning."
+
+    };
+
+  }
+
+
+  return {
+
+    level:
+      "priority",
+
+    label:
+      "Pacing recovery priority",
+
+    message:
+      "A significant pacing gap exists. Use mastery evidence before deciding what to reteach, combine, extend, or move forward from."
+
+  };
+
+}
+
 function getUnitPositionFromMeeting(
   meetingNumber,
   units
@@ -7276,7 +7362,11 @@ function displayPacingResults(
       expectedMeetings,
       actualMeetings
     );
-
+const pacingPriority =
+  getPacingPriority(
+    expectedMeetings,
+    actualMeetings
+  );
 
   results.classList.remove(
     "hidden"
@@ -7317,6 +7407,21 @@ function displayPacingResults(
     <div class="pacing-detail">
       ${pacing.message}
     </div>
+    <div class="pacing-priority-card">
+
+  <span class="eyebrow">
+    Instructional Priority
+  </span>
+
+  <h4>
+    ${pacingPriority.label}
+  </h4>
+
+  <p>
+    ${pacingPriority.message}
+  </p>
+
+</div>
 <div class="pacing-position-grid">
 
   <div class="pacing-position-card">
