@@ -550,95 +550,10 @@ SANITIZE LOCAL DATA
       );
 
 
-    privacyScanResults.innerHTML = `
-
-      <div class="scan-item">
-
-        <span>
-          Possible identifying columns
-        </span>
-
-        <span class="scan-warning">
-          ${identifierList}
-        </span>
-
-      </div>
-
-
-     <div class="scan-item">
-
-  <span>
-    Privacy status
-  </span>
-
-  <span class="scan-warning">
-    Upload blocked until identifying columns are removed
-  </span>
-
-</div>
-<div class="scan-item">
-
-  <span>
-    Data handling
-  </span>
-
-  <span class="scan-safe">
-    Processed on this device
-  </span>
-
-</div>
-
-
-      <div class="scan-item">
-
-     <span>
-  Data handling
-</span>
-
-<span class="scan-safe">
-  Processed on this device
-</span>
-
-      </div>
-<div class="privacy-prep">
-  <h4>Before You Upload</h4>
-
-  <p>
-    TeachAGenius does not need student-identifying information.
-  </p>
-
-  <ol>
-    <li>Make a copy of your spreadsheet or SIS report.</li>
-    <li>Remove names, IDs, emails, usernames, and other identifying fields.</li>
-    <li>Use TeachAGenius aliases before uploading your privacy-safe copy.</li>
-  </ol>
-  <div class="alias-generator">
-  <label for="aliasStudentCount">
-    Number of students
-  </label>
-
-  <input
-    type="number"
-    id="aliasStudentCount"
-    min="1"
-    placeholder="Example: 147"
-  >
-
-  <button
-    type="button"
-    id="generateAliasesButton"
-  >
-    Generate Aliases
-  </button>
-
-  <div
-    id="aliasGeneratorResults"
-    class="alias-generator-results"
-  ></div>
-</div>
-</div>
-    `;
-
+   renderPrivacyScan(
+  "blocked",
+  possibleIdentifiers
+);
   }
 
 }
