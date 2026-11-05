@@ -278,7 +278,62 @@ function handleScoreFile(
           .target
           .result;
 
+const firstLine =
+  csvText
+    .split(/\r?\n/)
+    .find(line => line.trim() !== "");
 
+const headerColumns =
+  firstLine
+    ? firstLine
+        .split(",")
+        .map(header =>
+          header
+            .replace(/^"|"$/g, "")
+            .trim()
+        )
+    : [];
+
+const privacyPreflight =
+  runPrivacyHeaderPreflight(
+    headerColumns
+  );
+if (!privacyPreflight.safe) {
+  const blockedHeaders =
+    privacyPreflight
+      .unsafeHeaders
+      .map(item => item.header)
+      .join(", ");
+
+  alert(
+    "Upload blocked.\n\n" +
+    "This file appears to contain student-identifying information:\n\n" +
+    blockedHeaders +
+    "\n\nRemove those columns from your privacy-safe copy and upload again."
+  );
+
+  scoreFile.value = "";
+
+  return;
+}
+if (!privacyPreflight.safe) {
+  const blockedHeaders =
+    privacyPreflight
+      .unsafeHeaders
+      .map(item => item.header)
+      .join(", ");
+
+  alert(
+    "Upload blocked.\n\n" +
+    "This file appears to contain student-identifying information:\n\n" +
+    blockedHeaders +
+    "\n\nRemove those columns from your privacy-safe copy and upload again."
+  );
+
+  scoreFile.value = "";
+
+  return;
+}
       processLocalCsv(
         csvText
       );
