@@ -5852,16 +5852,7 @@ function buildSemesterMap() {
     getSemesterUnits();
 const interruptions =
   getCalendarInterruptions();
-console.log(
-  "PACING FRESH INPUTS",
-  {
-    startDate,
-    endDate,
-    schedule,
-    rotation,
-    interruptions
-  }
-);
+
   if (
     !startDate
     ||
@@ -7285,10 +7276,7 @@ const expectedMeetings =
     interruptions
   );
   
-console.log(
-  "EXPECTED RESULT",
-  expectedMeetings
-);
+
 
 displayPacingResults(
   expectedMeetings,
