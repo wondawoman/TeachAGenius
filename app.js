@@ -214,7 +214,7 @@ this browser tab.
 
 We are NOT uploading it.
 */
-
+let currentMasteryStats = [];
 let localAssessmentData = null;
 
 
@@ -735,7 +735,7 @@ const questionStats =
     sanitizedData,
     questionMappings
   );
-
+currentMasteryStats = questionStats;
 
 displayMasteryResults(
   classAverage,
