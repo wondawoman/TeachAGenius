@@ -604,12 +604,22 @@ analyzeButton.addEventListener(
 document.addEventListener(
   "click",
   function (event) {
+    if (!event.target) {
+      return;
+    }
+
     if (
-      event.target &&
       event.target.id ===
-        "generateAliasesButton"
+      "generateAliasesButton"
     ) {
       generatePrivacyAliases();
+    }
+
+    if (
+      event.target.id ===
+      "copyAliasesButton"
+    ) {
+      copyGeneratedAliases();
     }
   }
 );
@@ -1418,7 +1428,46 @@ function generatePrivacyAliases() {
       rows="10"
       readonly
     >${aliases.join("\n")}</textarea>
+    
   `;
+<button
+  type="button"
+  id="copyAliasesButton"
+>
+  Copy Alias Column
+</button>
+
+<p
+  id="aliasCopyStatus"
+  class="alias-copy-status"
+></p>
+}
+async function copyGeneratedAliases() {
+  const aliasList =
+    document.getElementById(
+      "generatedAliasList"
+    );
+
+  const copyStatus =
+    document.getElementById(
+      "aliasCopyStatus"
+    );
+
+  if (!aliasList || !copyStatus) {
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(
+      aliasList.value
+    );
+
+    copyStatus.textContent =
+      "Aliases copied. Paste them into your privacy-safe spreadsheet copy.";
+  } catch (error) {
+    copyStatus.textContent =
+      "Copy failed. Select the aliases and copy them manually.";
+  }
 }
 function calculateQuestionPerformance(
   data,
