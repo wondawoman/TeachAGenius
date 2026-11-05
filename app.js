@@ -1468,6 +1468,127 @@ async function copyGeneratedAliases() {
       "Copy failed. Select the aliases and copy them manually.";
   }
 }
+function normalizePrivacyHeader(header) {
+  return String(header)
+    .trim()
+    .toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ");
+}
+function findUnsafePrivacyHeaders(headers) {
+  const unsafePatterns = [
+    {
+      category: "Student name",
+      patterns: [
+        /\bstudent name\b/,
+        /\bfirst name\b/,
+        /\blast name\b/,
+        /\bfull name\b/,
+        /^name$/
+      ]
+    },
+
+    {
+      category: "Student identifier",
+      patterns: [
+        /\bstudent id\b/,
+        /\bstudent number\b/,
+        /\blocal id\b/,
+        /\bstate id\b/,
+        /\bsis id\b/,
+        /\bstudent key\b/,
+        /\blearner id\b/,
+        /\blearner key\b/
+      ]
+    },
+
+    {
+      category: "Account or login",
+      patterns: [
+        /\busername\b/,
+        /\blogin\b/,
+        /\buser id\b/,
+        /\bstudent login\b/
+      ]
+    },
+
+    {
+      category: "Email",
+      patterns: [
+        /\bemail\b/,
+        /\be mail\b/
+      ]
+    },
+
+    {
+      category: "Birth information",
+      patterns: [
+        /\bdob\b/,
+        /\bdate of birth\b/,
+        /\bbirth date\b/
+      ]
+    },
+
+    {
+      category: "Contact information",
+      patterns: [
+        /\bphone\b/,
+        /\bphone number\b/,
+        /\baddress\b/,
+        /\bstreet address\b/
+      ]
+    },
+
+    {
+      category: "Parent or guardian information",
+      patterns: [
+        /\bparent\b/,
+        /\bguardian\b/,
+        /\bparent email\b/,
+        /\bguardian email\b/
+      ]
+    }
+  ];
+
+  const unsafeHeaders = [];
+
+  headers.forEach((header) => {
+    const normalizedHeader =
+      normalizePrivacyHeader(header);
+
+    unsafePatterns.forEach((rule) => {
+      const matched =
+        rule.patterns.some((pattern) =>
+          pattern.test(normalizedHeader)
+        );
+
+      if (matched) {
+        unsafeHeaders.push({
+          header: header,
+          category: rule.category
+        });
+      }
+    });
+  });
+
+  return unsafeHeaders;
+}
+function runPrivacyHeaderPreflight(headers) {
+  const unsafeHeaders =
+    findUnsafePrivacyHeaders(headers);
+
+  if (unsafeHeaders.length === 0) {
+    return {
+      safe: true,
+      unsafeHeaders: []
+    };
+  }
+
+  return {
+    safe: false,
+    unsafeHeaders: unsafeHeaders
+  };
+}
 function calculateQuestionPerformance(
   data,
   mappings
