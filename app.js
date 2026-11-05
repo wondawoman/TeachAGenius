@@ -7565,7 +7565,63 @@ function getCurrentMasterySummary() {
       sortedStats[sortedStats.length - 1]
   };
 }
+function getInstructionalGuidance(
+  expectedMeetings,
+  actualMeetings,
+  masterySummary
+) {
+  if (!masterySummary) {
+    return {
+      title: "Mastery evidence needed",
+      message:
+        "Run a privacy-safe Mastery analysis before making pacing recovery decisions."
+    };
+  }
 
+  const pacingGap =
+    expectedMeetings - actualMeetings;
+
+  const lowest =
+    masterySummary.lowest;
+
+  const highest =
+    masterySummary.highest;
+
+  if (pacingGap <= 0) {
+    return {
+      title: "Maintain instructional pace",
+      message:
+        `${lowest.label} is currently the lowest mastery area at ${Math.round(lowest.average)}%. ` +
+        `Continue monitoring it while maintaining pace.`
+    };
+  }
+
+  if (pacingGap <= 2) {
+    return {
+      title: "Monitor before adjusting",
+      message:
+        `${lowest.label} is the current lowest mastery area at ${Math.round(lowest.average)}%. ` +
+        `Use targeted checks before making a larger pacing adjustment.`
+    };
+  }
+
+  if (pacingGap <= 5) {
+    return {
+      title: "Target instructional time",
+      message:
+        `Consider protecting instructional time for ${lowest.label} at ${Math.round(lowest.average)}% mastery. ` +
+        `${highest.label} is currently stronger at ${Math.round(highest.average)}% and may need less whole-group recovery time.`
+    };
+  }
+
+  return {
+    title: "Prioritize recovery with mastery evidence",
+    message:
+      `A significant pacing gap exists. ${lowest.label} is currently the lowest mastery area at ${Math.round(lowest.average)}%. ` +
+      `${highest.label} is currently strongest at ${Math.round(highest.average)}%. ` +
+      `Use this evidence to decide what may need reteaching, targeted support, compression, extension, or continued monitoring.`
+  };
+}
 function getUnitPositionFromMeeting(
   meetingNumber,
   units
@@ -7741,7 +7797,12 @@ const masterySummary =
   results.classList.remove(
     "hidden"
   );
-
+const instructionalGuidance =
+  getInstructionalGuidance(
+    expectedMeetings,
+    actualMeetings,
+    masterySummary
+  );
 
   results.innerHTML = `
 
@@ -7830,6 +7891,19 @@ ${
       </div>
     `
 }
+<div class="pacing-priority-card">
+  <h4>Instructional Guidance</h4>
+
+  <p>
+    <strong>
+      ${instructionalGuidance.title}
+    </strong>
+  </p>
+
+  <p>
+    ${instructionalGuidance.message}
+  </p>
+</div>
 <div class="pacing-position-grid">
 
   <div class="pacing-position-card">
