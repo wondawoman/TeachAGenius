@@ -536,16 +536,28 @@ SANITIZE LOCAL DATA
 
       <div class="scan-item">
 
-        <span>
-          File upload
-        </span>
+     <span>
+  Data handling
+</span>
 
-        <span class="scan-safe">
-          No upload performed
-        </span>
+<span class="scan-safe">
+  Processed on this device
+</span>
 
       </div>
+<div class="privacy-prep">
+  <h4>Before You Upload</h4>
 
+  <p>
+    TAG does not need student-identifying information.
+  </p>
+
+  <ol>
+    <li>Make a copy of your spreadsheet or SIS report.</li>
+    <li>Remove names, IDs, emails, usernames, and other identifying fields.</li>
+    <li>Use TAG aliases before uploading your privacy-safe copy.</li>
+  </ol>
+</div>
     `;
 
   }
