@@ -3459,3 +3459,46 @@ grid-template-columns:
   }
 
 }
+/* ==========================================
+   PACING INSTRUCTIONAL PRIORITY
+========================================== */
+
+
+.pacing-priority-card {
+
+  margin-top:
+    18px;
+
+  padding:
+    18px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    14px;
+
+  background:
+    white;
+
+}
+
+
+.pacing-priority-card h4 {
+
+  margin:
+    8px 0 6px;
+
+}
+
+
+.pacing-priority-card p {
+
+  margin:
+    0;
+
+  line-height:
+    1.5;
+
+}
