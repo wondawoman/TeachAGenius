@@ -1416,31 +1416,30 @@ function generatePrivacyAliases() {
       `${word}${number}`
     );
   }
+results.innerHTML = `
+  <p>
+    ${studentCount}
+    privacy-safe aliases generated.
+  </p>
 
-  results.innerHTML = `
-    <p>
-      ${studentCount}
-      privacy-safe aliases generated.
-    </p>
+  <textarea
+    id="generatedAliasList"
+    rows="10"
+    readonly
+  >${aliases.join("\n")}</textarea>
 
-    <textarea
-      id="generatedAliasList"
-      rows="10"
-      readonly
-    >${aliases.join("\n")}</textarea>
-    
-  `;
-<button
-  type="button"
-  id="copyAliasesButton"
->
-  Copy Alias Column
-</button>
+  <button
+    type="button"
+    id="copyAliasesButton"
+  >
+    Copy Alias Column
+  </button>
 
-<p
-  id="aliasCopyStatus"
-  class="alias-copy-status"
-></p>
+  <p
+    id="aliasCopyStatus"
+    class="alias-copy-status"
+  ></p>
+`;
 }
 async function copyGeneratedAliases() {
   const aliasList =
