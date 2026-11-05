@@ -7535,6 +7535,36 @@ function getPacingPriority(
   };
 
 }
+function getCurrentMasterySummary() {
+  if (
+    !Array.isArray(currentMasteryStats) ||
+    currentMasteryStats.length === 0
+  ) {
+    return null;
+  }
+
+  const validStats =
+    currentMasteryStats.filter(
+      item =>
+        typeof item.average === "number" &&
+        Number.isFinite(item.average)
+    );
+
+  if (validStats.length === 0) {
+    return null;
+  }
+
+  const sortedStats =
+    [...validStats].sort(
+      (a, b) => a.average - b.average
+    );
+
+  return {
+    lowest: sortedStats[0],
+    highest:
+      sortedStats[sortedStats.length - 1]
+  };
+}
 
 function getUnitPositionFromMeeting(
   meetingNumber,
@@ -7706,7 +7736,8 @@ const pacingPriority =
     expectedMeetings,
     actualMeetings
   );
-
+const masterySummary =
+  getCurrentMasterySummary();
   results.classList.remove(
     "hidden"
   );
@@ -7761,6 +7792,44 @@ const pacingPriority =
   </p>
 
 </div>
+${
+  masterySummary
+    ? `
+      <div class="pacing-priority-card">
+        <h4>Mastery Signal</h4>
+
+        <p>
+          Lowest current mastery:
+          <strong>
+            ${masterySummary.lowest.label}
+            — ${Math.round(
+              masterySummary.lowest.average
+            )}%
+          </strong>
+        </p>
+
+        <p>
+          Strongest current mastery:
+          <strong>
+            ${masterySummary.highest.label}
+            — ${Math.round(
+              masterySummary.highest.average
+            )}%
+          </strong>
+        </p>
+      </div>
+    `
+    : `
+      <div class="pacing-priority-card">
+        <h4>Mastery Signal</h4>
+
+        <p>
+          Run a privacy-safe Mastery analysis
+          to connect mastery evidence to pacing.
+        </p>
+      </div>
+    `
+}
 <div class="pacing-position-grid">
 
   <div class="pacing-position-card">
