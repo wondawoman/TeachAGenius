@@ -549,13 +549,13 @@ SANITIZE LOCAL DATA
   <h4>Before You Upload</h4>
 
   <p>
-    TAG does not need student-identifying information.
+    TeachAGenius does not need student-identifying information.
   </p>
 
   <ol>
     <li>Make a copy of your spreadsheet or SIS report.</li>
     <li>Remove names, IDs, emails, usernames, and other identifying fields.</li>
-    <li>Use TAG aliases before uploading your privacy-safe copy.</li>
+    <li>Use TeachAGenius aliases before uploading your privacy-safe copy.</li>
   </ol>
 </div>
     `;
