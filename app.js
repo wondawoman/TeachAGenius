@@ -557,6 +557,30 @@ SANITIZE LOCAL DATA
     <li>Remove names, IDs, emails, usernames, and other identifying fields.</li>
     <li>Use TeachAGenius aliases before uploading your privacy-safe copy.</li>
   </ol>
+  <div class="alias-generator">
+  <label for="aliasStudentCount">
+    Number of students
+  </label>
+
+  <input
+    type="number"
+    id="aliasStudentCount"
+    min="1"
+    placeholder="Example: 147"
+  >
+
+  <button
+    type="button"
+    id="generateAliasesButton"
+  >
+    Generate Aliases
+  </button>
+
+  <div
+    id="aliasGeneratorResults"
+    class="alias-generator-results"
+  ></div>
+</div>
 </div>
     `;
 
@@ -577,7 +601,17 @@ analyzeButton.addEventListener(
   "click",
   analyzeMastery
 );
+const generateAliasesButton =
+  document.getElementById(
+    "generateAliasesButton"
+  );
 
+if (generateAliasesButton) {
+  generateAliasesButton.addEventListener(
+    "click",
+    generatePrivacyAliases
+  );
+}
 
 
 function analyzeMastery() {
@@ -1307,7 +1341,84 @@ QUESTION PERFORMANCE
 ==============================================
 */
 
+function generatePrivacyAliases() {
+  const countInput =
+    document.getElementById(
+      "aliasStudentCount"
+    );
 
+  const results =
+    document.getElementById(
+      "aliasGeneratorResults"
+    );
+
+  if (!countInput || !results) {
+    return;
+  }
+
+  const studentCount =
+    Number(countInput.value);
+
+  if (
+    !Number.isInteger(studentCount) ||
+    studentCount < 1
+  ) {
+    results.innerHTML =
+      "<p>Enter the number of students first.</p>";
+
+    return;
+  }
+
+  const aliasWords = [
+    "Lotus",
+    "Iris",
+    "Nova",
+    "Oak",
+    "River",
+    "Sage",
+    "Cedar",
+    "Willow",
+    "Sol",
+    "Sky"
+  ];
+
+  const aliases = [];
+
+  for (
+    let index = 0;
+    index < studentCount;
+    index += 1
+  ) {
+    const word =
+      aliasWords[
+        index % aliasWords.length
+      ];
+
+    const number =
+      String(
+        Math.floor(
+          index / aliasWords.length
+        ) + 1
+      ).padStart(3, "0");
+
+    aliases.push(
+      `${word}${number}`
+    );
+  }
+
+  results.innerHTML = `
+    <p>
+      ${studentCount}
+      privacy-safe aliases generated.
+    </p>
+
+    <textarea
+      id="generatedAliasList"
+      rows="10"
+      readonly
+    >${aliases.join("\n")}</textarea>
+  `;
+}
 function calculateQuestionPerformance(
   data,
   mappings
