@@ -3384,3 +3384,78 @@ grid-template-columns:
     1.5;
 
 }
+/* ==========================================
+   PACING UNIT POSITION
+========================================== */
+
+
+.pacing-position-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap:
+    16px;
+
+  margin-top:
+    20px;
+
+}
+
+
+.pacing-position-card {
+
+  padding:
+    18px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    14px;
+
+  background:
+    white;
+
+}
+
+
+.pacing-position-card h4 {
+
+  margin:
+    8px 0 4px;
+
+}
+
+
+.pacing-position-card p {
+
+  margin:
+    0;
+
+}
+
+
+@media (
+  max-width:
+    700px
+) {
+
+  .pacing-position-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
