@@ -7622,6 +7622,31 @@ function getInstructionalGuidance(
       `Use this evidence to decide what may need reteaching, targeted support, compression, extension, or continued monitoring.`
   };
 }
+function getReteachTarget(masterySummary) {
+  if (!masterySummary) {
+    return null;
+  }
+
+  const target =
+    masterySummary.lowest;
+
+  let response =
+    "Monitor and use targeted CFUs.";
+
+  if (target.average < 60) {
+    response =
+      "Reteach this skill with focused whole-group or small-group support.";
+  } else if (target.average < 75) {
+    response =
+      "Use targeted small-group support and additional guided practice.";
+  }
+
+  return {
+    label: target.label,
+    average: target.average,
+    response: response
+  };
+}
 function getDataActionBrief(
   expectedMeetings,
   actualMeetings,
