@@ -214,8 +214,9 @@ this browser tab.
 
 We are NOT uploading it.
 */
-let currentMasteryStats = [];
 let localAssessmentData = null;
+let currentMasteryStats = [];
+let currentDataActionBrief = null;
 
 
 
@@ -1413,6 +1414,36 @@ async function copyGeneratedAliases() {
       "Copy failed. Select the aliases and copy them manually.";
   }
 }
+async function copyDataActionBrief() {
+  const copyStatus =
+    document.getElementById(
+      "dataActionBriefCopyStatus"
+    );
+
+  if (
+    !currentDataActionBrief ||
+    !copyStatus
+  ) {
+    return;
+  }
+
+  const briefText =
+    formatDataActionBrief(
+      currentDataActionBrief
+    );
+
+  try {
+    await navigator.clipboard.writeText(
+      briefText
+    );
+
+    copyStatus.textContent =
+      "Data brief copied. Ready to paste.";
+  } catch (error) {
+    copyStatus.textContent =
+      "Copy failed. Try again.";
+  }
+}
 function renderPrivacyScan(
   status,
   identifyingColumns = []
@@ -2116,35 +2147,33 @@ MASTERY → RETEACH HANDOFF
 
 document.addEventListener(
   "click",
-  function (
-    event
-  ) {
-
-    if (
-      !event.target
-        .classList
-        .contains(
-          "reteach-button"
-        )
-    ) {
-
+  function (event) {
+    if (!event.target) {
       return;
-
     }
 
+    if (
+      event.target.id ===
+      "generateAliasesButton"
+    ) {
+      generatePrivacyAliases();
+    }
 
-    const skill =
-      event.target
-        .dataset
-        .skill;
+    if (
+      event.target.id ===
+      "copyAliasesButton"
+    ) {
+      copyGeneratedAliases();
+    }
 
-
-    const average =
-      Number(
-        event.target
-          .dataset
-          .average
-      );
+    if (
+      event.target.id ===
+      "copyDataActionBriefButton"
+    ) {
+      copyDataActionBrief();
+    }
+  }
+);
 
 
     sendSkillToLessonBuilder(
@@ -7691,6 +7720,44 @@ function getDataActionBrief(
       "Use a focused CFU or DOL after support to measure whether mastery improves."
   };
 }
+function formatDataActionBrief(
+  dataActionBrief
+) {
+  if (!dataActionBrief) {
+    return "";
+  }
+
+  return [
+    "DATA ACTION BRIEF",
+    "",
+    `Reteach Focus: ${dataActionBrief.reteachTarget}`,
+    `Current Mastery: ${dataActionBrief.mastery}%`,
+    `Pacing Context: ${dataActionBrief.pacing}`,
+    "",
+    `Instructional Response: ${dataActionBrief.response}`,
+    "",
+    `Evidence to Collect: ${dataActionBrief.evidence}`
+  ].join("\n");
+}
+function formatDataActionBrief(
+  dataActionBrief
+) {
+  if (!dataActionBrief) {
+    return "";
+  }
+
+  return [
+    "DATA ACTION BRIEF",
+    "",
+    `Reteach Focus: ${dataActionBrief.reteachTarget}`,
+    `Current Mastery: ${dataActionBrief.mastery}%`,
+    `Pacing Context: ${dataActionBrief.pacing}`,
+    "",
+    `Instructional Response: ${dataActionBrief.response}`,
+    "",
+    `Evidence to Collect: ${dataActionBrief.evidence}`
+  ].join("\n");
+}
 function getUnitPositionFromMeeting(
   meetingNumber,
   units
@@ -7877,7 +7944,10 @@ const dataActionBrief =
     expectedMeetings,
     actualMeetings,
     masterySummary
-  );  results.innerHTML = `
+  );  
+  currentDataActionBrief =
+  dataActionBrief;
+  results.innerHTML = `
 
     <div class="pacing-status">
       ${pacing.status}
@@ -8007,6 +8077,17 @@ ${
           <strong>Evidence to Collect:</strong>
           ${dataActionBrief.evidence}
         </p>
+
+        <button
+          type="button"
+          id="copyDataActionBriefButton"
+        >
+          Copy Data Brief
+        </button>
+
+        <p
+          id="dataActionBriefCopyStatus"
+        ></p>
       </div>
     `
     : ""
