@@ -7622,6 +7622,50 @@ function getInstructionalGuidance(
       `Use this evidence to decide what may need reteaching, targeted support, compression, extension, or continued monitoring.`
   };
 }
+function getDataActionBrief(
+  expectedMeetings,
+  actualMeetings,
+  masterySummary
+) {
+  const reteachTarget =
+    getReteachTarget(
+      masterySummary
+    );
+
+  if (!reteachTarget) {
+    return null;
+  }
+
+  const pacingGap =
+    expectedMeetings -
+    actualMeetings;
+
+  const pacingText =
+    pacingGap > 0
+      ? `${pacingGap} instructional meetings behind expected pace`
+      : pacingGap < 0
+        ? `${Math.abs(pacingGap)} instructional meetings ahead of expected pace`
+        : "on expected instructional pace";
+
+  return {
+    reteachTarget:
+      reteachTarget.label,
+
+    mastery:
+      Math.round(
+        reteachTarget.average
+      ),
+
+    pacing:
+      pacingText,
+
+    response:
+      reteachTarget.response,
+
+    evidence:
+      "Use a focused CFU or DOL after support to measure whether mastery improves."
+  };
+}
 function getUnitPositionFromMeeting(
   meetingNumber,
   units
@@ -7803,8 +7847,12 @@ const instructionalGuidance =
     actualMeetings,
     masterySummary
   );
-
-  results.innerHTML = `
+const dataActionBrief =
+  getDataActionBrief(
+    expectedMeetings,
+    actualMeetings,
+    masterySummary
+  );  results.innerHTML = `
 
     <div class="pacing-status">
       ${pacing.status}
@@ -7904,6 +7952,40 @@ ${
     ${instructionalGuidance.message}
   </p>
 </div>
+${
+  dataActionBrief
+    ? `
+      <div class="pacing-priority-card">
+        <h4>Data Action Brief</h4>
+
+        <p>
+          <strong>Reteach Focus:</strong>
+          ${dataActionBrief.reteachTarget}
+        </p>
+
+        <p>
+          <strong>Current Mastery:</strong>
+          ${dataActionBrief.mastery}%
+        </p>
+
+        <p>
+          <strong>Pacing Context:</strong>
+          ${dataActionBrief.pacing}
+        </p>
+
+        <p>
+          <strong>Instructional Response:</strong>
+          ${dataActionBrief.response}
+        </p>
+
+        <p>
+          <strong>Evidence to Collect:</strong>
+          ${dataActionBrief.evidence}
+        </p>
+      </div>
+    `
+    : ""
+}
 <div class="pacing-position-grid">
 
   <div class="pacing-position-card">
