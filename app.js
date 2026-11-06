@@ -2176,15 +2176,6 @@ document.addEventListener(
 );
 
 
-    sendSkillToLessonBuilder(
-      skill,
-      average
-    );
-
-  }
-);
-
-
 
 function sendSkillToLessonBuilder(
   skill,
