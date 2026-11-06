@@ -7662,10 +7662,11 @@ function getReteachTarget(masterySummary) {
   }
 
   return {
-    label: target.label,
-    average: target.average,
-    response: response
-  };
+  question: target.question,
+  label: target.label,
+  average: target.average,
+  response: response
+};
 }
 function getDataActionBrief(
   expectedMeetings,
@@ -7693,13 +7694,16 @@ function getDataActionBrief(
         : "on expected instructional pace";
 
   return {
-    reteachTarget:
-      reteachTarget.label,
+  reteachTarget:
+  reteachTarget.label,
 
-    mastery:
-      Math.round(
-        reteachTarget.average
-      ),
+sourceQuestion:
+  reteachTarget.question,
+
+mastery:
+  Math.round(
+    reteachTarget.average
+  ),
 
     pacing:
       pacingText,
@@ -7737,17 +7741,27 @@ function formatDataActionBrief(
     return "";
   }
 
-  return [
-    "DATA ACTION BRIEF",
-    "",
-    `Reteach Focus: ${dataActionBrief.reteachTarget}`,
-    `Current Mastery: ${dataActionBrief.mastery}%`,
-    `Pacing Context: ${dataActionBrief.pacing}`,
-    "",
-    `Instructional Response: ${dataActionBrief.response}`,
-    "",
-    `Evidence to Collect: ${dataActionBrief.evidence}`
-  ].join("\n");
+ const sourceLine =
+  dataActionBrief.sourceQuestion &&
+  dataActionBrief.sourceQuestion !==
+    dataActionBrief.reteachTarget
+    ? `Assessment Source: ${dataActionBrief.sourceQuestion}`
+    : "";
+
+return [
+  "DATA ACTION BRIEF",
+  "",
+  `Reteach Focus: ${dataActionBrief.reteachTarget}`,
+  sourceLine,
+  `Current Mastery: ${dataActionBrief.mastery}%`,
+  `Pacing Context: ${dataActionBrief.pacing}`,
+  "",
+  `Instructional Response: ${dataActionBrief.response}`,
+  "",
+  `Evidence to Collect: ${dataActionBrief.evidence}`
+]
+  .filter(line => line !== "")
+  .join("\n");
 }
 function getUnitPositionFromMeeting(
   meetingNumber,
@@ -8045,14 +8059,27 @@ ${
         <h4>Data Action Brief</h4>
 
         <p>
-          <strong>Reteach Focus:</strong>
-          ${dataActionBrief.reteachTarget}
-        </p>
+  <strong>Reteach Focus:</strong>
+  ${dataActionBrief.reteachTarget}
+</p>
 
-        <p>
-          <strong>Current Mastery:</strong>
-          ${dataActionBrief.mastery}%
-        </p>
+${
+  dataActionBrief.sourceQuestion &&
+  dataActionBrief.sourceQuestion !==
+    dataActionBrief.reteachTarget
+    ? `
+      <p>
+        <strong>Assessment Source:</strong>
+        ${dataActionBrief.sourceQuestion}
+      </p>
+    `
+    : ""
+}
+
+<p>
+  <strong>Current Mastery:</strong>
+  ${dataActionBrief.mastery}%
+</p>
 
         <p>
           <strong>Pacing Context:</strong>
