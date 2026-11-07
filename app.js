@@ -1955,25 +1955,43 @@ function buildStandardMapping(
 
           return `
 
-            <div class="mapping-row">
+  <div class="mapping-row">
 
-              <div class="mapping-question">
+    <div class="mapping-question">
 
-                ${header}
+      ${header}
 
-              </div>
+    </div>
 
+    <div class="mapping-field">
+      <label>
+        Skill / Objective
+      </label>
 
-              <input
-                type="text"
-                class="standard-input"
-                data-question="${header}"
-                placeholder="Example: TEKS 117.315 or Camera Angles"
-              >
+      <input
+        type="text"
+        class="skill-input"
+        data-question="${header}"
+        placeholder="Example: Camera Angles"
+      >
+    </div>
 
-            </div>
+    <div class="mapping-field">
+      <label>
+        Standard / TEKS
+      </label>
 
-          `;
+      <input
+        type="text"
+        class="standard-input"
+        data-question="${header}"
+        placeholder="Example: TEKS 117.315"
+      >
+    </div>
+
+  </div>
+
+`;
 
         }
       )
