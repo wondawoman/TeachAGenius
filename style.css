@@ -108,26 +108,53 @@ button {
 
 .brand-logo {
 
-  width: 48px;
+  width:
+    48px;
 
-  height: 48px;
+  height:
+    48px;
 
-  border-radius: 14px;
+  padding:
+    0;
+
+  border:
+    none;
+
+  border-radius:
+    14px;
+
+  overflow:
+    hidden;
 
   background:
-    var(--primary);
+    transparent;
 
-  display: grid;
+  display:
+    grid;
 
-  place-items: center;
+  place-items:
+    center;
 
-  font-size: 22px;
-
-  font-weight: bold;
+  cursor:
+    pointer;
 
 }
 
+.brand-logo img {
 
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    cover;
+
+  display:
+    block;
+
+}
 
 .brand h1 {
 
@@ -604,7 +631,7 @@ button {
 .module-card {
 
   min-height:
-    170px;
+    118px;
 
   border:
     1px solid
@@ -617,7 +644,7 @@ button {
     var(--surface);
 
   padding:
-    22px;
+    16px;
 
   text-align:
     left;
@@ -625,17 +652,43 @@ button {
   box-shadow:
     var(--shadow);
 
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  overflow:
+    hidden;
+
   transition:
-    0.2s ease;
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
 }
 
 
 
-.module-card:hover {
+.module-card:hover,
+.module-card:focus-visible {
 
   transform:
-    translateY(-3px);
+    translateY(-4px)
+    scale(1.04);
+
+  border-color:
+    var(--primary);
+
+  box-shadow:
+    0 14px 30px
+    rgba(0, 0, 0, 0.14);
+
+  z-index:
+    5;
+
+  outline:
+    none;
 
 }
 
@@ -670,8 +723,17 @@ button {
 
 .module-card p {
 
+  max-height:
+    0;
+
   margin:
     0;
+
+  opacity:
+    0;
+
+  overflow:
+    hidden;
 
   color:
     var(--muted);
@@ -679,8 +741,45 @@ button {
   line-height:
     1.5;
 
+  transition:
+    max-height 0.25s ease,
+    opacity 0.2s ease,
+    margin-top 0.2s ease;
+
 }
 
+
+.module-card:hover p,
+.module-card:focus-visible p {
+
+  max-height:
+    120px;
+
+  margin-top:
+    10px;
+
+  opacity:
+    1;
+
+}
+
+
+
+@media (
+  max-width: 1000px
+) {
+
+  .module-grid {
+
+    grid-template-columns:
+      repeat(
+        2,
+        1fr
+      );
+
+  }
+
+}
 
 
 @media (
@@ -703,20 +802,6 @@ button {
   }
 
 }
-
-
-  .module-grid {
-
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-
-  }
-
-}
-
 
 
 @media (
