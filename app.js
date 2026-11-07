@@ -1944,16 +1944,24 @@ function buildStandardMapping(
       }
     );
 
+const mappingHeaders =
+  safeHeaders.filter(
+    header =>
+      String(header)
+        .trim()
+        .toLowerCase() !==
+      "alias"
+  );
 
-  standardMapping.innerHTML =
-    safeHeaders
-      .map(
-        (
-          header,
-          index
-        ) => {
+standardMapping.innerHTML =
+  mappingHeaders
+    .map(
+      (
+        header,
+        index
+      ) => {
 
-          return `
+        return `
 
   <div class="mapping-row">
 
@@ -2007,33 +2015,43 @@ COLLECT QUESTION MAPPINGS
 
 function collectQuestionMappings() {
 
-  const inputs =
+  const skillInputs =
     document.querySelectorAll(
-      ".standard-input"
+      ".skill-input"
     );
-
 
   const mappings = {};
 
-
-  inputs.forEach(
+  skillInputs.forEach(
     input => {
 
       const question =
         input.dataset.question;
 
-
       const label =
         input.value.trim();
 
+      const standardInput =
+        document.querySelector(
+          `.standard-input[data-question="${question}"]`
+        );
 
-      mappings[question] =
-        label ||
-        question;
+      const standard =
+        standardInput
+          ? standardInput.value.trim()
+          : "";
+
+      mappings[question] = {
+        label:
+          label ||
+          question,
+
+        standard:
+          standard
+      };
 
     }
   );
-
 
   return mappings;
 
