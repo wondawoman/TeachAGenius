@@ -36,14 +36,17 @@ const pageNames = {
   dashboard:
     "Dashboard",
   
-curriculum:
-  "Curriculum Map",
+  curriculum:
+    "Curriculum Map",
   
   plan:
     "Lesson Builder",
 
   mastery:
     "Mastery Analyzer",
+
+  plc:
+    "PLC Command Center",
 
   differentiate:
     "Differentiation",
@@ -52,16 +55,15 @@ curriculum:
     "Classroom Strategies",
 
   translate:
-  "Live Translation",
+    "Live Translation",
 
-grades:
-  "Grade Calculator",
+  grades:
+    "Grade Calculator",
 
-settings:
-  "Teacher Settings"
+  settings:
+    "Teacher Settings"
 
 };
-
 
 
 function navigateTo(
