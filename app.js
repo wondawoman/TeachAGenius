@@ -1725,18 +1725,35 @@ function calculateQuestionPerformance(
           scores.length;
 
 
-      results.push({
+    const mapping =
+  mappings[header];
 
+const mappedLabel =
+  typeof mapping === "object" &&
+  mapping !== null
+    ? mapping.label
+    : mapping;
+
+const mappedStandard =
+  typeof mapping === "object" &&
+  mapping !== null
+    ? mapping.standard
+    : "";
+
+results.push({
   question:
     header,
 
   label:
-    mappings[header] ||
+    mappedLabel ||
     header,
+
+  standard:
+    mappedStandard ||
+    "",
 
   average:
     average
-
 });
 
       }
@@ -7661,11 +7678,21 @@ function getReteachTarget(masterySummary) {
       "Use targeted small-group support and additional guided practice.";
   }
 
-  return {
-  question: target.question,
-  label: target.label,
-  average: target.average,
-  response: response
+return {
+  question:
+    target.question,
+
+  label:
+    target.label,
+
+  standard:
+    target.standard || "",
+
+  average:
+    target.average,
+
+  response:
+    response
 };
 }
 function getDataActionBrief(
@@ -7699,7 +7726,10 @@ function getDataActionBrief(
 
 sourceQuestion:
   reteachTarget.question,
-
+    
+standard:
+  reteachTarget.standard,
+    
 mastery:
   Math.round(
     reteachTarget.average
@@ -7740,7 +7770,10 @@ function formatDataActionBrief(
   if (!dataActionBrief) {
     return "";
   }
-
+const standardLine =
+  dataActionBrief.standard
+    ? `Standard: ${dataActionBrief.standard}`
+    : "";
  const sourceLine =
   dataActionBrief.sourceQuestion &&
   dataActionBrief.sourceQuestion !==
@@ -7752,6 +7785,7 @@ return [
   "DATA ACTION BRIEF",
   "",
   `Reteach Focus: ${dataActionBrief.reteachTarget}`,
+  standardLine,
   sourceLine,
   `Current Mastery: ${dataActionBrief.mastery}%`,
   `Pacing Context: ${dataActionBrief.pacing}`,
@@ -8062,7 +8096,16 @@ ${
   <strong>Reteach Focus:</strong>
   ${dataActionBrief.reteachTarget}
 </p>
-
+${
+  dataActionBrief.standard
+    ? `
+      <p>
+        <strong>Standard:</strong>
+        ${dataActionBrief.standard}
+      </p>
+    `
+    : ""
+}
 ${
   dataActionBrief.sourceQuestion &&
   dataActionBrief.sourceQuestion !==
