@@ -486,22 +486,29 @@ margin:
 
 }
 
-
 #plc .plc-intro {
 
   margin-bottom:
-    28px;
+    22px;
 
 }
-
 
 #plc .plc-intro p {
 
   max-width:
-    720px;
+    620px;
+
+  margin:
+    6px 0 4px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    14px;
 
   line-height:
-    1.6;
+    1.45;
 
 }
 
@@ -529,7 +536,119 @@ margin:
 #plc .plc-section-heading {
 
   margin-bottom:
-    20px;
+    16px;
+
+}
+
+#plc .plc-info-key {
+
+  color:
+    var(--muted);
+
+  font-size:
+    11px;
+
+}
+
+
+#plc .plc-history-heading {
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap:
+    16px;
+
+}
+
+
+#plc .plc-info {
+
+  position:
+    relative;
+
+}
+
+
+#plc .plc-info summary {
+
+  width:
+    30px;
+
+  height:
+    30px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    50%;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  cursor:
+    pointer;
+
+  color:
+    var(--primary);
+
+  font-weight:
+    700;
+
+  list-style:
+    none;
+
+}
+
+
+#plc .plc-info summary::-webkit-details-marker {
+
+  display:
+    none;
+
+}
+
+
+#plc .plc-info p {
+
+  max-width:
+    420px;
+
+  margin:
+    10px 0 0;
+
+  padding:
+    12px 14px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  background:
+    var(--surface);
+
+  color:
+    var(--muted);
+
+  font-size:
+    13px;
+
+  line-height:
+    1.45;
 
 }
 
