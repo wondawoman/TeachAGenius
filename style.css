@@ -632,17 +632,38 @@ button {
 
 #dashboard .dashboard-welcome {
 
-  display:
-    block;
-
-  margin-bottom:
-    8px;
+  margin:
+    0 0 4px;
 
   font-size:
-    14px;
+    18px;
+
+  font-weight:
+    600;
+
+  color:
+    var(--text);
 
 }
 
+#dashboard .dashboard-lead {
+
+  max-width:
+    680px;
+
+  margin:
+    0;
+
+  font-size:
+    15px;
+
+  line-height:
+    1.5;
+
+  color:
+    var(--muted);
+
+}
 
 #dashboard .dashboard-hero p {
 
