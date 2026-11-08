@@ -3947,6 +3947,290 @@ INITIALIZE TEACHER SETTINGS
 
 
 loadTeacherSettings();
+
+/*
+==============================================
+PLC HISTORY
+==============================================
+*/
+
+
+const plcMeetingDate =
+  document.getElementById(
+    "plcMeetingDate"
+  );
+
+
+const savePlcButton =
+  document.getElementById(
+    "savePlcButton"
+  );
+
+
+const plcSavedMessage =
+  document.getElementById(
+    "plcSavedMessage"
+  );
+
+
+const plcHistoryStorageKey =
+  "teachAGeniusPlcHistory";
+
+
+function getPlcHistory() {
+
+  const savedHistory =
+    localStorage.getItem(
+      plcHistoryStorageKey
+    );
+
+
+  if (
+    !savedHistory
+  ) {
+
+    return [];
+
+  }
+
+
+  try {
+
+    return JSON.parse(
+      savedHistory
+    );
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      "Could not read PLC history:",
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+
+function getPlcFieldValue(
+  fieldId
+) {
+
+  const field =
+    document.getElementById(
+      fieldId
+    );
+
+
+  return field
+    ? field.value.trim()
+    : "";
+
+}
+
+
+function getPlcNumberValue(
+  fieldId
+) {
+
+  const field =
+    document.getElementById(
+      fieldId
+    );
+
+
+  if (
+    !field ||
+    field.value === ""
+  ) {
+
+    return null;
+
+  }
+
+
+  return Number(
+    field.value
+  );
+
+}
+
+
+function buildPlcRecord() {
+
+  return {
+
+    id:
+      `plc-${Date.now()}`,
+
+    meetingDate:
+      getPlcFieldValue(
+        "plcMeetingDate"
+      ),
+
+    savedAt:
+      new Date()
+        .toISOString(),
+
+    course:
+      getPlcFieldValue(
+        "plcCourse"
+      ),
+
+    grades:
+      getPlcFieldValue(
+        "plcGrades"
+      ),
+
+    instructionalFocus:
+      getPlcFieldValue(
+        "plcInstructionalFocus"
+      ),
+
+    learningObjective:
+      getPlcFieldValue(
+        "plcLearningObjective"
+      ),
+
+    dol:
+      getPlcFieldValue(
+        "plcDol"
+      ),
+
+    studentStruggle:
+      getPlcFieldValue(
+        "plcStudentStruggle"
+      ),
+
+    whatWorked:
+      getPlcFieldValue(
+        "plcWhatWorked"
+      ),
+
+    mastered:
+      getPlcNumberValue(
+        "plcMastered"
+      ),
+
+    meets:
+      getPlcNumberValue(
+        "plcMeets"
+      ),
+
+    approaching:
+      getPlcNumberValue(
+        "plcApproaching"
+      ),
+
+    below:
+      getPlcNumberValue(
+        "plcBelow"
+      ),
+
+    nextWeekPlan:
+      getPlcFieldValue(
+        "plcNextWeekPlan"
+      ),
+
+    supportNeeded:
+      getPlcFieldValue(
+        "plcSupportNeeded"
+      ),
+
+    glow:
+      getPlcFieldValue(
+        "plcGlow"
+      ),
+
+    additionalNotes:
+      getPlcFieldValue(
+        "plcAdditionalNotes"
+      )
+
+  };
+
+}
+
+
+function savePlcRecord() {
+
+  const plcRecord =
+    buildPlcRecord();
+
+
+  if (
+    !plcRecord.meetingDate
+  ) {
+
+    alert(
+      "Add the PLC meeting date before saving."
+    );
+
+    return;
+
+  }
+
+
+  const plcHistory =
+    getPlcHistory();
+
+
+  plcHistory.push(
+    plcRecord
+  );
+
+
+  localStorage.setItem(
+    plcHistoryStorageKey,
+    JSON.stringify(
+      plcHistory
+    )
+  );
+
+
+  console.log(
+    "PLC saved:",
+    plcRecord
+  );
+
+
+  console.log(
+    "PLC history:",
+    plcHistory
+  );
+
+
+  if (
+    plcSavedMessage
+  ) {
+
+    plcSavedMessage
+      .classList
+      .remove(
+        "hidden"
+      );
+
+  }
+
+}
+
+
+if (
+  savePlcButton
+) {
+
+  savePlcButton
+    .addEventListener(
+      "click",
+      savePlcRecord
+    );
+
+}
+
 /*
 ==============================================
 GRADE CALCULATOR
