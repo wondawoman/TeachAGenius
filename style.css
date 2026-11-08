@@ -910,8 +910,11 @@ transition:
   display:
     block;
 
-  margin-bottom:
-    16px;
+  width:
+    fit-content;
+
+  margin:
+    0 auto 16px;
 
   font-size:
     28px;
@@ -925,7 +928,7 @@ transition:
 .module-card:focus-visible .module-icon {
 
   transform:
-    scale(1.08);
+    scale(1.06);
 
 }
 
