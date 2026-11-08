@@ -11,6 +11,10 @@ const navButtons =
     ".nav-button"
   );
 
+const brandHomeButton =
+  document.getElementById(
+    "brandHomeButton"
+  );
 
 const moduleCards =
   document.querySelectorAll(
@@ -33,8 +37,8 @@ const pageTitle =
 
 const pageNames = {
 
-  dashboard:
-    "Dashboard",
+ dashboard:
+  "TeachAGenius (TAG) — Teacher Workspace Dashboard",
   
   curriculum:
     "Curriculum Map",
@@ -160,6 +164,23 @@ moduleCards.forEach(
 
   }
 );
+
+if (
+  brandHomeButton
+) {
+
+  brandHomeButton.addEventListener(
+    "click",
+    () => {
+
+      navigateTo(
+        "dashboard"
+      );
+
+    }
+  );
+
+}
 /*
 ==============================================
 PRIVACY-FIRST MASTERY ANALYZER
