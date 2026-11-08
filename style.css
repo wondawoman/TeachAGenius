@@ -315,8 +315,8 @@ button {
 
 .topbar h2 {
 
-  margin:
-    2px 0 0;
+margin:
+  0;
 
   font-size:
     24px;
@@ -640,10 +640,10 @@ margin-bottom:
 #dashboard .dashboard-welcome-group {
 
   margin-top:
-    12px;
+    18px;
 
   margin-bottom:
-    8px;
+    28px;
 
 }
 
