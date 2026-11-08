@@ -680,14 +680,11 @@ margin-bottom:
 
 #dashboard .dashboard-action-heading {
 
-  display:
-    flex;
+  width:
+    100%;
 
-  justify-content:
-    center;
-
-  align-items:
-    center;
+  margin-top:
+    24px;
 
   margin-bottom:
     12px;
