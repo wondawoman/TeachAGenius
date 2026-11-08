@@ -286,7 +286,66 @@ button {
 
 }
 
+.system-card {
 
+  margin-top:
+    10px;
+
+  padding:
+    12px 15px;
+
+  border-radius:
+    14px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.04
+    );
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+
+}
+
+
+.system-card strong {
+
+  display:
+    block;
+
+  margin-bottom:
+    3px;
+
+  font-size:
+    13px;
+
+}
+
+
+.system-card p {
+
+  margin:
+    0;
+
+  color:
+    #9ca3af;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.4;
+
+}
 
 .workspace {
 
@@ -3534,7 +3593,14 @@ grid-template-columns:
 .break-countdown-section {
 
   margin:
-    20px 0 0;
+    30px 0 0;
+
+  padding-top:
+    22px;
+
+  border-top:
+    1px solid
+    var(--border);
 
 }
 
