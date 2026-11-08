@@ -33,12 +33,15 @@ const pageTitle =
     "pageTitle"
   );
 
-
+const workspaceEyebrow =
+  document.getElementById(
+    "workspaceEyebrow"
+  );
 
 const pageNames = {
 
- dashboard:
-  "TeachAGenius (TAG) — Teacher Workspace Dashboard",
+dashboard:
+  "TeachAGenius (TAG)",
   
   curriculum:
     "Curriculum Map",
@@ -119,11 +122,23 @@ function navigateTo(
   );
 
 
-  pageTitle.textContent =
-    pageNames[
-      pageName
-    ] ||
-    "Teacher OS";
+pageTitle.textContent =
+  pageNames[
+    pageName
+  ] ||
+  "Teacher OS";
+
+
+if (
+  workspaceEyebrow
+) {
+
+  workspaceEyebrow.textContent =
+    pageName === "dashboard"
+      ? "Teacher Workspace Dashboard"
+      : "Teacher Workspace";
+
+}
 
 }
 
