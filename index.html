@@ -1669,13 +1669,27 @@
     </div>
 
 
-    <div class="form-grid">
+   <div class="form-grid">
 
-      <div class="form-group">
+  <div class="form-group">
 
-        <label for="plcCourse">
-          Course / Prep
-        </label>
+    <label for="plcMeetingDate">
+      PLC Meeting Date
+    </label>
+
+    <input
+      type="date"
+      id="plcMeetingDate"
+    >
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label for="plcCourse">
+      Course / Prep
+    </label>
 
         <input
           type="text"
@@ -1995,15 +2009,35 @@
           Additional PLC Notes
         </label>
 
-        <textarea
-          id="plcAdditionalNotes"
-          rows="4"
-          placeholder="Add any other discussion notes, decisions, or follow-up items."
-        ></textarea>
+     <textarea
+  id="plcAdditionalNotes"
+  rows="4"
+  placeholder="Add any other discussion notes, decisions, or follow-up items."
+></textarea>
 
-            </div>
+      </div>
 
     </div>
+
+  </div>
+
+
+  <div class="plc-save-area">
+
+    <button
+      type="button"
+      id="savePlcButton"
+      class="primary-button"
+    >
+      Save This PLC
+    </button>
+
+    <p
+      id="plcSavedMessage"
+      class="hidden"
+    >
+      PLC saved to your meeting history.
+    </p>
 
   </div>
 
