@@ -41,7 +41,7 @@ const workspaceEyebrow =
 const pageNames = {
 
 dashboard:
-  "TeachAGenius (TAG)",
+  "Welcome to your Instructional Workspace.",
   
   curriculum:
     "Curriculum Map",
