@@ -3981,11 +3981,6 @@ const plcPreviousMeeting =
     "plcPreviousMeeting"
   );
 
-const plcPreviousMeeting =
-  document.getElementById(
-    "plcPreviousMeeting"
-  );
-
 
 const plcPreviousMeetingReference =
   document.getElementById(
