@@ -3976,15 +3976,38 @@ const plcSavedMessage =
 const plcHistoryStorageKey =
   "teachAGeniusPlcHistory";
 
-const continueLastPlcButton =
+const plcPreviousMeeting =
   document.getElementById(
-    "continueLastPlcButton"
+    "plcPreviousMeeting"
+  );
+
+const plcPreviousMeeting =
+  document.getElementById(
+    "plcPreviousMeeting"
   );
 
 
-const continueLastPlcMessage =
+const plcPreviousMeetingReference =
   document.getElementById(
-    "continueLastPlcMessage"
+    "plcPreviousMeetingReference"
+  );
+
+
+const plcPreviousMeetingDate =
+  document.getElementById(
+    "plcPreviousMeetingDate"
+  );
+
+
+const bringForwardPlcButton =
+  document.getElementById(
+    "bringForwardPlcButton"
+  );
+
+
+const bringForwardPlcMessage =
+  document.getElementById(
+    "bringForwardPlcMessage"
   );
 
 function getPlcHistory() {
@@ -4024,6 +4047,199 @@ function getPlcHistory() {
   }
 
 }
+
+function formatPlcDate(
+  dateString
+) {
+
+  if (
+    !dateString
+  ) {
+
+    return "Date unavailable";
+
+  }
+
+
+  const date =
+    new Date(
+      `${dateString}T00:00:00`
+    );
+
+
+  return date.toLocaleDateString(
+    "en-US",
+    {
+      month:
+        "long",
+
+      day:
+        "numeric",
+
+      year:
+        "numeric"
+    }
+  );
+
+}
+
+
+function populatePreviousPlcOptions() {
+
+  if (
+    !plcPreviousMeeting
+  ) {
+
+    return;
+
+  }
+
+
+  const plcHistory =
+    getPlcHistory();
+
+
+  plcPreviousMeeting.innerHTML =
+    `
+      <option value="">
+        Select a previous PLC
+      </option>
+    `;
+
+
+  const sortedHistory =
+    [...plcHistory]
+      .sort(
+        (
+          firstRecord,
+          secondRecord
+        ) => {
+
+          return (
+            new Date(
+              secondRecord.meetingDate
+            ) -
+            new Date(
+              firstRecord.meetingDate
+            )
+          );
+
+        }
+      );
+
+
+  sortedHistory.forEach(
+    record => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        record.id;
+
+
+      option.textContent =
+        `${formatPlcDate(
+          record.meetingDate
+        )} — ${
+          record.course ||
+          "Course not listed"
+        }`;
+
+
+      plcPreviousMeeting.appendChild(
+        option
+      );
+
+    }
+  );
+
+}
+
+function getSelectedPreviousPlc() {
+
+  if (
+    !plcPreviousMeeting ||
+    !plcPreviousMeeting.value
+  ) {
+
+    return null;
+
+  }
+
+
+  const plcHistory =
+    getPlcHistory();
+
+
+  return (
+    plcHistory.find(
+      record =>
+        record.id ===
+        plcPreviousMeeting.value
+    ) ||
+    null
+  );
+
+}
+
+function updatePreviousPlcReference() {
+
+  const previousPlc =
+    getSelectedPreviousPlc();
+
+
+  if (
+    !previousPlc
+  ) {
+
+    if (
+      plcPreviousMeetingReference
+    ) {
+
+      plcPreviousMeetingReference
+        .classList
+        .add(
+          "hidden"
+        );
+
+    }
+
+    return;
+
+  }
+
+
+  if (
+    plcPreviousMeetingDate
+  ) {
+
+    plcPreviousMeetingDate.textContent =
+      formatPlcDate(
+        previousPlc.meetingDate
+      );
+
+  }
+
+
+  if (
+    plcPreviousMeetingReference
+  ) {
+
+    plcPreviousMeetingReference
+      .classList
+      .remove(
+        "hidden"
+      );
+
+  }
+
+}
+
+
 
 
 function getPlcFieldValue(
@@ -4189,115 +4405,9 @@ function buildPlcRecord() {
 
 }
 
-function getMostRecentPlcRecord() {
-
-  const plcHistory =
-    getPlcHistory();
 
 
-  if (
-    plcHistory.length === 0
-  ) {
 
-    return null;
-
-  }
-
-
-  const sortedHistory =
-    [...plcHistory]
-      .sort(
-        (
-          firstRecord,
-          secondRecord
-        ) => {
-
-          const firstDate =
-            new Date(
-              firstRecord.meetingDate
-            );
-
-          const secondDate =
-            new Date(
-              secondRecord.meetingDate
-            );
-
-
-          return (
-            secondDate -
-            firstDate
-          );
-
-        }
-      );
-
-
-  return sortedHistory[0];
-
-}
-
-function continueLastPlcWork() {
-
-  const previousPlc =
-    getMostRecentPlcRecord();
-
-
-  if (
-    !previousPlc
-  ) {
-
-    alert(
-      "No previous PLC meeting was found yet."
-    );
-
-    return;
-
-  }
-
-
-  setPlcFieldValue(
-    "plcCourse",
-    previousPlc.course
-  );
-
-
-  setPlcFieldValue(
-    "plcGrades",
-    previousPlc.grades
-  );
-
-
-  setPlcFieldValue(
-    "plcInstructionalFocus",
-    previousPlc.instructionalFocus
-  );
-
-
-  setPlcFieldValue(
-    "plcLearningObjective",
-    previousPlc.learningObjective
-  );
-
-
-  setPlcFieldValue(
-    "plcDol",
-    previousPlc.dol
-  );
-
-
-  if (
-    continueLastPlcMessage
-  ) {
-
-    continueLastPlcMessage
-      .classList
-      .remove(
-        "hidden"
-      );
-
-  }
-
-}
 
 function savePlcRecord() {
 
@@ -4374,17 +4484,99 @@ if (
 
 }
 
+
+
+function bringForwardSelectedPlc() {
+
+  const previousPlc =
+    getSelectedPreviousPlc();
+
+
+  if (
+    !previousPlc
+  ) {
+
+    alert(
+      "Select a previous PLC meeting first."
+    );
+
+    return;
+
+  }
+
+
+  setPlcFieldValue(
+    "plcCourse",
+    previousPlc.course
+  );
+
+
+  setPlcFieldValue(
+    "plcGrades",
+    previousPlc.grades
+  );
+
+
+  setPlcFieldValue(
+    "plcInstructionalFocus",
+    previousPlc.instructionalFocus
+  );
+
+
+  setPlcFieldValue(
+    "plcLearningObjective",
+    previousPlc.learningObjective
+  );
+
+
+  setPlcFieldValue(
+    "plcDol",
+    previousPlc.dol
+  );
+
+
+  if (
+    bringForwardPlcMessage
+  ) {
+
+    bringForwardPlcMessage
+      .classList
+      .remove(
+        "hidden"
+      );
+
+  }
+
+}
+
+
 if (
-  continueLastPlcButton
+  plcPreviousMeeting
 ) {
 
-  continueLastPlcButton
+  plcPreviousMeeting
     .addEventListener(
-      "click",
-      continueLastPlcWork
+      "change",
+      updatePreviousPlcReference
     );
 
 }
+
+
+if (
+  bringForwardPlcButton
+) {
+
+  bringForwardPlcButton
+    .addEventListener(
+      "click",
+      bringForwardSelectedPlc
+    );
+
+}
+
+
+populatePreviousPlcOptions();
 
 /*
 ==============================================
