@@ -74,7 +74,8 @@ dashboard:
 
 
 function navigateTo(
-  pageName
+  pageName,
+  addToHistory = true
 ) {
 
 
@@ -122,23 +123,39 @@ function navigateTo(
   );
 
 
-pageTitle.textContent =
-  pageNames[
-    pageName
-  ] ||
-  "Teacher OS";
+  pageTitle.textContent =
+    pageNames[
+      pageName
+    ] ||
+    "";
 
 
-if (
-  workspaceEyebrow
-) {
+  if (
+    workspaceEyebrow
+  ) {
 
-  workspaceEyebrow.textContent =
-    pageName === "dashboard"
-      ? "Teacher Workspace Dashboard"
-      : "Teacher Workspace";
+    workspaceEyebrow.textContent =
+      pageName === "dashboard"
+        ? "Teacher Workspace Dashboard"
+        : "Teacher Workspace";
 
-}
+  }
+
+
+  if (
+    addToHistory
+  ) {
+
+    history.pushState(
+      {
+        page:
+          pageName
+      },
+      "",
+      `#${pageName}`
+    );
+
+  }
 
 }
 
@@ -196,6 +213,40 @@ if (
   );
 
 }
+
+window.addEventListener(
+  "popstate",
+  event => {
+
+    const pageName =
+      event.state?.page ||
+      window.location.hash.replace(
+        "#",
+        ""
+      ) ||
+      "dashboard";
+
+
+    navigateTo(
+      pageName,
+      false
+    );
+
+  }
+);
+
+const initialPage =
+  window.location.hash.replace(
+    "#",
+    ""
+  ) ||
+  "dashboard";
+
+
+navigateTo(
+  initialPage,
+  false
+);
 /*
 ==============================================
 PRIVACY-FIRST MASTERY ANALYZER
