@@ -3976,6 +3976,16 @@ const plcSavedMessage =
 const plcHistoryStorageKey =
   "teachAGeniusPlcHistory";
 
+const continueLastPlcButton =
+  document.getElementById(
+    "continueLastPlcButton"
+  );
+
+
+const continueLastPlcMessage =
+  document.getElementById(
+    "continueLastPlcMessage"
+  );
 
 function getPlcHistory() {
 
@@ -4059,6 +4069,30 @@ function getPlcNumberValue(
 
 }
 
+function setPlcFieldValue(
+  fieldId,
+  value
+) {
+
+  const field =
+    document.getElementById(
+      fieldId
+    );
+
+
+  if (
+    !field
+  ) {
+
+    return;
+
+  }
+
+
+  field.value =
+    value ?? "";
+
+}
 
 function buildPlcRecord() {
 
@@ -4155,6 +4189,115 @@ function buildPlcRecord() {
 
 }
 
+function getMostRecentPlcRecord() {
+
+  const plcHistory =
+    getPlcHistory();
+
+
+  if (
+    plcHistory.length === 0
+  ) {
+
+    return null;
+
+  }
+
+
+  const sortedHistory =
+    [...plcHistory]
+      .sort(
+        (
+          firstRecord,
+          secondRecord
+        ) => {
+
+          const firstDate =
+            new Date(
+              firstRecord.meetingDate
+            );
+
+          const secondDate =
+            new Date(
+              secondRecord.meetingDate
+            );
+
+
+          return (
+            secondDate -
+            firstDate
+          );
+
+        }
+      );
+
+
+  return sortedHistory[0];
+
+}
+
+function continueLastPlcWork() {
+
+  const previousPlc =
+    getMostRecentPlcRecord();
+
+
+  if (
+    !previousPlc
+  ) {
+
+    alert(
+      "No previous PLC meeting was found yet."
+    );
+
+    return;
+
+  }
+
+
+  setPlcFieldValue(
+    "plcCourse",
+    previousPlc.course
+  );
+
+
+  setPlcFieldValue(
+    "plcGrades",
+    previousPlc.grades
+  );
+
+
+  setPlcFieldValue(
+    "plcInstructionalFocus",
+    previousPlc.instructionalFocus
+  );
+
+
+  setPlcFieldValue(
+    "plcLearningObjective",
+    previousPlc.learningObjective
+  );
+
+
+  setPlcFieldValue(
+    "plcDol",
+    previousPlc.dol
+  );
+
+
+  if (
+    continueLastPlcMessage
+  ) {
+
+    continueLastPlcMessage
+      .classList
+      .remove(
+        "hidden"
+      );
+
+  }
+
+}
 
 function savePlcRecord() {
 
@@ -4227,6 +4370,18 @@ if (
     .addEventListener(
       "click",
       savePlcRecord
+    );
+
+}
+
+if (
+  continueLastPlcButton
+) {
+
+  continueLastPlcButton
+    .addEventListener(
+      "click",
+      continueLastPlcWork
     );
 
 }
