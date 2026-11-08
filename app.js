@@ -54,18 +54,18 @@ dashboard:
 
   plc:
     "PLC Command Center",
+  
+differentiate:
+  "Differentiation Engine",
 
-  differentiate:
-    "Differentiation",
+classroom:
+  "Classroom Engine",
 
-  classroom:
-    "Classroom Strategies",
+translate:
+  "Live Translation",
 
-  translate:
-    "Live Translation",
-
-  grades:
-    "Grade Calculator",
+grades:
+  "Grade Calculator",
 
   settings:
     "Teacher Settings"
