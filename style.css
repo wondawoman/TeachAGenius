@@ -680,8 +680,11 @@ margin-bottom:
 
 #dashboard .dashboard-action-heading {
 
-margin-bottom:
-  10px;
+  margin-bottom:
+    12px;
+
+  text-align:
+    center;
 
 }
 
@@ -733,7 +736,7 @@ margin-bottom:
 .module-card {
 
   min-height:
-    118px;
+  96px;
 
   border:
     1px solid
@@ -745,8 +748,8 @@ margin-bottom:
   background:
     var(--surface);
 
-  padding:
-    16px;
+ padding:
+  14px;
 
   text-align:
     left;
@@ -3492,10 +3495,41 @@ grid-template-columns:
 .break-countdown-section {
 
   margin:
-    28px 0;
+    20px 0 0;
 
 }
 
+#dashboard .break-countdown-section .section-heading {
+
+  margin-bottom:
+    14px;
+
+}
+
+
+#dashboard .break-countdown-section .section-heading h3 {
+
+  margin:
+    4px 0;
+
+  font-size:
+    22px;
+
+  line-height:
+    1.2;
+
+}
+
+
+#dashboard .break-countdown-section .section-heading p {
+
+  margin:
+    0;
+
+  font-size:
+    14px;
+
+}
 
 .break-countdown-grid {
 
@@ -3514,17 +3548,18 @@ grid-template-columns:
 }
 
 
+
 .break-countdown-card {
 
   padding:
-    20px;
+    14px;
 
   border:
     1px solid
     var(--border);
 
   border-radius:
-    16px;
+    14px;
 
   background:
     var(--surface);
@@ -3558,10 +3593,10 @@ grid-template-columns:
     block;
 
   margin-bottom:
-    6px;
+    4px;
 
   font-size:
-    30px;
+    24px;
 
 }
 
