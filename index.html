@@ -1644,14 +1644,34 @@
   </h4>
 
   <p>
-    Review the current evidence, capture what changed, and plan the next instructional move.
+    Capture the meeting, review the evidence, and record next steps.
   </p>
+
+  <span class="plc-info-key">
+    ⓘ More information
+  </span>
 
 </div>
 
-<div class="plc-section">
 
-  <div class="plc-meeting-context">
+<!-- PLC SETUP -->
+
+<div class="plc-section plc-setup-section">
+
+  <div class="plc-section-heading">
+
+    <span class="eyebrow">
+      PLC Setup
+    </span>
+
+    <h4>
+      Meeting Details
+    </h4>
+
+  </div>
+
+
+  <div class="form-grid">
 
     <div class="form-group">
 
@@ -1673,176 +1693,215 @@
 
     </div>
 
+
+    <div class="form-group">
+
+      <label for="plcMeetingDate">
+        PLC Meeting Date
+      </label>
+
+      <input
+        type="date"
+        id="plcMeetingDate"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcCourse">
+        Course / Prep
+      </label>
+
+      <input
+        type="text"
+        id="plcCourse"
+        placeholder="Example: Digital Media"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcGrades">
+        Grade(s)
+      </label>
+
+      <input
+        type="text"
+        id="plcGrades"
+        placeholder="Example: 9–12"
+      >
+
+    </div>
+
   </div>
 
+</div>
+
+
+<!-- INSTRUCTIONAL FOCUS -->
+
+<div class="plc-section">
 
   <div class="plc-section-heading">
 
     <span class="eyebrow">
-      TAG Knows
+      Instructional Focus
     </span>
 
+    <h4>
+      Current Instruction
+    </h4>
+
+  </div>
+
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label for="plcInstructionalFocus">
+        Instructional Focus
+      </label>
+
+      <input
+        type="text"
+        id="plcInstructionalFocus"
+        placeholder="What is the main focus this week?"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcLearningObjective">
+        Learning Objective
+      </label>
+
+      <textarea
+        id="plcLearningObjective"
+        rows="3"
+        placeholder="What should students know or be able to do?"
+      ></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcDol">
+        Demonstration of Learning
+      </label>
+
+      <textarea
+        id="plcDol"
+        rows="3"
+        placeholder="How will students demonstrate mastery?"
+      ></textarea>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- OPTIONAL PLC HISTORY -->
+
+<div class="plc-section plc-history-section">
+
+  <div class="plc-section-heading plc-history-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        Optional
+      </span>
+
       <h4>
-        Instructional Context
+        Use a Previous PLC
       </h4>
 
-   <p>
-  Select a previous PLC when you want to reuse instructional context from an earlier meeting.
-</p>
-    
     </div>
 
-    <div class="plc-history-reference">
 
-  <div class="form-group">
+    <details class="plc-info">
 
-    <label for="plcPreviousMeeting">
-      Previous PLC
-    </label>
+      <summary
+        aria-label="More information about using a previous PLC"
+      >
+        ⓘ
+      </summary>
 
-    <select id="plcPreviousMeeting">
+      <p>
+        Select an earlier meeting when you want to reuse its course,
+        grade, instructional focus, learning objective, and DOL.
+        Your current meeting evidence stays separate.
+      </p>
 
-      <option value="">
-        Select a previous PLC
-      </option>
-
-    </select>
+    </details>
 
   </div>
 
 
- <div
-  id="plcPreviousMeetingReference"
-  class="hidden"
->
+  <div class="plc-history-reference">
 
-  <span class="eyebrow">
-    Historical Reference
-  </span>
+    <div class="form-group">
 
-  <strong id="plcPreviousMeetingDate">
-    --
-  </strong>
+      <label for="plcPreviousMeeting">
+        Previous PLC
+      </label>
 
-  <p>
-    Use this meeting as context for the current PLC.
-  </p>
+      <select id="plcPreviousMeeting">
 
-</div>
+        <option value="">
+          Select a previous PLC
+        </option>
 
-  <button
-    type="button"
-    id="bringForwardPlcButton"
-    class="secondary-button"
-  >
-    Bring Forward Instructional Context
-  </button>
+      </select>
+
+    </div>
 
 
-  <p
-    id="bringForwardPlcMessage"
-    class="hidden"
-  >
-    Instructional context brought forward. Review and adjust anything that changed.
-  </p>
-
-</div>
-
-    
-   <div class="form-grid">
-
-  <div class="form-group">
-
-    <label for="plcMeetingDate">
-      PLC Meeting Date
-    </label>
-
-    <input
-      type="date"
-      id="plcMeetingDate"
+    <div
+      id="plcPreviousMeetingReference"
+      class="hidden"
     >
 
-  </div>
+      <span class="eyebrow">
+        Historical Reference
+      </span>
 
-
-  <div class="form-group">
-
-    <label for="plcCourse">
-      Course / Prep
-    </label>
-
-        <input
-          type="text"
-          id="plcCourse"
-          placeholder="Example: Digital Media"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcGrades">
-          Grade(s)
-        </label>
-
-        <input
-          type="text"
-          id="plcGrades"
-          placeholder="Example: 9–12"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcInstructionalFocus">
-          Instructional Focus
-        </label>
-
-        <input
-          type="text"
-          id="plcInstructionalFocus"
-          placeholder="What is the main focus this week?"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcLearningObjective">
-          Learning Objective
-        </label>
-
-        <textarea
-          id="plcLearningObjective"
-          rows="3"
-          placeholder="What should students know or be able to do?"
-        ></textarea>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcDol">
-          Demonstration of Learning
-        </label>
-
-     <textarea
-  id="plcDol"
-  rows="3"
-  placeholder="How will students demonstrate mastery?"
-></textarea>
-
-</div>
+      <strong id="plcPreviousMeetingDate">
+        --
+      </strong>
 
     </div>
 
+
+    <button
+      type="button"
+      id="bringForwardPlcButton"
+      class="secondary-button"
+    >
+      Use Selected PLC Context
+    </button>
+
+
+    <p
+      id="bringForwardPlcMessage"
+      class="hidden"
+    >
+      Selected PLC context added. Review anything that changed.
+    </p>
+
   </div>
 
+</div>
 
   <div class="plc-section">
 
@@ -1856,10 +1915,7 @@
         What Changed This Week?
       </h4>
 
-    <p>
-  Compare what is happening now with the previous meeting and record what changed.
-</p>
-
+  
     </div>
 
 
@@ -2004,9 +2060,6 @@
         What Happens Next?
       </h4>
 
-      <p>
-        Use the current instructional evidence to identify the next move, needed support, and what should carry forward.
-      </p>
 
     </div>
 
@@ -2055,13 +2108,9 @@
         Close the Loop
       </span>
 
-      <h4>
-        Capture the Win + Anything Else
-      </h4>
-
-      <p>
-        End with the bright spot, any final decisions, and anything worth carrying into the next conversation.
-      </p>
+     <h4>
+  Wins + Decisions
+</h4>
 
     </div>
 
