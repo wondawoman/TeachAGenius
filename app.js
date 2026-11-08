@@ -41,7 +41,7 @@ const workspaceEyebrow =
 const pageNames = {
 
 dashboard:
-  "Welcome to your Instructional Workspace.",
+  "",
   
   curriculum:
     "Curriculum Map",
