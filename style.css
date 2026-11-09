@@ -485,7 +485,7 @@ margin:
     100%;
 
   max-width:
-    900px;
+    860px;
 
   margin:
     0 auto;
@@ -527,16 +527,16 @@ margin:
     border-box;
 
   padding:
-    18px;
+    16px;
 
   margin:
-    0 0 18px;
+    0 0 16px;
 
   border:
     1px solid rgba(0, 0, 0, 0.08);
 
   border-radius:
-    16px;
+    14px;
 
   background:
     rgba(255, 255, 255, 0.55);
@@ -882,13 +882,13 @@ margin:
 #plc .plc-section-heading h4 {
 
   margin:
-    4px 0 2px;
+    3px 0 2px;
 
   font-size:
-    18px;
+    17px;
 
   line-height:
-    1.25;
+    1.2;
 
 }
 
@@ -919,7 +919,7 @@ margin:
     );
 
   gap:
-    18px;
+    14px 16px;
 
 }
 
@@ -975,6 +975,17 @@ margin:
 
 }
 
+#plc textarea {
+
+  min-height:
+    72px;
+
+  resize:
+    vertical;
+
+}
+
+
 #plc select {
 
   font-size:
@@ -983,6 +994,26 @@ margin:
 }
 
 
+#plc .plc-save-area {
+
+  max-width:
+    860px;
+
+  margin:
+    4px auto 0;
+
+  padding-top:
+    4px;
+
+}
+
+
+#plc .plc-save-area .primary-button {
+
+  min-width:
+    150px;
+
+}
 @media (
   max-width: 800px
 ) {
@@ -995,6 +1026,8 @@ margin:
   }
 
 }
+
+
 
 .hero {
 
