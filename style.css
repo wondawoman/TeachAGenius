@@ -965,7 +965,9 @@ margin:
 
 }
 
-#plc #plcPerformanceEvidence {
+#plc #plcPerformanceEvidence,
+#plc #plcProjectEvidence,
+#plc #plcCertificationEvidence {
 
   grid-column:
     1 / -1;
