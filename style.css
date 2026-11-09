@@ -579,10 +579,10 @@ margin:
     flex-end;
 
   margin:
-    -12px auto 12px;
+    -22px auto 8px;
 
   padding-right:
-    8px;
+    28px;
 
 }
 
@@ -600,6 +600,9 @@ margin:
   gap:
     16px;
 
+  padding-right:
+    6px;
+
 }
 
 
@@ -612,7 +615,7 @@ margin:
     absolute;
 
   right:
-    30px;
+  28px;
 
   white-space:
     nowrap;
@@ -759,11 +762,14 @@ margin:
 
 #plc .plc-page-help .plc-info p {
 
-  width:
-    250px;
+  top:
+    30px;
 
   right:
     0;
+
+  width:
+    250px;
 
 }
 
