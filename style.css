@@ -540,13 +540,27 @@ margin:
 
 }
 
-#plc .plc-info-key {
-
-  color:
-    var(--muted);
+#plc .plc-section-heading .eyebrow {
 
   font-size:
-    11px;
+    10px;
+
+  letter-spacing:
+    0.1em;
+
+}
+
+
+#plc .plc-page-help {
+
+  display:
+    flex;
+
+  justify-content:
+    flex-end;
+
+  margin:
+    -12px 4px 12px 0;
 
 }
 
@@ -752,11 +766,14 @@ margin:
 
 #plc .plc-section-heading h4 {
 
-  margin-top:
-    6px;
+  margin:
+    4px 0 2px;
 
-  margin-bottom:
-    6px;
+  font-size:
+    18px;
+
+  line-height:
+    1.25;
 
 }
 
@@ -808,11 +825,16 @@ margin:
 
 #plc .form-group label {
 
+  font-size:
+    13px;
+
   font-weight:
     600;
 
-}
+  line-height:
+    1.3;
 
+}
 
 #plc input,
 #plc textarea {
@@ -822,6 +844,16 @@ margin:
 
   box-sizing:
     border-box;
+
+  font-size:
+    14px;
+
+}
+
+#plc select {
+
+  font-size:
+    14px;
 
 }
 
