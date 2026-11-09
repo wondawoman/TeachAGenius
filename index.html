@@ -1618,79 +1618,37 @@
   class="page"
 >
 
+  <div class="section-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        PLC Collaboration / Brief
+      </span>
+
+      <p>
+        Capture instructional evidence, decisions, next steps, and support needs in one place.
+      </p>
+
+    </div>
+
+  </div>
+
+
   <div class="plc-page-help">
 
     <details class="plc-info">
 
       <summary
-        aria-label="More information about the PLC Command Center"
+        aria-label="More information about PLC Command Center"
       >
         ⓘ
       </summary>
 
       <p>
-        Use PLC Command Center to record meeting context,
-        instructional evidence, decisions, and next steps.
-        Optional history tools let you reuse or compare
-        previous PLC information when needed.
-      </p>
-
-    </details>
-
-  </div>
-
-  <div class="section-heading">
-
-    <div>
-
-   <span class="eyebrow">
-  PLC Collaboration / Brief
-</span>
-
-<p>
-  Capture instructional evidence, decisions, next steps, and support needs in one place.
-</p>
-
-    </div>
-
-  </div>
-
-
-<div class="card plc-card">
-
-
-<!-- OPTIONAL PLC HISTORY -->
-
-<!-- OPTIONAL PLC HISTORY -->
-
-<div class="plc-section plc-history-section">
-
-  <div class="plc-section-heading plc-history-heading">
-
-    <div>
-
-      <span class="eyebrow">
-        Optional
-      </span>
-
-      <h4>
-        Use a Previous PLC
-      </h4>
-
-    </div>
-
-
-    <details class="plc-info">
-
-      <summary
-        aria-label="More information about using a previous PLC"
-      >
-        ⓘ
-      </summary>
-
-      <p>
-        Reuse course, grade, instructional focus,
-        learning objective, and DOL from an earlier PLC.
+        Record meeting context, instructional evidence,
+        decisions, and next steps. Use history tools when
+        you want to reference an earlier PLC.
       </p>
 
     </details>
@@ -1698,519 +1656,566 @@
   </div>
 
 
-  <div class="plc-history-reference">
+  <div class="card plc-card">
 
-    <div class="form-group">
 
-      <label for="plcPreviousMeeting">
-        Previous PLC
-      </label>
+    <!-- OPTIONAL PLC HISTORY -->
 
-      <select id="plcPreviousMeeting">
+    <div class="plc-section plc-history-section">
 
-        <option value="">
-          Select a previous PLC
-        </option>
+      <div class="plc-section-heading plc-history-heading">
 
-      </select>
+        <div>
 
-    </div>
+          <span class="eyebrow">
+            Optional
+          </span>
 
+          <h4>
+            Use a Previous PLC
+          </h4>
 
-    <div
-      id="plcPreviousMeetingReference"
-      class="hidden"
-    >
+        </div>
 
-      <span class="eyebrow">
-        Historical Reference
-      </span>
 
-      <strong id="plcPreviousMeetingDate">
-        --
-      </strong>
+        <details class="plc-info">
 
-    </div>
+          <summary
+            aria-label="More information about using a previous PLC"
+          >
+            ⓘ
+          </summary>
 
+          <p>
+            Reuse course, grade, instructional focus,
+            learning objective, and DOL from an earlier PLC.
+          </p>
 
-    <button
-      type="button"
-      id="bringForwardPlcButton"
-      class="secondary-button"
-    >
-      Use Selected PLC Context
-    </button>
-
-
-    <p
-      id="bringForwardPlcMessage"
-      class="hidden"
-    >
-      Selected PLC context added. Review anything that changed.
-    </p>
-
-  </div>
-
-</div>
-
-
-<!-- PLC SETUP -->
-
-<div class="plc-section plc-setup-section">
-
-  <div class="plc-section-heading">
-
-    <span class="eyebrow">
-      PLC Setup
-    </span>
-
-    <h4>
-      Meeting Details
-    </h4>
-
-  </div>
-
-
- <div class="form-group">
-
-  <label for="plcMeetingMode">
-    PLC Format
-  </label>
-
-  <select id="plcMeetingMode">
-
-    <option value="individual">
-      Individual
-    </option>
-
-    <option value="team">
-      Team / Group
-    </option>
-
-  </select>
-
-</div>
-
-
-<div class="form-group">
-
-  <label for="plcCadence">
-    PLC Cycle
-  </label>
-
-  <select id="plcCadence">
-
-    <option value="daily">
-      Daily
-    </option>
-
-    <option
-      value="weekly"
-      selected
-    >
-      Weekly
-    </option>
-
-    <option value="biweekly">
-      Every Two Weeks
-    </option>
-
-    <option value="monthly">
-      Monthly
-    </option>
-
-    <option value="other">
-      Other
-    </option>
-
-  </select>
-
-</div>
-
-
-    <div class="form-group">
-
-      <label for="plcMeetingDate">
-        PLC Meeting Date
-      </label>
-
-      <input
-        type="date"
-        id="plcMeetingDate"
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="plcCourse">
-        Course / Prep
-      </label>
-
-      <input
-        type="text"
-        id="plcCourse"
-        placeholder="Example: Digital Media"
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="plcGrades">
-        Grade(s)
-      </label>
-
-      <input
-        type="text"
-        id="plcGrades"
-        placeholder="Example: 9–12"
-      >
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- INSTRUCTIONAL FOCUS -->
-
-<div class="plc-section">
-
-  <div class="plc-section-heading">
-
- <span class="eyebrow">
-  Instruction
-</span>
-
-<h4>
-  Lesson / Unit / Project Focus
-</h4>
-    
-  </div>
-
-
-  <div class="form-grid">
-
-    <div class="form-group">
-
-      
-<label for="plcInstructionalFocus">
-  Focus
-</label>
-
-<input
-  type="text"
-  id="plcInstructionalFocus"
-  placeholder="What instruction is this PLC focused on?"
->
-
-      
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="plcLearningObjective">
-        Learning Objective
-      </label>
-
-      <textarea
-        id="plcLearningObjective"
-        rows="3"
-        placeholder="What should students know or be able to do?"
-      ></textarea>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="plcDol">
-        Demonstration of Learning
-      </label>
-
-      <textarea
-        id="plcDol"
-        rows="3"
-        placeholder="How will students demonstrate mastery?"
-      ></textarea>
-
-    </div>
-
-  </div>
-
-</div>
-    <div class="plc-section-heading">
-
-      
-   <span class="eyebrow">
-  Teacher Check-In
-</span>
-
-<h4>
-  What Are You Seeing?
-</h4>
-
-  
-    </div>
-
-
-    <div class="form-grid">
-
-      <div class="form-group">
-
-        <label for="plcStudentStruggle">
-          What Students Are Struggling With
-        </label>
-
-        <textarea
-          id="plcStudentStruggle"
-          rows="3"
-          placeholder="What are students struggling with this week?"
-        ></textarea>
+        </details>
 
       </div>
 
 
-      <div class="form-group">
+      <div class="plc-history-reference">
 
-        <label for="plcWhatWorked">
-          What Worked Well
-        </label>
+        <div class="form-group">
 
-       <textarea
-  id="plcWhatWorked"
-  rows="3"
-  placeholder="What instructional moves or supports worked well?"
-></textarea>
+          <label for="plcPreviousMeeting">
+            Previous PLC
+          </label>
 
-</div>
+          <select id="plcPreviousMeeting">
+
+            <option value="">
+              Select a previous PLC
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div
+          id="plcPreviousMeetingReference"
+          class="hidden"
+        >
+
+          <span class="eyebrow">
+            Historical Reference
+          </span>
+
+          <strong id="plcPreviousMeetingDate">
+            --
+          </strong>
+
+        </div>
+
+
+        <button
+          type="button"
+          id="bringForwardPlcButton"
+          class="secondary-button"
+        >
+          Use Selected PLC Context
+        </button>
+
+
+        <p
+          id="bringForwardPlcMessage"
+          class="hidden"
+        >
+          Selected PLC context added. Review anything that changed.
+        </p>
+
+      </div>
 
     </div>
 
-  </div>
+
+    <!-- PLC SETUP -->
+
+    <div class="plc-section plc-setup-section">
+
+      <div class="plc-section-heading">
+
+        <span class="eyebrow">
+          PLC Setup
+        </span>
+
+        <h4>
+          Meeting Details
+        </h4>
+
+      </div>
 
 
-  <div class="plc-section">
+      <div class="form-grid">
 
-    <div class="plc-section-heading">
+        <div class="form-group">
 
-      <span class="eyebrow">
-        Data Snapshot
-      </span>
+          <label for="plcMeetingMode">
+            PLC Format
+          </label>
 
-      <h4>
-        Where Students Are Right Now
-      </h4>
+          <select id="plcMeetingMode">
 
-      <p>
-        TAG can bring forward current mastery evidence so you can review the signal instead of rebuilding the data story from scratch.
+            <option value="individual">
+              Individual
+            </option>
+
+            <option value="team">
+              Team / Group
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcCadence">
+            PLC Cycle
+          </label>
+
+          <select id="plcCadence">
+
+            <option value="daily">
+              Daily
+            </option>
+
+            <option
+              value="weekly"
+              selected
+            >
+              Weekly
+            </option>
+
+            <option value="biweekly">
+              Every Two Weeks
+            </option>
+
+            <option value="monthly">
+              Monthly
+            </option>
+
+            <option value="other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcMeetingDate">
+            PLC Meeting Date
+          </label>
+
+          <input
+            type="date"
+            id="plcMeetingDate"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcGrades">
+            Grade(s)
+          </label>
+
+          <input
+            type="text"
+            id="plcGrades"
+            placeholder="Example: 9–12"
+          >
+
+        </div>
+
+
+        <div class="form-group plc-wide-field">
+
+          <label for="plcCourse">
+            Course / Prep
+          </label>
+
+          <input
+            type="text"
+            id="plcCourse"
+            placeholder="Example: Digital Media"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- INSTRUCTION -->
+
+    <div class="plc-section">
+
+      <div class="plc-section-heading">
+
+        <span class="eyebrow">
+          Instruction
+        </span>
+
+        <h4>
+          Lesson / Unit / Project Focus
+        </h4>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group plc-wide-field">
+
+          <label for="plcInstructionalFocus">
+            Focus
+          </label>
+
+          <input
+            type="text"
+            id="plcInstructionalFocus"
+            placeholder="What instruction is this PLC focused on?"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcLearningObjective">
+            Learning Objective
+          </label>
+
+          <textarea
+            id="plcLearningObjective"
+            rows="3"
+            placeholder="What should students know or be able to do?"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcDol">
+            Demonstration of Learning
+          </label>
+
+          <textarea
+            id="plcDol"
+            rows="3"
+            placeholder="How will students demonstrate mastery?"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TEACHER CHECK-IN -->
+
+    <div class="plc-section">
+
+      <div class="plc-section-heading">
+
+        <span class="eyebrow">
+          Teacher Check-In
+        </span>
+
+        <h4>
+          What Are You Seeing?
+        </h4>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="plcStudentStruggle">
+            What Students Are Struggling With
+          </label>
+
+          <textarea
+            id="plcStudentStruggle"
+            rows="3"
+            placeholder="What challenges are you seeing?"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcWhatWorked">
+            What Worked Well
+          </label>
+
+          <textarea
+            id="plcWhatWorked"
+            rows="3"
+            placeholder="What instructional moves or supports worked well?"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- DATA SNAPSHOT -->
+
+    <div class="plc-section">
+
+      <div class="plc-section-heading">
+
+        <span class="eyebrow">
+          Data Snapshot
+        </span>
+
+        <h4>
+          Where Students Are Right Now
+        </h4>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="plcMastered">
+            Mastered %
+          </label>
+
+          <input
+            type="number"
+            id="plcMastered"
+            min="0"
+            max="100"
+            placeholder="0"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcMeets">
+            Meets %
+          </label>
+
+          <input
+            type="number"
+            id="plcMeets"
+            min="0"
+            max="100"
+            placeholder="0"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcApproaching">
+            Approaching %
+          </label>
+
+          <input
+            type="number"
+            id="plcApproaching"
+            min="0"
+            max="100"
+            placeholder="0"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcBelow">
+            Below %
+          </label>
+
+          <input
+            type="number"
+            id="plcBelow"
+            min="0"
+            max="100"
+            placeholder="0"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PLANNING FORWARD -->
+
+    <div class="plc-section">
+
+      <div class="plc-section-heading">
+
+        <span class="eyebrow">
+          Planning Forward
+        </span>
+
+        <h4>
+          What Happens Next?
+        </h4>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="plcNextWeekPlan">
+            Next Move
+          </label>
+
+          <textarea
+            id="plcNextWeekPlan"
+            rows="3"
+            placeholder="What happens instructionally next?"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcSupportNeeded">
+            Support Needed
+          </label>
+
+          <textarea
+            id="plcSupportNeeded"
+            rows="3"
+            placeholder="What support, resources, or collaboration are needed?"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CLOSE THE LOOP -->
+
+    <div class="plc-section">
+
+      <div class="plc-section-heading">
+
+        <span class="eyebrow">
+          Close the Loop
+        </span>
+
+        <h4>
+          Wins + Decisions
+        </h4>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="plcGlow">
+            Glow / Highlight
+          </label>
+
+          <textarea
+            id="plcGlow"
+            rows="3"
+            placeholder="What is one win or bright spot worth highlighting?"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="plcAdditionalNotes">
+            Additional PLC Notes
+          </label>
+
+          <textarea
+            id="plcAdditionalNotes"
+            rows="4"
+            placeholder="Add decisions, notes, or follow-up items."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="plc-save-area">
+
+      <button
+        type="button"
+        id="savePlcButton"
+        class="primary-button"
+      >
+        Save This PLC
+      </button>
+
+
+      <p
+        id="plcSavedMessage"
+        class="hidden"
+      >
+        PLC saved to your meeting history.
       </p>
 
     </div>
 
 
-    <div class="form-grid">
-
-      <div class="form-group">
-
-        <label for="plcMastered">
-          Mastered %
-        </label>
-
-        <input
-          type="number"
-          id="plcMastered"
-          min="0"
-          max="100"
-          placeholder="0"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcMeets">
-          Meets %
-        </label>
-
-        <input
-          type="number"
-          id="plcMeets"
-          min="0"
-          max="100"
-          placeholder="0"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcApproaching">
-          Approaching %
-        </label>
-
-        <input
-          type="number"
-          id="plcApproaching"
-          min="0"
-          max="100"
-          placeholder="0"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcBelow">
-          Below %
-        </label>
-
-       <input
-  type="number"
-  id="plcBelow"
-  min="0"
-  max="100"
-  placeholder="0"
->
-
-</div>
-
-    </div>
-
   </div>
-
-
-  <div class="plc-section">
-
-    <div class="plc-section-heading">
-
-      <span class="eyebrow">
-        Planning Forward
-      </span>
-
-      <h4>
-        What Happens Next?
-      </h4>
-
-
-    </div>
-
-
-    <div class="form-grid">
-
-      <div class="form-group">
-
-        <label for="plcNextWeekPlan">
-          Next Week Plan
-        </label>
-
-        <textarea
-          id="plcNextWeekPlan"
-          rows="3"
-          placeholder="What is the instructional plan for next week?"
-        ></textarea>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcSupportNeeded">
-          Support Needed
-        </label>
-
-       <textarea
-  id="plcSupportNeeded"
-  rows="3"
-  placeholder="What support, resources, or collaboration are needed?"
-></textarea>
-
-</div>
-
-    </div>
-
-  </div>
-
-
-  <div class="plc-section">
-
-    <div class="plc-section-heading">
-
-      <span class="eyebrow">
-        Close the Loop
-      </span>
-
-     <h4>
-  Wins + Decisions
-</h4>
-
-    </div>
-
-
-    <div class="form-grid">
-
-      <div class="form-group">
-
-        <label for="plcGlow">
-          Glow / Highlight
-        </label>
-
-        <textarea
-          id="plcGlow"
-          rows="3"
-          placeholder="What is one win, bright spot, or success worth highlighting?"
-        ></textarea>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="plcAdditionalNotes">
-          Additional PLC Notes
-        </label>
-
-     <textarea
-  id="plcAdditionalNotes"
-  rows="4"
-  placeholder="Add any other discussion notes, decisions, or follow-up items."
-></textarea>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="plc-save-area">
-
-    <button
-      type="button"
-      id="savePlcButton"
-      class="primary-button"
-    >
-      Save This PLC
-    </button>
-
-    <p
-      id="plcSavedMessage"
-      class="hidden"
-    >
-      PLC saved to your meeting history.
-    </p>
-
-  </div>
-
-</div>
 
 </section>
 
