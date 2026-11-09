@@ -4305,6 +4305,166 @@ function setPlcFieldValue(
 
 }
 
+
+
+function updatePlcEvidenceFields() {
+
+  const evidenceType =
+    document.getElementById(
+      "plcEvidenceType"
+    );
+
+
+  const performanceEvidence =
+    document.getElementById(
+      "plcPerformanceEvidence"
+    );
+
+
+  const projectEvidence =
+    document.getElementById(
+      "plcProjectEvidence"
+    );
+
+
+  const certificationEvidence =
+    document.getElementById(
+      "plcCertificationEvidence"
+    );
+
+
+  const noDataEvidence =
+    document.getElementById(
+      "plcNoDataEvidence"
+    );
+
+
+  if (
+    !evidenceType ||
+    !performanceEvidence ||
+    !projectEvidence ||
+    !certificationEvidence ||
+    !noDataEvidence
+  ) {
+
+    return;
+
+  }
+
+
+  performanceEvidence
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+  projectEvidence
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+  certificationEvidence
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+  noDataEvidence
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+  const selectedEvidence =
+    evidenceType.value;
+
+
+  if (
+    selectedEvidence ===
+    "project"
+  ) {
+
+    projectEvidence
+      .classList
+      .remove(
+        "hidden"
+      );
+
+    return;
+
+  }
+
+
+  if (
+    selectedEvidence ===
+    "ibc"
+  ) {
+
+    certificationEvidence
+      .classList
+      .remove(
+        "hidden"
+      );
+
+    return;
+
+  }
+
+
+  if (
+    selectedEvidence ===
+    "none"
+  ) {
+
+    noDataEvidence
+      .classList
+      .remove(
+        "hidden"
+      );
+
+    return;
+
+  }
+
+
+  performanceEvidence
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+
+
+
+const plcEvidenceType =
+  document.getElementById(
+    "plcEvidenceType"
+  );
+
+
+if (
+  plcEvidenceType
+) {
+
+  plcEvidenceType
+    .addEventListener(
+      "change",
+      updatePlcEvidenceFields
+    );
+
+
+  updatePlcEvidenceFields();
+
+}
+
+
+
 function buildPlcRecord() {
 
   return {
