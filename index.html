@@ -2083,22 +2083,25 @@
 
     </div>
 
+<div id="plcPerformanceEvidence">
 
-    <div
-      class="form-group plc-wide-field"
-      id="plcPerformanceBandHeading"
-    >
+  <div
+    class="form-group plc-wide-field"
+    id="plcPerformanceBandHeading"
+  >
 
-      <label>
-        Performance Bands
-      </label>
+    <label>
+      Performance Bands
+    </label>
 
-      <p class="form-helper">
-        Complete these when they apply to the evidence being reviewed.
-      </p>
+    <p class="form-helper">
+      Complete these when they apply to the evidence being reviewed.
+    </p>
 
-    </div>
+  </div>
 
+
+  <div class="form-grid">
 
     <div class="form-group">
 
@@ -2171,6 +2174,122 @@
 
 </div>
 
+
+<div
+  id="plcProjectEvidence"
+  class="hidden"
+>
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label for="plcProjectCompleted">
+        Completed / On Track %
+      </label>
+
+      <input
+        type="number"
+        id="plcProjectCompleted"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcProjectNeedsSupport">
+        Needs Support %
+      </label>
+
+      <input
+        type="number"
+        id="plcProjectNeedsSupport"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  id="plcCertificationEvidence"
+  class="hidden"
+>
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label for="plcCertificationTested">
+        Students Tested
+      </label>
+
+      <input
+        type="number"
+        id="plcCertificationTested"
+        min="0"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcCertificationPassed">
+        Students Passed
+      </label>
+
+      <input
+        type="number"
+        id="plcCertificationPassed"
+        min="0"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="form-group plc-wide-field">
+
+      <label for="plcCertificationPending">
+        Not Yet Passed / Still Testing
+      </label>
+
+      <input
+        type="number"
+        id="plcCertificationPending"
+        min="0"
+        placeholder="0"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  id="plcNoDataEvidence"
+  class="form-group plc-wide-field hidden"
+>
+
+  <p class="form-helper">
+    No numerical evidence is required for this PLC.
+    Continue with your observations and next instructional move.
+  </p>
+
+</div>
     <!-- PLANNING FORWARD -->
 
     <div class="plc-section">
