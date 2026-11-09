@@ -965,6 +965,30 @@ margin:
 
 }
 
+#plc #plcPerformanceEvidence {
+
+  width:
+    100%;
+
+  max-width:
+    520px;
+
+  margin:
+    0 auto;
+
+}
+
+
+#plc #plcPerformanceEvidence {
+
+  max-width:
+    520px;
+
+  margin:
+    0 auto;
+
+}
+
 #plc .plc-wide-field {
 
   grid-column:
