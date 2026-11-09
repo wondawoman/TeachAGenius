@@ -481,8 +481,14 @@ margin:
 
 #plc .plc-card {
 
+  width:
+    100%;
+
   max-width:
-    1100px;
+    900px;
+
+  margin:
+    0 auto;
 
 }
 
@@ -517,17 +523,14 @@ margin:
   width:
     100%;
 
-  max-width:
-    960px;
-
   box-sizing:
     border-box;
 
   padding:
-    20px;
+    18px;
 
   margin:
-    0 0 20px;
+    0 0 18px;
 
   border:
     1px solid rgba(0, 0, 0, 0.08);
@@ -917,6 +920,13 @@ margin:
 
   gap:
     18px;
+
+}
+
+#plc .plc-wide-field {
+
+  grid-column:
+    1 / -1;
 
 }
 
