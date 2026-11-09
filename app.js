@@ -4573,6 +4573,37 @@ if (
 
 populatePreviousPlcOptions();
 
+const plcInfoDetails =
+  document.querySelectorAll(
+    "#plc .plc-info"
+  );
+
+
+document.addEventListener(
+  "click",
+  event => {
+
+    plcInfoDetails.forEach(
+      detail => {
+
+        if (
+          detail.open &&
+          !detail.contains(
+            event.target
+          )
+        ) {
+
+          detail.removeAttribute(
+            "open"
+          );
+
+        }
+
+      }
+    );
+
+  }
+);
 /*
 ==============================================
 GRADE CALCULATOR
