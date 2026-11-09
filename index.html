@@ -1644,11 +1644,11 @@
     <div>
 
    <span class="eyebrow">
-  Weekly Collaboration/ PLC Brief
+  PLC Collaboration / Brief
 </span>
 
 <p>
-  Prepare weekly PLC notes, instructional evidence, next steps, and support needs in one place.
+  Capture instructional evidence, decisions, next steps, and support needs in one place.
 </p>
 
     </div>
@@ -1771,27 +1771,61 @@
   </div>
 
 
-  <div class="form-grid">
+ <div class="form-group">
 
-    <div class="form-group">
+  <label for="plcMeetingMode">
+    PLC Format
+  </label>
 
-      <label for="plcMeetingMode">
-        PLC Format
-      </label>
+  <select id="plcMeetingMode">
 
-      <select id="plcMeetingMode">
+    <option value="individual">
+      Individual
+    </option>
 
-        <option value="individual">
-          Individual
-        </option>
+    <option value="team">
+      Team / Group
+    </option>
 
-        <option value="team">
-          Team / Group
-        </option>
+  </select>
 
-      </select>
+</div>
 
-    </div>
+
+<div class="form-group">
+
+  <label for="plcCadence">
+    PLC Cycle
+  </label>
+
+  <select id="plcCadence">
+
+    <option value="daily">
+      Daily
+    </option>
+
+    <option
+      value="weekly"
+      selected
+    >
+      Weekly
+    </option>
+
+    <option value="biweekly">
+      Every Two Weeks
+    </option>
+
+    <option value="monthly">
+      Monthly
+    </option>
+
+    <option value="other">
+      Other
+    </option>
+
+  </select>
+
+</div>
 
 
     <div class="form-group">
@@ -1848,14 +1882,14 @@
 
   <div class="plc-section-heading">
 
-    <span class="eyebrow">
-      Instructional Focus
-    </span>
+ <span class="eyebrow">
+  Instruction
+</span>
 
-    <h4>
-      Current Instruction
-    </h4>
-
+<h4>
+  Lesson / Unit / Project Focus
+</h4>
+    
   </div>
 
 
@@ -1863,16 +1897,18 @@
 
     <div class="form-group">
 
-      <label for="plcInstructionalFocus">
-        Instructional Focus
-      </label>
+      
+<label for="plcInstructionalFocus">
+  Focus
+</label>
 
-      <input
-        type="text"
-        id="plcInstructionalFocus"
-        placeholder="What is the main focus this week?"
-      >
+<input
+  type="text"
+  id="plcInstructionalFocus"
+  placeholder="What instruction is this PLC focused on?"
+>
 
+      
     </div>
 
 
@@ -1910,13 +1946,14 @@
 </div>
     <div class="plc-section-heading">
 
-      <span class="eyebrow">
-        Teacher Check-In
-      </span>
+      
+   <span class="eyebrow">
+  Teacher Check-In
+</span>
 
-      <h4>
-        What Changed This Week?
-      </h4>
+<h4>
+  What Are You Seeing?
+</h4>
 
   
     </div>
