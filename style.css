@@ -576,7 +576,7 @@ margin:
     flex-end;
 
   margin:
-    -18px 0 14px;
+    -8px 0 14px;
 
   padding-right:
     8px;
@@ -599,6 +599,13 @@ margin:
 
   padding-right:
     10px;
+
+}
+
+#plc .plc-info {
+
+  position:
+    relative;
 
 }
 
@@ -766,10 +773,9 @@ margin:
     32px;
 
   width:
-    250px;
+    260px;
 
 }
-
 
 
 #plc .plc-history-section {
@@ -788,7 +794,7 @@ margin:
 #plc .plc-history-section .plc-info {
 
   position:
-    static;
+    relative;
 
 }
 
@@ -796,18 +802,16 @@ margin:
 #plc .plc-history-section .plc-info p {
 
   top:
-    58px;
+    30px;
 
   right:
-    20px;
+    32px;
 
   width:
-    280px;
+    260px;
 
   max-width:
-    calc(
-      100% - 40px
-    );
+    none;
 
 }
 
