@@ -1999,94 +1999,177 @@
 
     <!-- DATA SNAPSHOT -->
 
-    <div class="plc-section">
+  <div class="plc-section">
 
-      <div class="plc-section-heading">
+  <div class="plc-section-heading">
 
-        <span class="eyebrow">
-          Data Snapshot
-        </span>
+    <span class="eyebrow">
+      Data Snapshot
+    </span>
 
-        <h4>
-          Where Students Are Right Now
-        </h4>
+    <h4>
+      Where Students Are Right Now
+    </h4>
 
-      </div>
-
-
-      <div class="form-grid">
-
-        <div class="form-group">
-
-          <label for="plcMastered">
-            Mastered %
-          </label>
-
-          <input
-            type="number"
-            id="plcMastered"
-            min="0"
-            max="100"
-            placeholder="0"
-          >
-
-        </div>
+  </div>
 
 
-        <div class="form-group">
+  <div class="form-grid">
 
-          <label for="plcMeets">
-            Meets %
-          </label>
+    <div class="form-group">
 
-          <input
-            type="number"
-            id="plcMeets"
-            min="0"
-            max="100"
-            placeholder="0"
-          >
+      <label for="plcEvidenceType">
+        Evidence Type
+      </label>
 
-        </div>
+      <select id="plcEvidenceType">
 
+        <option value="">
+          Select evidence
+        </option>
 
-        <div class="form-group">
+        <option value="dol">
+          DOL / Exit Ticket
+        </option>
 
-          <label for="plcApproaching">
-            Approaching %
-          </label>
+        <option value="quiz">
+          Quiz
+        </option>
 
-          <input
-            type="number"
-            id="plcApproaching"
-            min="0"
-            max="100"
-            placeholder="0"
-          >
+        <option value="test">
+          Test / Exam
+        </option>
 
-        </div>
+        <option value="benchmark">
+          Benchmark / Interim
+        </option>
 
+        <option value="homework">
+          Homework
+        </option>
 
-        <div class="form-group">
+        <option value="project">
+          Project / Performance Task
+        </option>
 
-          <label for="plcBelow">
-            Below %
-          </label>
+        <option value="ibc">
+          IBC / Certification
+        </option>
 
-          <input
-            type="number"
-            id="plcBelow"
-            min="0"
-            max="100"
-            placeholder="0"
-          >
+        <option value="other">
+          Other
+        </option>
 
-        </div>
+        <option value="none">
+          N/A / No Data
+        </option>
 
-      </div>
+      </select>
 
     </div>
 
+
+    <div class="form-group">
+
+      <label for="plcEvidenceName">
+        Evidence / Assessment Name
+      </label>
+
+      <input
+        type="text"
+        id="plcEvidenceName"
+        placeholder="Example: Unit 2 Audio Mixing DOL"
+      >
+
+    </div>
+
+
+    <div
+      class="form-group plc-wide-field"
+      id="plcPerformanceBandHeading"
+    >
+
+      <label>
+        Performance Bands
+      </label>
+
+      <p class="form-helper">
+        Complete these when they apply to the evidence being reviewed.
+      </p>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcMastered">
+        Mastered %
+      </label>
+
+      <input
+        type="number"
+        id="plcMastered"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcMeets">
+        Meets %
+      </label>
+
+      <input
+        type="number"
+        id="plcMeets"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcApproaching">
+        Approaching %
+      </label>
+
+      <input
+        type="number"
+        id="plcApproaching"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="plcBelow">
+        Below %
+      </label>
+
+      <input
+        type="number"
+        id="plcBelow"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+
+    </div>
+
+  </div>
+
+</div>
 
     <!-- PLANNING FORWARD -->
 
