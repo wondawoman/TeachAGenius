@@ -4356,6 +4356,16 @@ function buildPlcRecord() {
         "plcWhatWorked"
       ),
 
+   evidenceType:
+      getPlcFieldValue(
+        "plcEvidenceType"
+      ),
+
+    evidenceName:
+      getPlcFieldValue(
+        "plcEvidenceName"
+      ),
+
     mastered:
       getPlcNumberValue(
         "plcMastered"
