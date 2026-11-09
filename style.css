@@ -563,6 +563,15 @@ margin:
 
 #plc .plc-page-help {
 
+  width:
+    100%;
+
+  max-width:
+    860px;
+
+  box-sizing:
+    border-box;
+
   display:
     flex;
 
@@ -570,10 +579,12 @@ margin:
     flex-end;
 
   margin:
-    -12px 4px 12px 0;
+    -12px auto 12px;
+
+  padding-right:
+    8px;
 
 }
-
 
 #plc .plc-history-heading {
 
@@ -746,14 +757,30 @@ margin:
 
 }
 
+#plc .plc-page-help .plc-info p {
+
+  width:
+    250px;
+
+  right:
+    0;
+
+}
+
+
 
 #plc .plc-history-section {
 
   position:
     relative;
 
-}
+  max-width:
+    720px;
 
+  margin:
+    0 auto 18px;
+
+}
 
 #plc .plc-history-section .plc-info {
 
